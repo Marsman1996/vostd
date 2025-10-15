@@ -1,13 +1,13 @@
+use crate::prelude::*;
 use vstd::prelude::*;
 use vstd::raw_ptr::*;
-use crate::prelude::*;
 
 use core::fmt::Debug;
 
 use vstd_extra::prelude::*;
 
-use crate::page_prop::PageFlags;
 use super::page_table_flags::PageTableFlags;
+use crate::page_prop::PageFlags;
 
 decl_bms_const!(
     PAGE_FLAG_MAPPING,
