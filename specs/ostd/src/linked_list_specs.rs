@@ -69,7 +69,8 @@ impl CursorModel {
     }
 
     #[rustc_allow_incoherent_impl]
-    pub open spec fn insert(self, link: LinkModel) -> Self {
+    pub open spec fn insert(
+        self, link: LinkModel) -> Self {
         let fore = self.fore.insert(self.fore.len() - 1, link);
 
         Self {
