@@ -3,16 +3,16 @@ name: Format and Verify VOSTD (PhaseII)
 on:
   push:
     branches:
-      - phaseII/verified
+      - maximal_example
   pull_request:
     branches:
-      - phaseII/verified
+      - maximal_example
   workflow_dispatch:
     inputs:
       branch:
         description: "Branch to run the workflow on"
         required: true
-        default: "phaseII/verified"
+        default: "maximal_example"
 
 jobs:
   format-and-verify:
