@@ -57,7 +57,7 @@ pub(crate) mod mapping {
         returns
             frame_to_meta(paddr),
     {
-        broadcast use super::axiom_size_of_meta_slot;
+        broadcast use super::lemma_size_of_meta_slot;
 
         let base = FRAME_METADATA_RANGE.start;
         let offset = paddr / PAGE_SIZE;
@@ -78,7 +78,7 @@ pub(crate) mod mapping {
         returns
             meta_to_frame(vaddr),
     {
-        broadcast use super::axiom_size_of_meta_slot;
+        broadcast use super::lemma_size_of_meta_slot;
 
         assert(size_of::<MetaSlot>() == META_SLOT_SIZE);
 
@@ -189,6 +189,8 @@ pub struct MetaSlot {
     pub in_list: PAtomicU64,
 }
 
+global layout MetaSlot is size == 64, align == 8;
+
 pub const REF_COUNT_UNUSED: u64 = u64::MAX;
 
 pub const REF_COUNT_UNIQUE: u64 = u64::MAX - 1;
@@ -197,13 +199,14 @@ pub const REF_COUNT_MAX: u64 = i64::MAX as u64;
 
 type FrameMetaVtablePtr = core::ptr::DynMetadata<dyn AnyFrameMeta>;
 
-pub broadcast axiom fn axiom_size_of_meta_slot()
+pub broadcast proof fn lemma_size_of_meta_slot()
     ensures
         #![trigger core::mem::size_of::<MetaSlot>()]
         #![trigger core::mem::align_of::<MetaSlot>()]
         core::mem::size_of::<MetaSlot>() == META_SLOT_SIZE,
         core::mem::align_of::<MetaSlot>() == 8,
-;
+{
+}
 
 /// All frame metadata types must implement this trait.
 ///

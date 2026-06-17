@@ -185,7 +185,7 @@ unsafe impl<C: PageTableConfig> AnyFrameMeta for PageTablePageMeta<C> {
         reader.skip_in_place(range.start * core::mem::size_of::<C::E>());
 
         proof {
-            C::axiom_pte_align_divides_size();
+            C::lemma_pte_align_divides_size();
             let k = size_of_e / align_of_e;
             vstd::arithmetic::div_mod::lemma_fundamental_div_mod(size_of_e, align_of_e);
             assert(size_of_e == align_of_e * k);
