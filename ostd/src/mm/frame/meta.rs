@@ -199,6 +199,7 @@ pub const REF_COUNT_MAX: u64 = i64::MAX as u64;
 
 type FrameMetaVtablePtr = core::ptr::DynMetadata<dyn AnyFrameMeta>;
 
+#[verifier::external_body]
 pub broadcast proof fn lemma_size_of_meta_slot()
     ensures
         #![trigger core::mem::size_of::<MetaSlot>()]

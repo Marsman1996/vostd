@@ -211,7 +211,7 @@ impl<T /*: ?Sized */, G: SpinGuardian> SpinLock<T, G> {
             let tracked perm: PointsTo<T>;
         }
         let inner_guard = G::guard();
-        proof_with! {=> Tracked(perm)}
+        #[verus_spec(with => Tracked(perm))]
         self.acquire_lock();
         SpinLockGuard {
             lock: self,
