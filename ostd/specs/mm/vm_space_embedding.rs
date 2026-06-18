@@ -384,17 +384,43 @@ pub open spec fn fresh_cursor_id<'rcu>(m: Map<CursorId, CursorEntry<'rcu>>) -> C
 
 /// Witnesses that [`fresh_vm_space_id`] returns an id not in the map's
 /// domain. (Internal helper, not a `_embedded` axiom.)
-pub axiom fn axiom_fresh_vm_space_id_not_in_dom<'a>(m: Map<VmSpaceId, VmSpaceOwner>)
+pub proof fn lemma_fresh_vm_space_id_not_in_dom<'a>(m: Map<VmSpaceId, VmSpaceOwner>)
     ensures
         !m.dom().contains(fresh_vm_space_id(m)),
-;
+{
+    let s = m.dom();
+    let n = s.len() as int;
+    vstd::set_lib::lemma_int_range(0, n + 1);
+    if forall|i: int| 0 <= i < n + 1 ==> s.contains(i) {
+        assert(Set::range(0, n + 1).subset_of(s)) by {
+            assert forall|i: int| Set::<int>::range(0, n + 1).contains(i) implies s.contains(i) by {
+                assert(0 <= i < n + 1);
+            }
+        }
+        vstd::set_lib::lemma_len_subset(Set::range(0, n + 1), s);
+        assert(false);
+    }
+}
 
 /// Witnesses that [`fresh_cursor_id`] returns an id not in the map's
 /// domain. (Internal helper, not a `_embedded` axiom.)
-pub axiom fn axiom_fresh_cursor_id_not_in_dom<'rcu>(m: Map<CursorId, CursorEntry<'rcu>>)
+pub proof fn lemma_fresh_cursor_id_not_in_dom<'rcu>(m: Map<CursorId, CursorEntry<'rcu>>)
     ensures
         !m.dom().contains(fresh_cursor_id(m)),
-;
+{
+    let s = m.dom();
+    let n = s.len() as int;
+    vstd::set_lib::lemma_int_range(0, n + 1);
+    if forall|i: int| 0 <= i < n + 1 ==> s.contains(i) {
+        assert(Set::range(0, n + 1).subset_of(s)) by {
+            assert forall|i: int| Set::<int>::range(0, n + 1).contains(i) implies s.contains(i) by {
+                assert(0 <= i < n + 1);
+            }
+        }
+        vstd::set_lib::lemma_len_subset(Set::range(0, n + 1), s);
+        assert(false);
+    }
+}
 
 /// Tracked constructor for [`CursorEntry`].
 ///
@@ -420,10 +446,23 @@ pub open spec fn fresh_vm_io_id<'a>(m: Map<VmIoId, VmIoEntry>) -> VmIoId {
 
 /// Witnesses that [`fresh_vm_io_id`] returns an id not in the map's
 /// domain. (Internal helper, not a `_embedded` axiom.)
-pub axiom fn axiom_fresh_vm_io_id_not_in_dom<'a>(m: Map<VmIoId, VmIoEntry>)
+pub proof fn lemma_fresh_vm_io_id_not_in_dom<'a>(m: Map<VmIoId, VmIoEntry>)
     ensures
         !m.dom().contains(fresh_vm_io_id(m)),
-;
+{
+    let s = m.dom();
+    let n = s.len() as int;
+    vstd::set_lib::lemma_int_range(0, n + 1);
+    if forall|i: int| 0 <= i < n + 1 ==> s.contains(i) {
+        assert(Set::range(0, n + 1).subset_of(s)) by {
+            assert forall|i: int| Set::<int>::range(0, n + 1).contains(i) implies s.contains(i) by {
+                assert(0 <= i < n + 1);
+            }
+        }
+        vstd::set_lib::lemma_len_subset(Set::range(0, n + 1), s);
+        assert(false);
+    }
+}
 
 /// Tracked constructor for [`VmIoEntry`].
 pub axiom fn axiom_vm_io_entry_new<'a>(
@@ -445,7 +484,7 @@ proof fn new_vm_space_step<'a, 'rcu>(tracked s: &mut VmStore<'rcu>)
 {
     let tracked owner = vm_space_new_embedded(&mut s.regions);
     let ghost id = fresh_vm_space_id(s.vm_spaces);
-    axiom_fresh_vm_space_id_not_in_dom(s.vm_spaces);
+    lemma_fresh_vm_space_id_not_in_dom(s.vm_spaces);
     s.vm_spaces.tracked_insert(id, owner);
 }
 
@@ -486,7 +525,7 @@ proof fn open_cursor_step<'a, 'rcu>(
         match res {
             Option::Some(owner) => {
                 let ghost id = fresh_cursor_id(s.cursors);
-                axiom_fresh_cursor_id_not_in_dom(s.cursors);
+                lemma_fresh_cursor_id_not_in_dom(s.cursors);
                 let tracked entry = axiom_cursor_entry_new(vs, kind, owner);
                 s.cursors.tracked_insert(id, entry);
                 assert(final(s).inv()) by {
@@ -697,7 +736,7 @@ proof fn new_vm_io_step<'a, 'rcu>(
         match res {
             Option::Some(owner) => {
                 let ghost id = fresh_vm_io_id(s.vm_ios);
-                axiom_fresh_vm_io_id_not_in_dom(s.vm_ios);
+                lemma_fresh_vm_io_id_not_in_dom(s.vm_ios);
                 let tracked entry = axiom_vm_io_entry_new(vs, kind, owner);
                 s.vm_ios.tracked_insert(id, entry);
                 assert(final(s).inv()) by {

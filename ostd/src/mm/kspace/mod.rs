@@ -297,11 +297,14 @@ unsafe impl PageTableConfig for KernelPtConfig {
         assert(Self::LEADING_BITS_spec() == 0xffff_usize);
     }
 
-    axiom fn axiom_pte_size_eq_size_of();
+    proof fn lemma_pte_size_eq_size_of() {
+        assert(core::mem::size_of::<Self::E>() == 8);
+        assert(Self::C::PTE_SIZE_spec() == 8usize);
+    }
 
     proof fn lemma_pte_walk_fills_page() {
         Self::lemma_nr_subpage_per_huge_eq_nr_entries();
-        Self::axiom_pte_size_eq_size_of();
+        Self::lemma_pte_size_eq_size_of();
     }
 
     proof fn lemma_top_level_index_range_within_nr_entries() {
@@ -309,7 +312,10 @@ unsafe impl PageTableConfig for KernelPtConfig {
         assert(crate::specs::arch::NR_ENTRIES == 512usize);
     }
 
-    axiom fn axiom_pte_align_divides_size();
+    proof fn lemma_pte_align_divides_size() {
+        assert(core::mem::size_of::<Self::E>() == 8);
+        assert(core::mem::align_of::<Self::E>() == 8);
+    }
 
     axiom fn item_roundtrip(item: Self::Item, paddr: Paddr, level: PagingLevel, prop: PageProperty);
 
