@@ -1,27 +1,38 @@
 // SPDX-License-Identifier: MPL-2.0
 //! CPU-related definitions.
+// CPU-local and boot support are not yet part of the verified target.
+#[cfg(any())]
 pub mod local;
 pub mod set;
 
 pub use set::{AtomicCpuSet, CpuSet};
 
+#[cfg(any())]
 pub use crate::arch::cpu::*;
+#[cfg(any())]
 use crate::{cpu_local_cell, task::atomic_mode::InAtomicMode};
+
+use vstd::prelude::*;
 
 /// The ID of a CPU in the system.
 ///
 /// If converting from/to an integer, the integer must start from 0 and be less
 /// than the number of CPUs.
+#[verus_verify]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct CpuId(u32);
 
 impl CpuId {
     /// Returns the CPU ID of the bootstrap processor (BSP).
+    #[verus_verify(dual_spec)]
+    #[verus_spec(returns Self::bsp())]
     pub const fn bsp() -> Self {
         CpuId(0)
     }
 
     /// Converts the CPU ID to an `usize`.
+    #[verus_verify(dual_spec)]
+    #[verus_spec(returns self.as_usize())]
     pub const fn as_usize(self) -> usize {
         self.0 as usize
     }
@@ -33,6 +44,7 @@ impl CpuId {
     ///
     /// To ensure that the CPU ID is up-to-date, do it under any guards that
     /// implement the [`PinCurrentCpu`] trait.
+    #[cfg(any())]
     pub fn current_racy() -> Self {
         #[cfg(debug_assertions)]
         assert!(IS_CURRENT_CPU_INITED.load());
@@ -97,6 +109,7 @@ pub fn all_cpus() -> impl Iterator<Item = CpuId> {
     (0..num_cpus()).map(|id| CpuId(id as u32))
 }
 
+#[cfg(any())]
 cpu_local_cell! {
     /// The current CPU ID.
     static CURRENT_CPU: u32 = 0;
@@ -114,6 +127,7 @@ cpu_local_cell! {
 ///
 /// The caller must ensure that this function is called with
 /// the correct value of the CPU ID.
+#[cfg(any())]
 unsafe fn set_this_cpu_id(id: u32) {
     // FIXME: If there are safe APIs that rely on the correctness of
     // the CPU ID for soundness, we'd better make the CPU ID a global
@@ -139,6 +153,7 @@ unsafe fn set_this_cpu_id(id: u32) {
 ///
 /// [`DisabledLocalIrqGuard`]: crate::trap::irq::DisabledLocalIrqGuard
 /// [`DisabledPreemptGuard`]: crate::task::DisabledPreemptGuard
+#[cfg(any())]
 pub unsafe trait PinCurrentCpu {
     /// Returns the ID of the current CPU.
     fn current_cpu(&self) -> CpuId {
@@ -148,7 +163,9 @@ pub unsafe trait PinCurrentCpu {
 
 // SAFETY: A guard that enforces the atomic mode requires disabling any
 // context switching. So naturally, the current task is pinned on the CPU.
+#[cfg(any())]
 unsafe impl<T: InAtomicMode> PinCurrentCpu for T {}
+#[cfg(any())]
 unsafe impl PinCurrentCpu for dyn InAtomicMode + '_ {}
 
 /// # Safety
@@ -157,6 +174,7 @@ unsafe impl PinCurrentCpu for dyn InAtomicMode + '_ {}
 /// 1. We're in the boot context of the BSP and APs have not yet booted.
 /// 2. The number of available processors is available.
 /// 3. No CPU-local objects have been accessed.
+#[cfg(any())]
 pub(crate) unsafe fn init_on_bsp() {
     let num_cpus = crate::arch::boot::smp::count_processors().unwrap_or(1);
 
@@ -179,7 +197,23 @@ pub(crate) unsafe fn init_on_bsp() {
 /// The caller must ensure that:
 /// 1. We're in the boot context of an AP.
 /// 2. The CPU ID of the AP is `cpu_id`.
+#[cfg(any())]
 pub(crate) unsafe fn init_on_ap(cpu_id: u32) {
     // SAFETY: The safety is upheld by the caller.
     unsafe { set_this_cpu_id(cpu_id) };
 }
+
+verus! {
+
+/// Fixed CPU count after boot. CPU hot-plugging is not supported.
+pub uninterp spec fn num_cpus_spec() -> usize;
+
+// Trusted platform boundary: init_num_cpus runs before concurrent execution;
+// subsequent reads see the same positive u32 count. This does not verify boot.
+pub assume_specification[ num_cpus ]() -> (n: usize)
+    ensures
+        n == num_cpus_spec(),
+        1 <= n <= u32::MAX,
+;
+
+} // verus!

@@ -40,7 +40,8 @@ pub mod arch;
 pub mod boot;
 /*pub mod bus;
 pub mod console;
-pub mod cpu;*/
+*/
+pub mod cpu;
 pub mod error;
 /*pub mod io;
 pub mod logger;*/
