@@ -1,12 +1,19 @@
 // SPDX-License-Identifier: MPL-2.0
 //! CPU-related definitions.
-pub mod local;
+//
+// Port status (vostd): the CPU ID/counting core required by `cpu::set` is
+// enabled below. The CPU-local storage (`cpu::local`), `arch::cpu` context,
+// `task::atomic_mode`-based `PinCurrentCpu` impls, and the boot-time
+// `init_on_bsp`/`init_on_ap` routines depend on sub-subsystems that are still
+// disabled in vostd (`cpu/local` frame allocation, `arch::cpu`, `arch::boot`).
+// They are preserved as comments and deferred to a follow-up port; they are
+// not in the dependency closure of `cpu::set`.
 pub mod set;
 
 pub use set::{AtomicCpuSet, CpuSet};
 
-pub use crate::arch::cpu::*;
-use crate::{cpu_local_cell, task::atomic_mode::InAtomicMode};
+// pub use crate::arch::cpu::*;
+// use crate::{cpu_local_cell, task::atomic_mode::InAtomicMode};
 
 /// The ID of a CPU in the system.
 ///
@@ -26,19 +33,21 @@ impl CpuId {
         self.0 as usize
     }
 
-    /// Returns the ID of the current CPU.
-    ///
-    /// This function is safe to call, but is vulnerable to races. The returned CPU
-    /// ID may be outdated if the task migrates to another CPU.
-    ///
-    /// To ensure that the CPU ID is up-to-date, do it under any guards that
-    /// implement the [`PinCurrentCpu`] trait.
-    pub fn current_racy() -> Self {
-        #[cfg(debug_assertions)]
-        assert!(IS_CURRENT_CPU_INITED.load());
-
-        Self(CURRENT_CPU.load())
-    }
+    // Returns the ID of the current CPU.
+    //
+    // This function is safe to call, but is vulnerable to races. The returned CPU
+    // ID may be outdated if the task migrates to another CPU.
+    //
+    // To ensure that the CPU ID is up-to-date, do it under any guards that
+    // implement the [`PinCurrentCpu`] trait.
+    //
+    // TODO(ports): depends on `cpu::local` (CURRENT_CPU) + debug init state.
+    // pub fn current_racy() -> Self {
+    //     #[cfg(debug_assertions)]
+    //     assert!(IS_CURRENT_CPU_INITED.load());
+    //
+    //     Self(CURRENT_CPU.load())
+    // }
 }
 
 /// The error type returned when converting an out-of-range integer to [`CpuId`].
@@ -96,6 +105,14 @@ pub fn num_cpus() -> usize {
 pub fn all_cpus() -> impl Iterator<Item = CpuId> {
     (0..num_cpus()).map(|id| CpuId(id as u32))
 }
+
+/*
+// TODO(ports): the block below depends on the `cpu::local` CPU-local storage
+// sub-subsystem (`cpu_local_cell!`, `CURRENT_CPU`), on `task::atomic_mode`
+// (`InAtomicMode`), and on `arch::boot` (`init_on_bsp`). None of these are in
+// the dependency closure of `cpu::set`; they are deferred to a follow-up port.
+
+pub mod local;
 
 cpu_local_cell! {
     /// The current CPU ID.
@@ -183,3 +200,4 @@ pub(crate) unsafe fn init_on_ap(cpu_id: u32) {
     // SAFETY: The safety is upheld by the caller.
     unsafe { set_this_cpu_id(cpu_id) };
 }
+*/

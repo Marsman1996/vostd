@@ -11,6 +11,7 @@ pub mod nonnull;
 pub mod ptr;
 pub mod range;
 pub mod slice;
+pub mod smallvec;
 pub mod smart_ptr;
 pub mod time;
 
@@ -21,6 +22,7 @@ pub use nonnull::*;
 pub use ptr::*;
 pub use range::*;
 pub use slice::*;
+pub use smallvec::*;
 pub use smart_ptr::*;
 pub use time::*;
 
