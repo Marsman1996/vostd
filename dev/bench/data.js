@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1789393867736,
+  "lastUpdate": 1789733679301,
   "repoUrl": "https://github.com/Marsman1996/vostd",
   "entries": {
     "verify-perf": [
@@ -504,6 +504,90 @@ window.BENCHMARK_DATA = {
             "value": 1499192,
             "unit": "rlimit",
             "extra": "smt-run=607ms"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "lqliuyuwei@outlook.com",
+            "name": "Marsman1996",
+            "username": "Marsman1996"
+          },
+          "committer": {
+            "email": "lqliuyuwei@outlook.com",
+            "name": "Marsman1996",
+            "username": "Marsman1996"
+          },
+          "distinct": true,
+          "id": "7e6053c1f61d2823a25cb41cabd3da63ceaa920a",
+          "message": "ci: parallelize doc build",
+          "timestamp": "2026-09-18T19:58:06+08:00",
+          "tree_id": "c7523cd01106af7920af0d0754c7eaf7d7d68f8d",
+          "url": "https://github.com/Marsman1996/vostd/commit/7e6053c1f61d2823a25cb41cabd3da63ceaa920a"
+        },
+        "date": 1789733678271,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "total rlimit",
+            "value": 1039768479,
+            "unit": "rlimit",
+            "extra": "verified=4050 errors=0 smt-run=259,122ms wall=177,653ms"
+          },
+          {
+            "name": "rlimit: mm::page_table::cursor",
+            "value": 331983855,
+            "unit": "rlimit",
+            "extra": "smt-run=98,380ms"
+          },
+          {
+            "name": "rlimit: specs::mm::page_table::cursor::mapping_set_lemmas",
+            "value": 107410625,
+            "unit": "rlimit",
+            "extra": "smt-run=29,005ms"
+          },
+          {
+            "name": "rlimit: specs::mm::embedding",
+            "value": 48459213,
+            "unit": "rlimit",
+            "extra": "smt-run=17,530ms"
+          },
+          {
+            "name": "rlimit: seq_lib",
+            "value": 9455652,
+            "unit": "rlimit",
+            "extra": "smt-run=1,648ms"
+          },
+          {
+            "name": "rlimit: endian",
+            "value": 8889145,
+            "unit": "rlimit",
+            "extra": "smt-run=1,129ms"
+          },
+          {
+            "name": "rlimit: utf8",
+            "value": 5154488,
+            "unit": "rlimit",
+            "extra": "smt-run=1,345ms"
+          },
+          {
+            "name": "rlimit: temporal_logic::rules",
+            "value": 3716957,
+            "unit": "rlimit",
+            "extra": "smt-run=936ms"
+          },
+          {
+            "name": "rlimit: ghost_tree",
+            "value": 1990774,
+            "unit": "rlimit",
+            "extra": "smt-run=654ms"
+          },
+          {
+            "name": "rlimit: resource::ghost_resource::csum",
+            "value": 1499192,
+            "unit": "rlimit",
+            "extra": "smt-run=457ms"
           }
         ]
       }
