@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MPL-2.0
-pub mod dmar;
+/* pub mod dmar; */
 pub mod remapping;
 
-use core::ptr::NonNull;
+/* use core::ptr::NonNull;
 
 use acpi::{AcpiHandler, AcpiTables, rsdp::Rsdp};
 use log::warn;
@@ -64,3 +64,4 @@ pub(crate) fn get_acpi_tables() -> Option<AcpiTables<AcpiMemoryHandler>> {
 
     Some(acpi_tables)
 }
+*/

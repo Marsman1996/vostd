@@ -14,6 +14,7 @@ pub mod ptr;
 pub mod range;
 pub mod slice;
 pub mod smart_ptr;
+pub mod str;
 pub mod time;
 
 pub use bitvec::*;
@@ -26,6 +27,7 @@ pub use ptr::*;
 pub use range::*;
 pub use slice::*;
 pub use smart_ptr::*;
+pub use str::*;
 pub use time::*;
 
 use vstd::prelude::*;
