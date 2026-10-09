@@ -1,5 +1,14 @@
 // SPDX-License-Identifier: MPL-2.0
+//! Local APIC interfaces and interrupt-command encoding.
+//!
+//! Access contracts require a certified CPU session. x2APIC submission is
+//! verified; xAPIC sending and interrupt delivery remain outstanding.
+//! Bootstrap and runtime guard integration remain outstanding.
 use vstd::prelude::*;
+
+use crate::specs::arch::apic::{
+    ApicAccess, IpiCommand, decode_x2_icr, valid_lvt_timer, valid_x2_icr,
+};
 
 /* use alloc::boxed::Box;
 
@@ -110,34 +119,98 @@ pub fn get_or_init(_guard: &dyn PinCurrentCpu) -> &(dyn Apic + 'static) {
 verus! {
 
 pub trait Apic: ApicTimer {
-    fn id(&self) -> u32;
+    /// Checks this backend's ICR write encoding; delivery is not modeled yet.
+    spec fn icr_access_ok(&self, access: ApicAccess, icr: Icr) -> bool;
 
-    fn version(&self) -> u32;
+    spec fn x2apic_backend(&self) -> bool;
 
-    /// End of Interrupt, this function will inform APIC that this interrupt has been processed.
-    fn eoi(&self);
+    fn id(&self, Tracked(access): Tracked<&mut ApicAccess>) -> u32
+        requires
+            old(access).wf(),
+            self.access_ok(*old(access)),
+        ensures
+            *final(access) == *old(access),
+    ;
 
-    /// Send a general inter-processor interrupt.
-    unsafe fn send_ipi(&self, icr: Icr);
+    fn version(&self, Tracked(access): Tracked<&mut ApicAccess>) -> u32
+        requires
+            old(access).wf(),
+            self.access_ok(*old(access)),
+        ensures
+            *final(access) == *old(access),
+    ;
+
+    fn eoi(&self, Tracked(access): Tracked<&mut ApicAccess>)
+        requires
+            old(access).wf(),
+            self.access_ok(*old(access)),
+        ensures
+            *final(access) == *old(access),
+    ;
+
+    unsafe fn send_ipi(&self, icr: Icr, Tracked(access): Tracked<&mut ApicAccess>)
+        requires
+            old(access).wf(),
+            self.access_ok(*old(access)),
+            self.icr_access_ok(*old(access), icr),
+        ensures
+            final(access).wf(),
+            final(access).id() == old(access).id(),
+            !self.x2apic_backend() ==> *final(access) == *old(access),
+            self.x2apic_backend() ==> final(access)@.x2_submissions == old(
+                access,
+            )@.x2_submissions.push(icr.x2_command_spec()),
+            final(access)@ == if self.x2apic_backend() {
+                old(access)@.after_msr_write(0x830, icr.raw_spec())
+            } else {
+                old(access)@
+            },
+    ;
 }
 
 pub trait ApicTimer {
-    /// Sets the initial timer count, the APIC timer will count down from this value.
-    fn set_timer_init_count(&self, value: u64);
+    /// Binds the APIC instance to the session's CPU, backend, and mapping.
+    spec fn access_ok(&self, access: ApicAccess) -> bool;
 
-    /// Gets the current count of the timer.
-    /// The interval can be expressed by the expression: `init_count` - `current_count`.
-    fn timer_current_count(&self) -> u64;
+    fn set_timer_init_count(&self, value: u64, Tracked(access): Tracked<&mut ApicAccess>)
+        requires
+            old(access).wf(),
+            self.access_ok(*old(access)),
+            value <= u32::MAX,
+        ensures
+            *final(access) == *old(access),
+    ;
 
-    /// Sets the timer register in the APIC.
-    /// Bit 0-7:   The interrupt vector of timer interrupt.
-    /// Bit 12:    Delivery Status, 0 for Idle, 1 for Send Pending.
-    /// Bit 16:    Mask bit.
-    /// Bit 17-18: Timer Mode, 0 for One-shot, 1 for Periodic, 2 for TSC-Deadline.
-    fn set_lvt_timer(&self, value: u64);
+    fn timer_current_count(&self, Tracked(access): Tracked<&mut ApicAccess>) -> u64
+        requires
+            old(access).wf(),
+            self.access_ok(*old(access)),
+        ensures
+            *final(access) == *old(access),
+    ;
 
-    /// Sets timer divide config register.
-    fn set_timer_div_config(&self, div_config: DivideConfig);
+    /// Timer LVT: vector in bits 0–7, mask in bit 16, mode in bits 17–18.
+    fn set_lvt_timer(&self, value: u64, Tracked(access): Tracked<&mut ApicAccess>)
+        requires
+            old(access).wf(),
+            self.access_ok(*old(access)),
+            valid_lvt_timer(value),
+            ((value >> 17) & 3) == 2 ==> old(access)@.tsc_deadline_supported,
+        ensures
+            *final(access) == *old(access),
+    ;
+
+    fn set_timer_div_config(
+        &self,
+        div_config: DivideConfig,
+        Tracked(access): Tracked<&mut ApicAccess>,
+    )
+        requires
+            old(access).wf(),
+            self.access_ok(*old(access)),
+        ensures
+            *final(access) == *old(access),
+    ;
 }
 
 /*
@@ -160,7 +233,8 @@ enum ApicType {
 /// sent. Therefore, in xapic mode, high doubleword of the ICR needs to be written
 /// first and then the low doubleword to ensure the correct interrupt is sent.
 ///
-/// The ICR consists of the following fields:
+/// The following fields describe xAPIC. In x2APIC, the destination occupies
+/// bits 32-63 and bit 12 is reserved zero.
 /// - **Bit 0-7**   Vector                  :The vector number of the interrupt being sent.
 /// - **Bit 8-10**  Delivery Mode           :Specifies the type of IPI to be sent.
 /// - **Bit 11**    Destination Mode        :Selects either physical or logical destination mode.
@@ -172,12 +246,27 @@ enum ApicType {
 /// - **Bit 18-19** Destination Shorthand   :Indicates destination set.
 /// - **Bit 20-55** Reserved
 /// - **Bit 56-63** Destination Field       :Specifies the target processor or processors.
-pub struct Icr(u64);
+/* Native proof_with! injects ghost metadata into named fields.
+ * Origin Rust: pub struct Icr(u64);
+ */
+pub struct Icr {
+    raw: u64,
+    #[cfg(verus_keep_ghost_body)]
+    ghost_x2apic: Ghost<bool>,
+}
 
 impl Icr {
+    pub closed spec fn is_x2apic_spec(self) -> bool {
+        self.ghost_x2apic@
+    }
+
+    pub open spec fn x2_command_spec(self) -> IpiCommand {
+        decode_x2_icr(self.raw_spec())
+    }
+
     /// The raw 64-bit value of the ICR register.
     pub closed spec fn raw_spec(self) -> u64 {
-        self.0
+        self.raw
     }
 }
 
@@ -204,6 +293,15 @@ spec fn icr_or_value(
 impl Icr {
     #[verus_spec(ret =>
         ensures
+            ret.is_x2apic_spec() == (destination is X2Apic),
+            destination is X2Apic ==> {
+                &&& ret.x2_command_spec().destination_apic_id == destination.raw_id_spec()
+                &&& ret.x2_command_spec().vector == vector
+            },
+            destination is X2Apic && destination.raw_id_spec() != u32::MAX && vector >= 32
+                && destination_shorthand is NoShorthand && trigger_mode is Edge
+                && delivery_status is Idle && destination_mode is Physical && delivery_mode is Fixed
+                ==> valid_x2_icr(ret.raw_spec()),
             ret.raw_spec() & 0xff == vector as u64,
             (ret.raw_spec() >> 8) & 0x7 == delivery_mode as u64,
             (ret.raw_spec() >> 11) & 0x1 == destination_mode as u64,
@@ -236,7 +334,7 @@ impl Icr {
         proof! {
             match destination {
                 ApicId::XApic(d) => {
-                    assert(dest == ((d as u64) << 56));
+
                     assert(((d as u64) << 56) & 0xffff_ffff == 0) by (bit_vector);
                     lemma_icr_or_value_field_bits(
                         dest,
@@ -260,7 +358,7 @@ impl Icr {
                     );
                 }
                 ApicId::X2Apic(d) => {
-                    assert(dest == ((d as u64) << 32));
+
                     assert(((d as u64) << 32) & 0xffff_ffff == 0) by (bit_vector);
                     lemma_icr_or_value_field_bits(
                         dest,
@@ -285,26 +383,60 @@ impl Icr {
                 }
             }
         }
-        Icr(dest
-            | ((destination_shorthand as u64) << 18)
-            | ((trigger_mode as u64) << 15)
-            | ((level as u64) << 14)
-            | ((delivery_status as u64) << 12)
-            | ((destination_mode as u64) << 11)
-            | ((delivery_mode as u64) << 8)
-            | (vector as u64))
+        /* Native proof_with! requires named fields for ghost metadata.
+         * Origin Rust: Icr(dest | ((destination_shorthand as u64) << 18)
+         *     | ((trigger_mode as u64) << 15) | ((level as u64) << 14)
+         *     | ((delivery_status as u64) << 12) | ((destination_mode as u64) << 11)
+         *     | ((delivery_mode as u64) << 8) | (vector as u64))
+         */
+        proof_with! { ghost_x2apic: Ghost(destination is X2Apic) }
+        let icr = Icr {
+            raw: dest
+                | ((destination_shorthand as u64) << 18)
+                | ((trigger_mode as u64) << 15)
+                | ((level as u64) << 14)
+                | ((delivery_status as u64) << 12)
+                | ((destination_mode as u64) << 11)
+                | ((delivery_mode as u64) << 8)
+                | (vector as u64),
+        };
+        proof! {
+            let raw = icr.raw_spec();
+            assert(raw as u8 == vector) by (bit_vector)
+                requires raw & 0xffu64 == vector as u64;
+            if destination is X2Apic && destination.raw_id_spec() != u32::MAX && vector >= 32
+                && destination_shorthand is NoShorthand && trigger_mode is Edge
+                && delivery_status is Idle && destination_mode is Physical && delivery_mode is Fixed {
+                let d = destination.raw_id_spec();
+                let sh = destination_shorthand as u64;
+                let tm = trigger_mode as u64;
+                let lv = level as u64;
+                let ds = delivery_status as u64;
+                let dis = destination_mode as u64;
+                let dm = delivery_mode as u64;
+                assert(valid_x2_icr(raw)) by (bit_vector)
+                    requires raw == dest | (sh << 18) | (tm << 15) | (lv << 14)
+                        | (ds << 12) | (dis << 11) | (dm << 8) | vector as u64,
+                        dest == ((d as u64) << 32),
+                        sh == 0, tm == 0, ds == 0, dis == 0, dm == 0,
+                        d != u32::MAX, vector >= 32, lv <= 1;
+            }
+        }
+        icr
     }
 
     /// Returns the lower 32 bits of the ICR.
     #[verus_spec(returns self.raw_spec() as u32)]
     pub fn lower(&self) -> u32 {
-        self.0 as u32
+        /* Access the renamed field. Origin Rust: self.0 as u32 */
+        self.raw as u32
     }
 
     /// Returns the higher 32 bits of the ICR.
     #[verus_spec(returns (self.raw_spec() >> 32) as u32)]
     pub fn upper(&self) -> u32 {
-        (self.0 >> 32) as u32
+        /* Access the renamed field. Origin Rust: (self.0 >> 32) as u32 */
+        (self.raw >> 32) as u32
     }
 }
 
@@ -522,6 +654,37 @@ pub enum DivideConfig {
     Divide32 = 0b1000,
     Divide64 = 0b1001,
     Divide128 = 0b1010,
+}
+
+impl DivideConfig {
+    /// Every divider encoding fits the writable DCR bits and a u32 register.
+    pub proof fn lemma_register_value(self)
+        ensures
+            (self as u32) & !0xbu32 == 0,
+            (self as u64) & !0xbu64 == 0,
+            (self as u64) <= u32::MAX,
+    {
+        match self {
+            DivideConfig::Divide1 => {},
+            DivideConfig::Divide2 => {},
+            DivideConfig::Divide4 => {},
+            DivideConfig::Divide8 => {},
+            DivideConfig::Divide16 => {},
+            DivideConfig::Divide32 => {},
+            DivideConfig::Divide64 => {},
+            DivideConfig::Divide128 => {},
+        }
+        let v = self as u32;
+        assert(v & !0xbu32 == 0) by (bit_vector)
+            requires
+                v == 11 || v == 0 || v == 1 || v == 2 || v == 3 || v == 8 || v == 9 || v == 10,
+        ;
+        let w = self as u64;
+        assert(w & !0xbu64 == 0) by (bit_vector)
+            requires
+                w == 11 || w == 0 || w == 1 || w == 2 || w == 3 || w == 8 || w == 9 || w == 10,
+        ;
+    }
 }
 
 /*

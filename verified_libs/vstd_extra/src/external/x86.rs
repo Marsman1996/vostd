@@ -15,6 +15,8 @@ pub use x86::msr::{
 };
 use x86_64::registers::model_specific::Msr;
 
+use super::io::{IoAccess, certified_io_access};
+
 verus! {
 
 pub assume_specification[ x86::apic::xapic::XAPIC_ID ] -> u32
@@ -127,16 +129,44 @@ pub assume_specification[ x86::msr::IA32_X2APIC_DIV_CONF ] -> u32
         0x83eu32,
 ;
 
-/// [x86::msr::rdmsr](https://docs.rs/x86/0.52.0/x86/msr/fn.rdmsr.html) returns an unconstrained value.
-pub assume_specification[ x86::msr::rdmsr ](msr: u32) -> u64
-    opens_invariants none
-    no_unwind
+// Verification-only proxies retain the original x86 0.52.0 MSR primitives.
+#[cfg(verus_keep_ghost)]
+#[verifier::external]
+pub unsafe fn _VERUS_VERIFIED_rdmsr<A: IoAccess>(reg: u32, access: Tracked<&mut A>) -> u64 {
+    unsafe { x86::msr::rdmsr(reg) }
+}
+
+#[cfg(verus_keep_ghost)]
+pub assume_specification<A: IoAccess>[ _VERUS_VERIFIED_rdmsr::<A> ](
+    reg: u32,
+    Tracked(access): Tracked<&mut A>,
+) -> (ret: u64)
+    requires
+        certified_io_access(*old(access)),
+        old(access).msr_read_ok(reg),
+    ensures
+        *final(access) == *old(access),
+        old(access).msr_read_value(reg, ret),
 ;
 
-/// [x86::msr::wrmsr](https://docs.rs/x86/0.52.0/x86/msr/fn.wrmsr.html).
-pub assume_specification[ x86::msr::wrmsr ](msr: u32, value: u64)
-    opens_invariants none
-    no_unwind
+#[cfg(verus_keep_ghost)]
+#[verifier::external]
+pub unsafe fn _VERUS_VERIFIED_wrmsr<A: IoAccess>(reg: u32, value: u64, access: Tracked<&mut A>) {
+    unsafe { x86::msr::wrmsr(reg, value) }
+}
+
+#[cfg(verus_keep_ghost)]
+pub assume_specification<A: IoAccess>[ _VERUS_VERIFIED_wrmsr::<A> ](
+    reg: u32,
+    value: u64,
+    Tracked(access): Tracked<&mut A>,
+)
+    requires
+        certified_io_access(*old(access)),
+        old(access).msr_write_ok(reg, value),
+    ensures
+        certified_io_access(*final(access)),
+        old(access).msr_write_effect(*final(access), reg, value),
 ;
 
 /// Opaque external wrapper for the x86_64 crate's MSR handle.
@@ -144,23 +174,65 @@ pub assume_specification[ x86::msr::wrmsr ](msr: u32, value: u64)
 #[verifier::external_body]
 pub struct ExMsr(Msr);
 
+/// Index stored by an opaque Msr handle (x86_64 0.14.13, Msr::new).
+pub uninterp spec fn msr_index(msr: Msr) -> u32;
+
 /// [`Msr::new`](https://docs.rs/x86_64/0.14.13/x86_64/registers/model_specific/struct.Msr.html#method.new).
-pub assume_specification[ Msr::new ](reg: u32) -> Msr
+pub assume_specification[ Msr::new ](reg: u32) -> (ret: Msr)
+    ensures
+        msr_index(ret) == reg,
     opens_invariants none
     no_unwind
 ;
 
-/// [`Msr::read`](https://docs.rs/x86_64/0.14.13/x86_64/registers/model_specific/struct.Msr.html#method.read)
-/// returns an unconstrained value.
-pub assume_specification[ Msr::read ](msr: &Msr) -> u64
-    opens_invariants none
-    no_unwind
+// The extension trait exists only for verifier method resolution. Erasure calls
+// x86_64 0.14.13 Msr::read/write directly, including their original asm options.
+#[cfg(verus_keep_ghost)]
+#[verifier::external]
+pub trait MsrAccess {
+    unsafe fn _VERUS_VERIFIED_read<A: IoAccess>(&self, access: Tracked<&mut A>) -> u64;
+
+    unsafe fn _VERUS_VERIFIED_write<A: IoAccess>(&mut self, value: u64, access: Tracked<&mut A>);
+}
+
+#[cfg(verus_keep_ghost)]
+#[verifier::external]
+impl MsrAccess for Msr {
+    unsafe fn _VERUS_VERIFIED_read<A: IoAccess>(&self, access: Tracked<&mut A>) -> u64 {
+        unsafe { self.read() }
+    }
+
+    unsafe fn _VERUS_VERIFIED_write<A: IoAccess>(&mut self, value: u64, access: Tracked<&mut A>) {
+        unsafe { self.write(value) }
+    }
+}
+
+#[cfg(verus_keep_ghost)]
+pub assume_specification<A: IoAccess>[ <Msr as MsrAccess>::_VERUS_VERIFIED_read::<A> ](
+    msr: &Msr,
+    Tracked(access): Tracked<&mut A>,
+) -> (ret: u64)
+    requires
+        certified_io_access(*old(access)),
+        old(access).msr_read_ok(msr_index(*msr)),
+    ensures
+        *final(access) == *old(access),
+        old(access).msr_read_value(msr_index(*msr), ret),
 ;
 
-/// [`Msr::write`](https://docs.rs/x86_64/0.14.13/x86_64/registers/model_specific/struct.Msr.html#method.write).
-pub assume_specification[ Msr::write ](msr: &mut Msr, value: u64)
-    opens_invariants none
-    no_unwind
+#[cfg(verus_keep_ghost)]
+pub assume_specification<A: IoAccess>[ <Msr as MsrAccess>::_VERUS_VERIFIED_write::<A> ](
+    msr: &mut Msr,
+    value: u64,
+    Tracked(access): Tracked<&mut A>,
+)
+    requires
+        certified_io_access(*old(access)),
+        old(access).msr_write_ok(msr_index(*old(msr)), value),
+    ensures
+        *final(msr) == *old(msr),
+        certified_io_access(*final(access)),
+        old(access).msr_write_effect(*final(access), msr_index(*old(msr)), value),
 ;
 
 } // verus!

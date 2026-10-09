@@ -10,6 +10,7 @@ pub mod convert;
 pub mod deref;
 pub mod ilog2;
 pub mod int_specs;
+pub mod io;
 pub mod iter;
 pub mod nonnull;
 pub mod ptr;

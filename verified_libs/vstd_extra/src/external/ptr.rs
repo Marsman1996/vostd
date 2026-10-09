@@ -4,6 +4,11 @@ use vstd::{
     raw_ptr::{PtrData, ptr_mut_from_data},
 };
 
+use super::io::{IoAccess, certified_io_access};
+
+#[cfg(verus_keep_ghost)]
+pub use core::ptr::{read_volatile, write_volatile};
+
 verus! {
 
 pub assume_specification<T: PointeeSized>[ <*const T>::map_addr ](
@@ -110,25 +115,51 @@ pub assume_specification<T: PointeeSized>[ <*mut T>::is_null ](ptr: *mut T) -> b
     no_unwind
 ;
 
-/// [core::ptr::read_volatile](https://doc.rust-lang.org/std/ptr/fn.read_volatile.html)
-/// returns an unconstrained value; debug builds panic on misaligned `src`, so
-/// the alignment carries `no_unwind when`.
-pub assume_specification<T>[ core::ptr::read_volatile::<T> ](src: *const T) -> T
+// Rust 1.98.1, library/core/src/ptr/{mod,mut_ptr}.rs: u32 device access.
+// These proxies are selected only by verus_spec(with ...); erasure calls core
+// directly. u32 restricts the device value validity and access width.
+#[cfg(verus_keep_ghost)]
+#[verifier::external]
+pub unsafe fn _VERUS_VERIFIED_read_volatile<A: IoAccess>(
+    src: *const u32,
+    access: Tracked<&mut A>,
+) -> u32 {
+    unsafe { core::ptr::read_volatile(src) }
+}
+
+#[cfg(verus_keep_ghost)]
+pub assume_specification<A: IoAccess>[ _VERUS_VERIFIED_read_volatile::<A> ](
+    src: *const u32,
+    Tracked(access): Tracked<&mut A>,
+) -> u32
     requires
-        src.addr() + size_of::<T>() <= usize::MAX,
-        src.addr() % align_of::<T>() == 0,
-    opens_invariants none
-    no_unwind when src.addr() % align_of::<T>() == 0
+        certified_io_access(*old(access)),
+        old(access).mmio_read_ok(src.addr()),
+    ensures
+        *final(access) == *old(access),
 ;
 
-/// [core::ptr::write_volatile](https://doc.rust-lang.org/std/ptr/fn.write_volatile.html);
-/// debug builds panic on misaligned `dst`, so the alignment carries `no_unwind when`.
-pub assume_specification<T>[ core::ptr::write_volatile::<T> ](dst: *mut T, src: T)
+#[cfg(verus_keep_ghost)]
+#[verifier::external]
+pub unsafe fn _VERUS_VERIFIED_write_volatile<A: IoAccess>(
+    dst: *mut u32,
+    value: u32,
+    access: Tracked<&mut A>,
+) {
+    unsafe { core::ptr::write_volatile(dst, value) }
+}
+
+#[cfg(verus_keep_ghost)]
+pub assume_specification<A: IoAccess>[ _VERUS_VERIFIED_write_volatile::<A> ](
+    dst: *mut u32,
+    value: u32,
+    Tracked(access): Tracked<&mut A>,
+)
     requires
-        dst.addr() + size_of::<T>() <= usize::MAX,
-        dst.addr() % align_of::<T>() == 0,
-    opens_invariants none
-    no_unwind when dst.addr() % align_of::<T>() == 0
+        certified_io_access(*old(access)),
+        old(access).mmio_write_ok(dst.addr(), value),
+    ensures
+        *final(access) == *old(access),
 ;
 
 /// [<*mut T>::add](https://doc.rust-lang.org/std/primitive.pointer.html#method.add):
@@ -155,6 +186,15 @@ pub assume_specification<T>[ <*mut T>::add ](p: *mut T, count: usize) -> (ret: *
     no_unwind when p.addr() + count * (size_of::<T>() as usize) <= usize::MAX && count * (size_of::<
     T,
 >() as usize) <= isize::MAX
+;
+
+// Unlike add, wrapping_add also supports device addresses outside allocations.
+#[verifier::when_used_as_spec(ptr_mut_add_spec)]
+pub assume_specification<T>[ <*mut T>::wrapping_add ](p: *mut T, count: usize) -> *mut T
+    returns
+        ptr_mut_add_spec(p, count),
+    opens_invariants none
+    no_unwind
 ;
 
 } // verus!
