@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1792652423793,
+  "lastUpdate": 1793075829937,
   "repoUrl": "https://github.com/Marsman1996/vostd",
   "entries": {
     "verify-perf": [
@@ -756,6 +756,90 @@ window.BENCHMARK_DATA = {
             "value": 1512725,
             "unit": "rlimit",
             "extra": "smt-run=478ms"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "lqliuyuwei@outlook.com",
+            "name": "Marsman1996",
+            "username": "Marsman1996"
+          },
+          "committer": {
+            "email": "lqliuyuwei@outlook.com",
+            "name": "Marsman1996",
+            "username": "Marsman1996"
+          },
+          "distinct": true,
+          "id": "801e9e5f078b808db7b32553b0948e7bc9d45b89",
+          "message": "fix: riscv error",
+          "timestamp": "2026-10-27T12:20:39+08:00",
+          "tree_id": "20699c4349ef05ea481c75da20ec299963dcc4a6",
+          "url": "https://github.com/Marsman1996/vostd/commit/801e9e5f078b808db7b32553b0948e7bc9d45b89"
+        },
+        "date": 1793075829273,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "total rlimit",
+            "value": 1470046281,
+            "unit": "rlimit",
+            "extra": "verified=4260 errors=0 smt-run=390,764ms wall=238,863ms"
+          },
+          {
+            "name": "rlimit: mm::page_table::cursor",
+            "value": 538222141,
+            "unit": "rlimit",
+            "extra": "smt-run=193,949ms"
+          },
+          {
+            "name": "rlimit: mm::frame::linked_list",
+            "value": 233732906,
+            "unit": "rlimit",
+            "extra": "smt-run=35,137ms"
+          },
+          {
+            "name": "rlimit: specs::mm::page_table::cursor::cursor_steps",
+            "value": 74490006,
+            "unit": "rlimit",
+            "extra": "smt-run=24,335ms"
+          },
+          {
+            "name": "rlimit: arithmetic::div_mod",
+            "value": 19423556,
+            "unit": "rlimit",
+            "extra": "smt-run=4,058ms"
+          },
+          {
+            "name": "rlimit: endian",
+            "value": 16369438,
+            "unit": "rlimit",
+            "extra": "smt-run=1,521ms"
+          },
+          {
+            "name": "rlimit: seq_lib",
+            "value": 11196458,
+            "unit": "rlimit",
+            "extra": "smt-run=2,236ms"
+          },
+          {
+            "name": "rlimit: temporal_logic::rules",
+            "value": 3602253,
+            "unit": "rlimit",
+            "extra": "smt-run=947ms"
+          },
+          {
+            "name": "rlimit: bits",
+            "value": 2026397,
+            "unit": "rlimit",
+            "extra": "smt-run=548ms"
+          },
+          {
+            "name": "rlimit: ghost_tree",
+            "value": 1927495,
+            "unit": "rlimit",
+            "extra": "smt-run=772ms"
           }
         ]
       }
