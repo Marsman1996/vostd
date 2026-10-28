@@ -10,6 +10,18 @@
       "spec": 8433,
       "proof": 8964,
       "rust_mode": 20170
+    },
+    {
+      "date": "2026-10-28T11:27:27+08:00",
+      "sha": "ea7120198603b081877b5d3e0838e0a14d740671",
+      "total": 15836,
+      "verified_exec": 4608,
+      "trusted": 628,
+      "unverified": 7009,
+      "unplanned": 3591,
+      "rust_mode": 20170,
+      "spec": 18700,
+      "proof": 17782
     }
   ]
 }
