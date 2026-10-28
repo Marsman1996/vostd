@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1793108432293,
+  "lastUpdate": 1793153827454,
   "repoUrl": "https://github.com/Marsman1996/vostd",
   "entries": {
     "verify-perf": [
@@ -924,6 +924,90 @@ window.BENCHMARK_DATA = {
             "value": 1512725,
             "unit": "rlimit",
             "extra": "smt-run=681ms"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "lqliuyuwei@outlook.com",
+            "name": "Marsman1996",
+            "username": "Marsman1996"
+          },
+          "committer": {
+            "email": "lqliuyuwei@outlook.com",
+            "name": "Marsman1996",
+            "username": "Marsman1996"
+          },
+          "distinct": true,
+          "id": "97fedbf3133226d16f3e62b8bfcddfb5d35a525a",
+          "message": "fix(ci): stats job requires bootstrapped tools/verus and mainline fallback\n\n- tools/verus is gitignored: setup-verus with verus: 'false' skips the\n  bootstrap-if-miss step, so the line_count build had no manifest on CI.\n  Use verus: 'true' (as the doc job does) to cache+bootstrap tools/verus.\n- the fork may lack phaseII/mainline: fall back to fetching it from\n  asterinas/vostd when git fetch origin fails.\n- bump job timeout to 60m (cold Verus bootstrap on cache miss)",
+          "timestamp": "2026-10-28T10:10:40+08:00",
+          "tree_id": "57e43be68fde453003c5a36efb4467e14ec15e98",
+          "url": "https://github.com/Marsman1996/vostd/commit/97fedbf3133226d16f3e62b8bfcddfb5d35a525a"
+        },
+        "date": 1793153826788,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "total rlimit",
+            "value": 1452147570,
+            "unit": "rlimit",
+            "extra": "verified=4262 errors=0 smt-run=467,149ms wall=275,165ms"
+          },
+          {
+            "name": "rlimit: mm::page_table::cursor",
+            "value": 538222141,
+            "unit": "rlimit",
+            "extra": "smt-run=230,971ms"
+          },
+          {
+            "name": "rlimit: mm::frame::linked_list",
+            "value": 215835661,
+            "unit": "rlimit",
+            "extra": "smt-run=47,906ms"
+          },
+          {
+            "name": "rlimit: specs::mm::page_table::cursor::mapping_set_lemmas",
+            "value": 65216734,
+            "unit": "rlimit",
+            "extra": "smt-run=27,399ms"
+          },
+          {
+            "name": "rlimit: arithmetic::div_mod",
+            "value": 19423556,
+            "unit": "rlimit",
+            "extra": "smt-run=4,916ms"
+          },
+          {
+            "name": "rlimit: endian",
+            "value": 16369438,
+            "unit": "rlimit",
+            "extra": "smt-run=1,654ms"
+          },
+          {
+            "name": "rlimit: seq_lib",
+            "value": 11196458,
+            "unit": "rlimit",
+            "extra": "smt-run=2,463ms"
+          },
+          {
+            "name": "rlimit: temporal_logic::rules",
+            "value": 3602253,
+            "unit": "rlimit",
+            "extra": "smt-run=1,006ms"
+          },
+          {
+            "name": "rlimit: ghost_tree",
+            "value": 1927495,
+            "unit": "rlimit",
+            "extra": "smt-run=856ms"
+          },
+          {
+            "name": "rlimit: resource::ghost_resource::csum",
+            "value": 1512725,
+            "unit": "rlimit",
+            "extra": "smt-run=596ms"
           }
         ]
       }
