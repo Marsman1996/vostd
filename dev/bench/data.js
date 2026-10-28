@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1793153827454,
+  "lastUpdate": 1793158904778,
   "repoUrl": "https://github.com/Marsman1996/vostd",
   "entries": {
     "verify-perf": [
@@ -1008,6 +1008,90 @@ window.BENCHMARK_DATA = {
             "value": 1512725,
             "unit": "rlimit",
             "extra": "smt-run=596ms"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "lqliuyuwei@outlook.com",
+            "name": "Marsman1996",
+            "username": "Marsman1996"
+          },
+          "committer": {
+            "email": "lqliuyuwei@outlook.com",
+            "name": "Marsman1996",
+            "username": "Marsman1996"
+          },
+          "distinct": true,
+          "id": "ea7120198603b081877b5d3e0838e0a14d740671",
+          "message": "feat: four-status treemap, spec-library LoC, merged stats deploy job\n\n- verus_stats.py: scan ostd/specs into spec_all/proof_all for the line\n  chart; port code_treemap.py semantics — unplanned modules (arch\n  boot/iommu/tdx_guest, libs linux-bzimage/ostd-macros/ostd-test), no-twin\n  files count as unverified, align_ext pinned at 24 verified lines;\n  history points carry unplanned too\n- site: treemap re-rendered with a hand-rolled squarify into plain HTML\n  (ECharts nested treemap cannot caption parent rows) — group/platform\n  caption bands, module label chips, four reference status colors, exact\n  tile values in stat tiles, module table sorted by name, no drill-down\n- ci.yml: fold the snapshot into the deploy job renamed `stats` at\n  doc-deploy's position (verify/doc -> perf-history -> stats)",
+          "timestamp": "2026-10-28T11:27:27+08:00",
+          "tree_id": "71d7bb5747156249b26dcc89873d4d1747edec54",
+          "url": "https://github.com/Marsman1996/vostd/commit/ea7120198603b081877b5d3e0838e0a14d740671"
+        },
+        "date": 1793158904050,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "total rlimit",
+            "value": 1451537969,
+            "unit": "rlimit",
+            "extra": "verified=4262 errors=0 smt-run=446,711ms wall=257,857ms"
+          },
+          {
+            "name": "rlimit: mm::page_table::cursor",
+            "value": 538222141,
+            "unit": "rlimit",
+            "extra": "smt-run=226,178ms"
+          },
+          {
+            "name": "rlimit: mm::frame::linked_list",
+            "value": 215835661,
+            "unit": "rlimit",
+            "extra": "smt-run=40,819ms"
+          },
+          {
+            "name": "rlimit: specs::mm::page_table::cursor::mapping_set_lemmas",
+            "value": 65216734,
+            "unit": "rlimit",
+            "extra": "smt-run=25,434ms"
+          },
+          {
+            "name": "rlimit: arithmetic::div_mod",
+            "value": 19423556,
+            "unit": "rlimit",
+            "extra": "smt-run=4,828ms"
+          },
+          {
+            "name": "rlimit: endian",
+            "value": 16369438,
+            "unit": "rlimit",
+            "extra": "smt-run=1,646ms"
+          },
+          {
+            "name": "rlimit: seq_lib",
+            "value": 11196458,
+            "unit": "rlimit",
+            "extra": "smt-run=2,717ms"
+          },
+          {
+            "name": "rlimit: temporal_logic::rules",
+            "value": 3602253,
+            "unit": "rlimit",
+            "extra": "smt-run=1,012ms"
+          },
+          {
+            "name": "rlimit: ghost_tree",
+            "value": 1927495,
+            "unit": "rlimit",
+            "extra": "smt-run=959ms"
+          },
+          {
+            "name": "rlimit: resource::ghost_resource::csum",
+            "value": 1512725,
+            "unit": "rlimit",
+            "extra": "smt-run=674ms"
           }
         ]
       }
