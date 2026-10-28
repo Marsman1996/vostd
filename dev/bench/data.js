@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1793167133083,
+  "lastUpdate": 1793176445758,
   "repoUrl": "https://github.com/Marsman1996/vostd",
   "entries": {
     "verify-perf": [
@@ -1428,6 +1428,90 @@ window.BENCHMARK_DATA = {
             "value": 1512725,
             "unit": "rlimit",
             "extra": "smt-run=637ms"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "lqliuyuwei@outlook.com",
+            "name": "Marsman1996",
+            "username": "Marsman1996"
+          },
+          "committer": {
+            "email": "lqliuyuwei@outlook.com",
+            "name": "Marsman1996",
+            "username": "Marsman1996"
+          },
+          "distinct": true,
+          "id": "3c9813d85bff85e8853177f05933bf667f682090",
+          "message": "Extract CI steps into composite actions",
+          "timestamp": "2026-10-28T16:02:43+08:00",
+          "tree_id": "5d2e5f09d049a01821696f8416ad1371ba32ff44",
+          "url": "https://github.com/Marsman1996/vostd/commit/3c9813d85bff85e8853177f05933bf667f682090"
+        },
+        "date": 1793176445103,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "total rlimit",
+            "value": 1451537969,
+            "unit": "rlimit",
+            "extra": "verified=4262 errors=0 smt-run=272,709ms wall=164,410ms"
+          },
+          {
+            "name": "rlimit: mm::page_table::cursor",
+            "value": 538222141,
+            "unit": "rlimit",
+            "extra": "smt-run=139,828ms"
+          },
+          {
+            "name": "rlimit: mm::frame::linked_list",
+            "value": 215835661,
+            "unit": "rlimit",
+            "extra": "smt-run=30,291ms"
+          },
+          {
+            "name": "rlimit: specs::mm::page_table::cursor::mapping_set_lemmas",
+            "value": 65216734,
+            "unit": "rlimit",
+            "extra": "smt-run=16,379ms"
+          },
+          {
+            "name": "rlimit: arithmetic::div_mod",
+            "value": 19423556,
+            "unit": "rlimit",
+            "extra": "smt-run=2,425ms"
+          },
+          {
+            "name": "rlimit: endian",
+            "value": 16369438,
+            "unit": "rlimit",
+            "extra": "smt-run=921ms"
+          },
+          {
+            "name": "rlimit: seq_lib",
+            "value": 11196458,
+            "unit": "rlimit",
+            "extra": "smt-run=1,250ms"
+          },
+          {
+            "name": "rlimit: temporal_logic::rules",
+            "value": 3602253,
+            "unit": "rlimit",
+            "extra": "smt-run=527ms"
+          },
+          {
+            "name": "rlimit: ghost_tree",
+            "value": 1927495,
+            "unit": "rlimit",
+            "extra": "smt-run=472ms"
+          },
+          {
+            "name": "rlimit: resource::ghost_resource::csum",
+            "value": 1512725,
+            "unit": "rlimit",
+            "extra": "smt-run=376ms"
           }
         ]
       }
