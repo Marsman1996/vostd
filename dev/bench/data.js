@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1793158904778,
+  "lastUpdate": 1793160879918,
   "repoUrl": "https://github.com/Marsman1996/vostd",
   "entries": {
     "verify-perf": [
@@ -1092,6 +1092,90 @@ window.BENCHMARK_DATA = {
             "value": 1512725,
             "unit": "rlimit",
             "extra": "smt-run=674ms"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "lqliuyuwei@outlook.com",
+            "name": "Marsman1996",
+            "username": "Marsman1996"
+          },
+          "committer": {
+            "email": "lqliuyuwei@outlook.com",
+            "name": "Marsman1996",
+            "username": "Marsman1996"
+          },
+          "distinct": true,
+          "id": "b3fe359091b9d20edad9face851ee123399febca",
+          "message": "feat: verified API count from rustdoc JSON in snapshot, tile, and chart\n\n- verus_stats.py: port kverus verus_cov.py's API extraction — count\n  bodyful rustdoc functions that are neither spec/proof-only (internal\n  spec/proof attrs, when_used_as_spec, ../specs files) nor trusted away\n  (external_body), skipping uppercase names, Inline(Hint) trait impls\n  and auto-derived impl items; snapshot --doc-json fills\n  totals.verified_apis and record carries it into history points\n- ci: doc job runs 'cargo dv doc --package ostd --json-output' and\n  uploads doc/ostd.json; the stats deploy job folds it into the snapshot\n- site: 'Unverified' stat tile becomes 'Verified APIs' (281 locally),\n  line chart grows a fifth series (violet slot 5), history table gains\n  an APIs column; verified-API deltas skip points without the field\n- site: swap card order (treemap above the line chart) and trim module\n  label chips to the name (hover tooltips carry the counts)",
+          "timestamp": "2026-10-28T12:08:24+08:00",
+          "tree_id": "fffd48d321783b6eea3096dd6ba873f4944c8e23",
+          "url": "https://github.com/Marsman1996/vostd/commit/b3fe359091b9d20edad9face851ee123399febca"
+        },
+        "date": 1793160879296,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "total rlimit",
+            "value": 1451537969,
+            "unit": "rlimit",
+            "extra": "verified=4262 errors=0 smt-run=471,071ms wall=271,583ms"
+          },
+          {
+            "name": "rlimit: mm::page_table::cursor",
+            "value": 538222141,
+            "unit": "rlimit",
+            "extra": "smt-run=228,975ms"
+          },
+          {
+            "name": "rlimit: mm::frame::linked_list",
+            "value": 215835661,
+            "unit": "rlimit",
+            "extra": "smt-run=47,797ms"
+          },
+          {
+            "name": "rlimit: specs::mm::page_table::cursor::mapping_set_lemmas",
+            "value": 65216734,
+            "unit": "rlimit",
+            "extra": "smt-run=29,468ms"
+          },
+          {
+            "name": "rlimit: arithmetic::div_mod",
+            "value": 19423556,
+            "unit": "rlimit",
+            "extra": "smt-run=4,871ms"
+          },
+          {
+            "name": "rlimit: endian",
+            "value": 16369438,
+            "unit": "rlimit",
+            "extra": "smt-run=1,779ms"
+          },
+          {
+            "name": "rlimit: seq_lib",
+            "value": 11196458,
+            "unit": "rlimit",
+            "extra": "smt-run=2,677ms"
+          },
+          {
+            "name": "rlimit: temporal_logic::rules",
+            "value": 3602253,
+            "unit": "rlimit",
+            "extra": "smt-run=1,051ms"
+          },
+          {
+            "name": "rlimit: ghost_tree",
+            "value": 1927495,
+            "unit": "rlimit",
+            "extra": "smt-run=894ms"
+          },
+          {
+            "name": "rlimit: resource::ghost_resource::csum",
+            "value": 1512725,
+            "unit": "rlimit",
+            "extra": "smt-run=645ms"
           }
         ]
       }
