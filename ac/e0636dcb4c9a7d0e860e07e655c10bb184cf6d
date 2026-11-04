@@ -1,0 +1,28 @@
+.github/workflows/ci-irc11.yml
+  h_fddbafe85ec91e 52
+dv
+  h_fddbafe85ec91e 1
+ostd/src/sync/rcu/mod.rs
+  h_fddbafe85ec91e 467,518
+ostd/src/sync/rcu/non_null/either.rs
+  h_fddbafe85ec91e 60,159,212,283,355,402-403,462-463,465-466
+ostd/src/sync/rcu/non_null/mod.rs
+  h_fddbafe85ec91e 67,70,90,171,184,186
+tools/bootstrap-verus-irc11.sh
+  h_fddbafe85ec91e 8-9,25-30,33-34
+tools/patches/verus-irc11.patch
+  h_fddbafe85ec91e 2969,2973
+verified_libs/vstd_extra/src/external/nonnull.rs
+  h_fddbafe85ec91e 6,26,28,30-35,37,64-65,91,95,98,105,112,124-125,147-153,169-170
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ace0636dcb4c9a7d0e860e07e655c10bb184cf6d",
+  "prompts": {},
+  "humans": {
+    "h_fddbafe85ec91e": {
+      "author": "Marsman1996 <lqliuyuwei@outlook.com>"
+    }
+  }
+}
