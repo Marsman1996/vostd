@@ -1,7 +1,7 @@
 {
-  "date": "2026-10-28T10:10:40+08:00",
-  "sha": "97fedbf3133226d16f3e62b8bfcddfb5d35a525a",
-  "mainline_sha": "deaac727188820077e4833cbcdbfff083148bffd",
+  "date": "2026-11-11T14:08:38+08:00",
+  "sha": "e306e100d72da95498ff2736d0a230e9f4ae65e1",
+  "mainline_sha": "356a641aafb692c990a5cbeaa04ac9d6fa8bf6f8",
   "modules": [
     {
       "group": "arch",
@@ -9,7 +9,8 @@
       "total": 157,
       "verified_exec": 0,
       "trusted": 0,
-      "unverified": 157,
+      "unverified": 0,
+      "unplanned": 157,
       "spec": 0,
       "proof": 0,
       "rust_mode": 236,
@@ -23,6 +24,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 228,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 343,
@@ -36,6 +38,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 8,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 31,
@@ -49,6 +52,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 26,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 33,
@@ -61,7 +65,8 @@
       "total": 19,
       "verified_exec": 0,
       "trusted": 0,
-      "unverified": 19,
+      "unverified": 0,
+      "unplanned": 19,
       "spec": 0,
       "proof": 0,
       "rust_mode": 26,
@@ -75,6 +80,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 32,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 50,
@@ -88,6 +94,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 84,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 127,
@@ -98,12 +105,13 @@
       "group": "arch",
       "child": "loongarch/mm",
       "total": 183,
-      "verified_exec": 0,
-      "trusted": 0,
-      "unverified": 183,
-      "spec": 0,
-      "proof": 0,
-      "rust_mode": 273,
+      "verified_exec": 158,
+      "trusted": 11,
+      "unverified": 14,
+      "unplanned": 0,
+      "spec": 339,
+      "proof": 254,
+      "rust_mode": 215,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -114,9 +122,10 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 26,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
-      "rust_mode": 54,
+      "rust_mode": 5,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -127,6 +136,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 107,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 147,
@@ -140,6 +150,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 28,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 36,
@@ -153,6 +164,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 72,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 106,
@@ -163,12 +175,13 @@
       "group": "arch",
       "child": "loongarch/task",
       "total": 62,
-      "verified_exec": 0,
+      "verified_exec": 48,
       "trusted": 0,
-      "unverified": 62,
-      "spec": 0,
+      "unverified": 14,
+      "unplanned": 0,
+      "spec": 29,
       "proof": 0,
-      "rust_mode": 85,
+      "rust_mode": 38,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -176,9 +189,10 @@
       "group": "arch",
       "child": "loongarch/timer",
       "total": 1,
-      "verified_exec": 0,
+      "verified_exec": 1,
       "trusted": 0,
-      "unverified": 1,
+      "unverified": 0,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 1,
@@ -192,6 +206,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 121,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 172,
@@ -204,7 +219,8 @@
       "total": 87,
       "verified_exec": 0,
       "trusted": 0,
-      "unverified": 87,
+      "unverified": 0,
+      "unplanned": 87,
       "spec": 0,
       "proof": 0,
       "rust_mode": 129,
@@ -214,10 +230,11 @@
     {
       "group": "arch",
       "child": "riscv/cpu",
-      "total": 242,
+      "total": 351,
       "verified_exec": 0,
       "trusted": 0,
-      "unverified": 242,
+      "unverified": 351,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 628,
@@ -231,6 +248,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 8,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 31,
@@ -243,7 +261,8 @@
       "total": 19,
       "verified_exec": 0,
       "trusted": 0,
-      "unverified": 19,
+      "unverified": 0,
+      "unplanned": 19,
       "spec": 0,
       "proof": 0,
       "rust_mode": 26,
@@ -257,6 +276,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 33,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 52,
@@ -270,6 +290,7 @@
       "verified_exec": 114,
       "trusted": 5,
       "unverified": 8,
+      "unplanned": 0,
       "spec": 167,
       "proof": 214,
       "rust_mode": 195,
@@ -283,9 +304,10 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 29,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
-      "rust_mode": 4,
+      "rust_mode": 5,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -296,6 +318,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 51,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 69,
@@ -309,6 +332,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 13,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 14,
@@ -322,6 +346,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 4,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 5,
@@ -332,12 +357,13 @@
       "group": "arch",
       "child": "riscv/task",
       "total": 66,
-      "verified_exec": 0,
+      "verified_exec": 64,
       "trusted": 0,
-      "unverified": 66,
-      "spec": 0,
+      "unverified": 2,
+      "unplanned": 0,
+      "spec": 29,
       "proof": 0,
-      "rust_mode": 89,
+      "rust_mode": 38,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -348,6 +374,7 @@
       "verified_exec": 2,
       "trusted": 0,
       "unverified": 60,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 4,
@@ -361,6 +388,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 58,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 124,
@@ -373,7 +401,8 @@
       "total": 582,
       "verified_exec": 0,
       "trusted": 0,
-      "unverified": 582,
+      "unverified": 0,
+      "unplanned": 582,
       "spec": 0,
       "proof": 0,
       "rust_mode": 820,
@@ -387,6 +416,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 519,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 873,
@@ -400,6 +430,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 48,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 89,
@@ -410,12 +441,13 @@
       "group": "arch",
       "child": "x86/ex_table",
       "total": 18,
-      "verified_exec": 0,
-      "trusted": 0,
-      "unverified": 18,
-      "spec": 0,
-      "proof": 0,
-      "rust_mode": 29,
+      "verified_exec": 13,
+      "trusted": 5,
+      "unverified": 0,
+      "unplanned": 0,
+      "spec": 14,
+      "proof": 13,
+      "rust_mode": 19,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -426,6 +458,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 32,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 45,
@@ -438,7 +471,8 @@
       "total": 1072,
       "verified_exec": 0,
       "trusted": 0,
-      "unverified": 1072,
+      "unverified": 0,
+      "unplanned": 1072,
       "spec": 0,
       "proof": 0,
       "rust_mode": 1684,
@@ -452,6 +486,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 56,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 11,
@@ -462,12 +497,13 @@
       "group": "arch",
       "child": "x86/kernel",
       "total": 934,
-      "verified_exec": 223,
+      "verified_exec": 507,
       "trusted": 0,
-      "unverified": 711,
-      "spec": 75,
-      "proof": 52,
-      "rust_mode": 1262,
+      "unverified": 427,
+      "unplanned": 0,
+      "spec": 261,
+      "proof": 195,
+      "rust_mode": 986,
       "files": 11,
       "files_with_mainline": 11
     },
@@ -478,6 +514,7 @@
       "verified_exec": 135,
       "trusted": 21,
       "unverified": 0,
+      "unplanned": 0,
       "spec": 475,
       "proof": 379,
       "rust_mode": 162,
@@ -491,9 +528,10 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 108,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
-      "rust_mode": 5,
+      "rust_mode": 7,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -504,6 +542,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 26,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 40,
@@ -517,6 +556,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 15,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 19,
@@ -530,6 +570,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 22,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 37,
@@ -540,12 +581,13 @@
       "group": "arch",
       "child": "x86/task",
       "total": 54,
-      "verified_exec": 0,
+      "verified_exec": 44,
       "trusted": 0,
-      "unverified": 54,
-      "spec": 0,
+      "unverified": 10,
+      "unplanned": 0,
+      "spec": 29,
       "proof": 0,
-      "rust_mode": 77,
+      "rust_mode": 38,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -555,7 +597,8 @@
       "total": 164,
       "verified_exec": 0,
       "trusted": 0,
-      "unverified": 164,
+      "unverified": 0,
+      "unplanned": 164,
       "spec": 0,
       "proof": 0,
       "rust_mode": 193,
@@ -569,6 +612,7 @@
       "verified_exec": 1,
       "trusted": 0,
       "unverified": 261,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 363,
@@ -582,6 +626,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 246,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 411,
@@ -591,13 +636,14 @@
     {
       "group": "boot",
       "child": "memory_region",
-      "total": 164,
-      "verified_exec": 91,
+      "total": 219,
+      "verified_exec": 191,
       "trusted": 0,
-      "unverified": 73,
-      "spec": 77,
-      "proof": 21,
-      "rust_mode": 134,
+      "unverified": 28,
+      "unplanned": 0,
+      "spec": 210,
+      "proof": 292,
+      "rust_mode": 202,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -605,12 +651,13 @@
       "group": "boot",
       "child": "mod",
       "total": 51,
-      "verified_exec": 0,
+      "verified_exec": 8,
       "trusted": 0,
-      "unverified": 51,
+      "unverified": 43,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
-      "rust_mode": 34,
+      "rust_mode": 29,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -621,6 +668,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 89,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 146,
@@ -634,6 +682,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 8,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 11,
@@ -647,6 +696,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 735,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 980,
@@ -660,6 +710,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 18,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 43,
@@ -673,6 +724,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 7,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 11,
@@ -682,10 +734,11 @@
     {
       "group": "cpu",
       "child": "local",
-      "total": 347,
+      "total": 367,
       "verified_exec": 0,
       "trusted": 0,
-      "unverified": 347,
+      "unverified": 367,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 663,
@@ -696,24 +749,26 @@
       "group": "cpu",
       "child": "mod",
       "total": 51,
-      "verified_exec": 20,
+      "verified_exec": 25,
       "trusted": 0,
-      "unverified": 31,
-      "spec": 41,
-      "proof": 11,
-      "rust_mode": 63,
+      "unverified": 26,
+      "unplanned": 0,
+      "spec": 51,
+      "proof": 20,
+      "rust_mode": 64,
       "files": 1,
       "files_with_mainline": 1
     },
     {
       "group": "cpu",
       "child": "set",
-      "total": 142,
-      "verified_exec": 142,
+      "total": 196,
+      "verified_exec": 155,
       "trusted": 0,
-      "unverified": 0,
+      "unverified": 41,
+      "unplanned": 0,
       "spec": 213,
-      "proof": 261,
+      "proof": 256,
       "rust_mode": 185,
       "files": 1,
       "files_with_mainline": 1
@@ -725,6 +780,7 @@
       "verified_exec": 10,
       "trusted": 0,
       "unverified": 3,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 13,
@@ -734,10 +790,11 @@
     {
       "group": "io",
       "child": "io_mem",
-      "total": 184,
+      "total": 220,
       "verified_exec": 0,
       "trusted": 0,
-      "unverified": 184,
+      "unverified": 220,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 341,
@@ -751,6 +808,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 89,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 186,
@@ -764,6 +822,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 7,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 23,
@@ -773,13 +832,14 @@
     {
       "group": "lib",
       "child": "lib",
-      "total": 45,
+      "total": 54,
       "verified_exec": 0,
       "trusted": 0,
-      "unverified": 45,
+      "unverified": 54,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
-      "rust_mode": 47,
+      "rust_mode": 48,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -787,9 +847,10 @@
       "group": "libs",
       "child": "align_ext",
       "total": 24,
-      "verified_exec": 0,
+      "verified_exec": 24,
       "trusted": 0,
-      "unverified": 24,
+      "unverified": 0,
+      "unplanned": 0,
       "spec": 4,
       "proof": 8,
       "rust_mode": 195,
@@ -799,10 +860,11 @@
     {
       "group": "libs",
       "child": "id-alloc",
-      "total": 103,
+      "total": 111,
       "verified_exec": 101,
       "trusted": 0,
-      "unverified": 2,
+      "unverified": 10,
+      "unplanned": 0,
       "spec": 97,
       "proof": 66,
       "rust_mode": 69,
@@ -812,10 +874,11 @@
     {
       "group": "libs",
       "child": "linux-bzimage",
-      "total": 1198,
+      "total": 1264,
       "verified_exec": 0,
       "trusted": 0,
-      "unverified": 1198,
+      "unverified": 0,
+      "unplanned": 1264,
       "spec": 0,
       "proof": 0,
       "rust_mode": 1717,
@@ -828,7 +891,8 @@
       "total": 196,
       "verified_exec": 0,
       "trusted": 0,
-      "unverified": 196,
+      "unverified": 0,
+      "unplanned": 196,
       "spec": 0,
       "proof": 0,
       "rust_mode": 239,
@@ -842,6 +906,7 @@
       "verified_exec": 6,
       "trusted": 19,
       "unverified": 123,
+      "unplanned": 0,
       "spec": 7,
       "proof": 20,
       "rust_mode": 28,
@@ -854,7 +919,8 @@
       "total": 97,
       "verified_exec": 0,
       "trusted": 0,
-      "unverified": 97,
+      "unverified": 0,
+      "unplanned": 97,
       "spec": 0,
       "proof": 0,
       "rust_mode": 147,
@@ -868,6 +934,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 42,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 66,
@@ -878,11 +945,12 @@
       "group": "mm",
       "child": "dma",
       "total": 368,
-      "verified_exec": 345,
+      "verified_exec": 343,
       "trusted": 20,
-      "unverified": 3,
+      "unverified": 5,
+      "unplanned": 0,
       "spec": 725,
-      "proof": 318,
+      "proof": 302,
       "rust_mode": 317,
       "files": 3,
       "files_with_mainline": 3
@@ -890,13 +958,14 @@
     {
       "group": "mm",
       "child": "frame",
-      "total": 1037,
-      "verified_exec": 763,
-      "trusted": 68,
-      "unverified": 206,
-      "spec": 1302,
-      "proof": 1236,
-      "rust_mode": 828,
+      "total": 1054,
+      "verified_exec": 778,
+      "trusted": 58,
+      "unverified": 218,
+      "unplanned": 0,
+      "spec": 1358,
+      "proof": 1315,
+      "rust_mode": 864,
       "files": 8,
       "files_with_mainline": 8
     },
@@ -907,6 +976,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 211,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 353,
@@ -920,7 +990,8 @@
       "verified_exec": 310,
       "trusted": 8,
       "unverified": 0,
-      "spec": 565,
+      "unplanned": 0,
+      "spec": 569,
       "proof": 255,
       "rust_mode": 293,
       "files": 1,
@@ -929,13 +1000,14 @@
     {
       "group": "mm",
       "child": "kspace",
-      "total": 204,
-      "verified_exec": 97,
-      "trusted": 58,
-      "unverified": 49,
-      "spec": 391,
-      "proof": 359,
-      "rust_mode": 208,
+      "total": 216,
+      "verified_exec": 113,
+      "trusted": 57,
+      "unverified": 46,
+      "unplanned": 0,
+      "spec": 393,
+      "proof": 353,
+      "rust_mode": 213,
       "files": 2,
       "files_with_mainline": 2
     },
@@ -946,6 +1018,7 @@
       "verified_exec": 13,
       "trusted": 3,
       "unverified": 0,
+      "unplanned": 0,
       "spec": 19,
       "proof": 66,
       "rust_mode": 97,
@@ -959,6 +1032,7 @@
       "verified_exec": 28,
       "trusted": 0,
       "unverified": 0,
+      "unplanned": 0,
       "spec": 17,
       "proof": 34,
       "rust_mode": 50,
@@ -968,13 +1042,14 @@
     {
       "group": "mm",
       "child": "page_table",
-      "total": 1095,
-      "verified_exec": 808,
-      "trusted": 270,
-      "unverified": 17,
-      "spec": 2302,
-      "proof": 3084,
-      "rust_mode": 555,
+      "total": 1137,
+      "verified_exec": 841,
+      "trusted": 273,
+      "unverified": 23,
+      "unplanned": 0,
+      "spec": 2283,
+      "proof": 3126,
+      "rust_mode": 570,
       "files": 7,
       "files_with_mainline": 7
     },
@@ -982,25 +1057,27 @@
       "group": "mm",
       "child": "tlb",
       "total": 169,
-      "verified_exec": 26,
-      "trusted": 102,
-      "unverified": 41,
-      "spec": 20,
+      "verified_exec": 38,
+      "trusted": 89,
+      "unverified": 42,
+      "unplanned": 0,
+      "spec": 33,
       "proof": 0,
-      "rust_mode": 53,
+      "rust_mode": 58,
       "files": 1,
       "files_with_mainline": 1
     },
     {
       "group": "mm",
       "child": "vm_space",
-      "total": 171,
-      "verified_exec": 145,
+      "total": 174,
+      "verified_exec": 148,
       "trusted": 26,
       "unverified": 0,
-      "spec": 351,
+      "unplanned": 0,
+      "spec": 348,
       "proof": 587,
-      "rust_mode": 129,
+      "rust_mode": 132,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -1011,6 +1088,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 71,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 111,
@@ -1024,6 +1102,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 53,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 82,
@@ -1037,6 +1116,7 @@
       "verified_exec": 22,
       "trusted": 0,
       "unverified": 2,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 63,
@@ -1050,6 +1130,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 3,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 18,
@@ -1059,36 +1140,39 @@
     {
       "group": "sync",
       "child": "mutex",
-      "total": 60,
-      "verified_exec": 60,
+      "total": 69,
+      "verified_exec": 69,
       "trusted": 0,
       "unverified": 0,
-      "spec": 67,
-      "proof": 33,
-      "rust_mode": 100,
+      "unplanned": 0,
+      "spec": 72,
+      "proof": 44,
+      "rust_mode": 97,
       "files": 1,
       "files_with_mainline": 1
     },
     {
       "group": "sync",
       "child": "rcu",
-      "total": 385,
-      "verified_exec": 335,
+      "total": 421,
+      "verified_exec": 371,
       "trusted": 1,
       "unverified": 49,
-      "spec": 292,
-      "proof": 635,
-      "rust_mode": 509,
+      "unplanned": 0,
+      "spec": 318,
+      "proof": 574,
+      "rust_mode": 482,
       "files": 4,
       "files_with_mainline": 4
     },
     {
       "group": "sync",
       "child": "rwarc",
-      "total": 48,
+      "total": 58,
       "verified_exec": 40,
       "trusted": 0,
-      "unverified": 8,
+      "unverified": 18,
+      "unplanned": 0,
       "spec": 15,
       "proof": 20,
       "rust_mode": 60,
@@ -1102,9 +1186,10 @@
       "verified_exec": 163,
       "trusted": 0,
       "unverified": 0,
-      "spec": 286,
+      "unplanned": 0,
+      "spec": 295,
       "proof": 273,
-      "rust_mode": 182,
+      "rust_mode": 210,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -1115,6 +1200,7 @@
       "verified_exec": 144,
       "trusted": 0,
       "unverified": 0,
+      "unplanned": 0,
       "spec": 306,
       "proof": 321,
       "rust_mode": 185,
@@ -1128,19 +1214,21 @@
       "verified_exec": 84,
       "trusted": 0,
       "unverified": 0,
-      "spec": 120,
+      "unplanned": 0,
+      "spec": 123,
       "proof": 77,
-      "rust_mode": 109,
+      "rust_mode": 122,
       "files": 1,
       "files_with_mainline": 1
     },
     {
       "group": "sync",
       "child": "wait",
-      "total": 135,
-      "verified_exec": 126,
-      "trusted": 9,
-      "unverified": 0,
+      "total": 212,
+      "verified_exec": 133,
+      "trusted": 10,
+      "unverified": 69,
+      "unplanned": 0,
       "spec": 48,
       "proof": 66,
       "rust_mode": 200,
@@ -1151,12 +1239,13 @@
       "group": "task",
       "child": "atomic_mode",
       "total": 19,
-      "verified_exec": 0,
+      "verified_exec": 7,
       "trusted": 0,
-      "unverified": 19,
+      "unverified": 12,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
-      "rust_mode": 33,
+      "rust_mode": 18,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -1167,6 +1256,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 62,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 95,
@@ -1176,13 +1266,14 @@
     {
       "group": "task",
       "child": "mod",
-      "total": 161,
+      "total": 181,
       "verified_exec": 4,
       "trusted": 0,
-      "unverified": 157,
+      "unverified": 177,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
-      "rust_mode": 21,
+      "rust_mode": 22,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -1193,9 +1284,10 @@
       "verified_exec": 7,
       "trusted": 4,
       "unverified": 43,
+      "unplanned": 0,
       "spec": 28,
       "proof": 21,
-      "rust_mode": 88,
+      "rust_mode": 91,
       "files": 3,
       "files_with_mainline": 3
     },
@@ -1206,6 +1298,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 57,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 91,
@@ -1219,9 +1312,10 @@
       "verified_exec": 32,
       "trusted": 0,
       "unverified": 251,
-      "spec": 137,
+      "unplanned": 0,
+      "spec": 138,
       "proof": 45,
-      "rust_mode": 318,
+      "rust_mode": 317,
       "files": 4,
       "files_with_mainline": 3
     },
@@ -1232,6 +1326,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 10,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 21,
@@ -1245,6 +1340,7 @@
       "verified_exec": 22,
       "trusted": 0,
       "unverified": 0,
+      "unplanned": 0,
       "spec": 25,
       "proof": 0,
       "rust_mode": 44,
@@ -1258,6 +1354,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 10,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 5,
@@ -1271,6 +1368,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 26,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 46,
@@ -1280,13 +1378,14 @@
     {
       "group": "trap",
       "child": "irq",
-      "total": 129,
-      "verified_exec": 9,
-      "trusted": 14,
-      "unverified": 106,
-      "spec": 0,
+      "total": 156,
+      "verified_exec": 15,
+      "trusted": 8,
+      "unverified": 133,
+      "unplanned": 0,
+      "spec": 6,
       "proof": 0,
-      "rust_mode": 77,
+      "rust_mode": 79,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -1297,6 +1396,7 @@
       "verified_exec": 0,
       "trusted": 0,
       "unverified": 35,
+      "unplanned": 0,
       "spec": 0,
       "proof": 0,
       "rust_mode": 59,
@@ -1310,22 +1410,24 @@
       "verified_exec": 23,
       "trusted": 0,
       "unverified": 0,
-      "spec": 0,
+      "unplanned": 0,
+      "spec": 6,
       "proof": 0,
-      "rust_mode": 13,
+      "rust_mode": 20,
       "files": 1,
       "files_with_mainline": 1
     },
     {
       "group": "util",
       "child": "ops",
-      "total": 11,
-      "verified_exec": 11,
+      "total": 49,
+      "verified_exec": 13,
       "trusted": 0,
-      "unverified": 0,
-      "spec": 46,
-      "proof": 40,
-      "rust_mode": 84,
+      "unverified": 36,
+      "unplanned": 0,
+      "spec": 52,
+      "proof": 51,
+      "rust_mode": 88,
       "files": 1,
       "files_with_mainline": 1
     },
@@ -1336,22 +1438,1787 @@
       "verified_exec": 122,
       "trusted": 0,
       "unverified": 0,
+      "unplanned": 0,
       "spec": 215,
-      "proof": 462,
+      "proof": 465,
       "rust_mode": 81,
       "files": 1,
       "files_with_mainline": 1
     }
   ],
   "totals": {
-    "total": 15836,
-    "verified_exec": 4584,
-    "trusted": 628,
-    "unverified": 10624,
-    "spec": 8433,
-    "proof": 8964,
-    "rust_mode": 20170,
+    "total": 16484,
+    "verified_exec": 5490,
+    "trusted": 618,
+    "unverified": 6719,
+    "unplanned": 3657,
+    "spec": 9317,
+    "proof": 9712,
+    "rust_mode": 19782,
     "files": 221,
-    "files_with_mainline": 218
-  }
+    "files_with_mainline": 218,
+    "spec_all": 19485,
+    "proof_all": 18334,
+    "verified_apis": 293
+  },
+  "verified_apis_list": [
+    {
+      "doc_path": "ostd/boot/memory_region/struct.MemoryRegion.html#method.framebuffer",
+      "name": "MemoryRegion::framebuffer",
+      "group": "boot",
+      "location": "ostd/src/boot/memory_region.rs:239:5"
+    },
+    {
+      "doc_path": "ostd/boot/memory_region/struct.MemoryRegion.html#method.module",
+      "name": "MemoryRegion::module",
+      "group": "boot",
+      "location": "ostd/src/boot/memory_region.rs:269:5"
+    },
+    {
+      "doc_path": "ostd/cpu/fn.all_cpus.html",
+      "name": "all_cpus",
+      "group": "cpu",
+      "location": "ostd/src/cpu/mod.rs:134:1"
+    },
+    {
+      "doc_path": "ostd/cpu/struct.CpuId.html#method.bsp",
+      "name": "CpuId::bsp",
+      "group": "cpu",
+      "location": "ostd/src/cpu/mod.rs:27:5"
+    },
+    {
+      "doc_path": "ostd/cpu/struct.CpuId.html#method.try_from",
+      "name": "CpuId::try_from",
+      "group": "cpu",
+      "location": "ostd/src/cpu/mod.rs:67:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.CpuSet.html#method.new_full",
+      "name": "CpuSet::new_full",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:133:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.CpuSet.html#method.new_empty",
+      "name": "CpuSet::new_empty",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:145:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.CpuSet.html#method.add",
+      "name": "CpuSet::add",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:168:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.CpuSet.html#method.remove",
+      "name": "CpuSet::remove",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:196:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.CpuSet.html#method.contains",
+      "name": "CpuSet::contains",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:220:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.CpuSet.html#method.count",
+      "name": "CpuSet::count",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:235:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.CpuSet.html#method.is_empty",
+      "name": "CpuSet::is_empty",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:278:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.CpuSet.html#method.is_full",
+      "name": "CpuSet::is_full",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:313:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.CpuSet.html#method.add_all",
+      "name": "CpuSet::add_all",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:351:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.CpuSet.html#method.clear",
+      "name": "CpuSet::clear",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:364:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.CpuSet.html#method.iter",
+      "name": "CpuSet::iter",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:388:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.AtomicCpuSet.html#method.new",
+      "name": "AtomicCpuSet::new",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:517:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.AtomicCpuSet.html#method.load",
+      "name": "AtomicCpuSet::load",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:538:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.AtomicCpuSet.html#method.store",
+      "name": "AtomicCpuSet::store",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:561:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.AtomicCpuSet.html#method.add",
+      "name": "AtomicCpuSet::add",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:573:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.AtomicCpuSet.html#method.remove",
+      "name": "AtomicCpuSet::remove",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:582:5"
+    },
+    {
+      "doc_path": "ostd/cpu/set/struct.AtomicCpuSet.html#method.contains",
+      "name": "AtomicCpuSet::contains",
+      "group": "cpu",
+      "location": "ostd/src/cpu/set.rs:598:5"
+    },
+    {
+      "doc_path": "ostd/error/enum.Error.html#method.from",
+      "name": "Error::from",
+      "group": "src",
+      "location": "ostd/src/error.rs:29:5"
+    },
+    {
+      "doc_path": "ostd/mm/dma/dma_coherent/struct.DmaCoherent.html#method.map",
+      "name": "DmaCoherent::map",
+      "group": "mm",
+      "location": "ostd/src/mm/dma/dma_coherent.rs:122:5"
+    },
+    {
+      "doc_path": "ostd/mm/dma/dma_coherent/struct.DmaCoherent.html#method.daddr",
+      "name": "DmaCoherent::daddr",
+      "group": "mm",
+      "location": "ostd/src/mm/dma/dma_coherent.rs:360:5"
+    },
+    {
+      "doc_path": "ostd/mm/dma/dma_coherent/struct.DmaCoherent.html#method.paddr",
+      "name": "DmaCoherent::paddr",
+      "group": "mm",
+      "location": "ostd/src/mm/dma/dma_coherent.rs:373:5"
+    },
+    {
+      "doc_path": "ostd/mm/dma/dma_coherent/struct.DmaCoherent.html#method.nframes",
+      "name": "DmaCoherent::nframes",
+      "group": "mm",
+      "location": "ostd/src/mm/dma/dma_coherent.rs:386:5"
+    },
+    {
+      "doc_path": "ostd/mm/dma/dma_coherent/struct.DmaCoherent.html#method.nbytes",
+      "name": "DmaCoherent::nbytes",
+      "group": "mm",
+      "location": "ostd/src/mm/dma/dma_coherent.rs:399:5"
+    },
+    {
+      "doc_path": "ostd/mm/dma/dma_coherent/struct.DmaCoherent.html#method.reader",
+      "name": "DmaCoherent::reader",
+      "group": "mm",
+      "location": "ostd/src/mm/dma/dma_coherent.rs:421:5"
+    },
+    {
+      "doc_path": "ostd/mm/dma/dma_coherent/struct.DmaCoherent.html#method.writer",
+      "name": "DmaCoherent::writer",
+      "group": "mm",
+      "location": "ostd/src/mm/dma/dma_coherent.rs:449:5"
+    },
+    {
+      "doc_path": "ostd/mm/dma/dma_coherent/struct.DmaCoherent.html#method.clone",
+      "name": "DmaCoherent::clone",
+      "group": "mm",
+      "location": "ostd/src/mm/dma/dma_coherent.rs:469:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/allocator/struct.FrameAllocOptions.html#method.default",
+      "name": "FrameAllocOptions::default",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/allocator.rs:27:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/allocator/struct.FrameAllocOptions.html#method.new",
+      "name": "FrameAllocOptions::new",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/allocator.rs:35:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/allocator/struct.FrameAllocOptions.html#method.zeroed",
+      "name": "FrameAllocOptions::zeroed",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/allocator.rs:46:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/frame_ref/struct.FrameRef.html#method.deref",
+      "name": "FrameRef::deref",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/frame_ref.rs:133:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.into_raw",
+      "name": "super::Frame::into_raw",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/frame_ref.rs:186:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.from_raw",
+      "name": "super::Frame::from_raw",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/frame_ref.rs:206:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.raw_as_ref",
+      "name": "super::Frame::raw_as_ref",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/frame_ref.rs:253:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.ref_as_raw",
+      "name": "super::Frame::ref_as_raw",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/frame_ref.rs:274:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.CursorMut.html#method.insert_before",
+      "name": "CursorMut::insert_before",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:1191:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.CursorMut.html#method.as_list",
+      "name": "CursorMut::as_list",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:1474:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.LinkedList.html#method.drop",
+      "name": "LinkedList::drop",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:1488:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.Link.html#method.deref",
+      "name": "Link::deref",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:1682:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.Link.html#method.deref_mut",
+      "name": "Link::deref_mut",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:1688:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.Link.html#method.new",
+      "name": "Link::new",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:1695:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.Link.html#method.on_drop",
+      "name": "Link::on_drop",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:1712:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.Link.html#method.is_untyped",
+      "name": "Link::is_untyped",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:1721:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.LinkedList.html#method.new",
+      "name": "LinkedList::new",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:183:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.LinkedList.html#method.default",
+      "name": "LinkedList::default",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:189:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.LinkedList.html#method.size",
+      "name": "LinkedList::size",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:206:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.LinkedList.html#method.is_empty",
+      "name": "LinkedList::is_empty",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:221:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.LinkedList.html#method.push_front",
+      "name": "LinkedList::push_front",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:261:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.LinkedList.html#method.pop_front",
+      "name": "LinkedList::pop_front",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:315:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.LinkedList.html#method.push_back",
+      "name": "LinkedList::push_back",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:371:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.LinkedList.html#method.pop_back",
+      "name": "LinkedList::pop_back",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:427:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.LinkedList.html#method.contains",
+      "name": "LinkedList::contains",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:477:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.LinkedList.html#method.cursor_mut_at",
+      "name": "LinkedList::cursor_mut_at",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:561:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.LinkedList.html#method.cursor_front_mut",
+      "name": "LinkedList::cursor_front_mut",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:623:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.LinkedList.html#method.cursor_back_mut",
+      "name": "LinkedList::cursor_back_mut",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:640:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.CursorMut.html#method.move_next",
+      "name": "CursorMut::move_next",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:708:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.CursorMut.html#method.move_prev",
+      "name": "CursorMut::move_prev",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:769:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.CursorMut.html#method.current_meta",
+      "name": "CursorMut::current_meta",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:851:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/linked_list/struct.CursorMut.html#method.take_current",
+      "name": "CursorMut::take_current",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/linked_list.rs:971:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/meta/trait.AnyFrameMeta.html#method.on_drop",
+      "name": "AnyFrameMeta::on_drop",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/meta.rs:238:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/meta/trait.AnyFrameMeta.html#method.is_untyped",
+      "name": "AnyFrameMeta::is_untyped",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/meta.rs:262:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.fmt",
+      "name": "Frame::fmt",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/mod.rs:153:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.eq",
+      "name": "Frame::eq",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/mod.rs:174:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.from_unused",
+      "name": "Frame::from_unused",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/mod.rs:229:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.meta",
+      "name": "Frame::meta",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/mod.rs:288:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.from_in_use",
+      "name": "Frame::from_in_use",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/mod.rs:344:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.start_paddr",
+      "name": "Frame::start_paddr",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/mod.rs:389:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.map_level",
+      "name": "Frame::map_level",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/mod.rs:403:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.size",
+      "name": "Frame::size",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/mod.rs:411:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.reference_count",
+      "name": "Frame::reference_count",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/mod.rs:452:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.borrow",
+      "name": "Frame::borrow",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/mod.rs:474:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.slot",
+      "name": "Frame::slot",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/mod.rs:543:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.clone",
+      "name": "Frame::clone",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/mod.rs:625:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.drop",
+      "name": "Frame::drop",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/mod.rs:674:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/untyped/type.UFrame.html#method.from",
+      "name": "UFrame::from",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/mod.rs:769:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/segment/struct.Segment.html#method.drop",
+      "name": "Segment::drop",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/segment.rs:1004:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/segment/struct.Segment.html#method.clone",
+      "name": "Segment::clone",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/segment.rs:134:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/segment/struct.Segment.html#method.from_unused",
+      "name": "Segment::from_unused",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/segment.rs:292:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/segment/struct.Segment.html#method.split",
+      "name": "Segment::split",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/segment.rs:607:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/segment/struct.Segment.html#method.fmt",
+      "name": "Segment::fmt",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/segment.rs:63:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/segment/struct.Segment.html#method.slice",
+      "name": "Segment::slice",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/segment.rs:700:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/segment/struct.Segment.html#method.from",
+      "name": "Segment::from",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/segment.rs:887:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/segment/struct.Segment.html#method.next",
+      "name": "Segment::next",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/segment.rs:915:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/unique/struct.UniqueFrame.html#method.from_unused",
+      "name": "UniqueFrame::from_unused",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/unique.rs:108:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/unique/struct.UniqueFrame.html#method.repurpose",
+      "name": "UniqueFrame::repurpose",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/unique.rs:197:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/unique/struct.UniqueFrame.html#method.meta",
+      "name": "UniqueFrame::meta",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/unique.rs:268:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/unique/struct.UniqueFrame.html#method.meta_mut",
+      "name": "UniqueFrame::meta_mut",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/unique.rs:310:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/unique/struct.UniqueFrame.html#method.size",
+      "name": "UniqueFrame::size",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/unique.rs:325:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/unique/struct.UniqueFrame.html#method.level",
+      "name": "UniqueFrame::level",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/unique.rs:339:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/unique/struct.UniqueFrame.html#method.start_paddr",
+      "name": "UniqueFrame::start_paddr",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/unique.rs:356:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/unique/struct.UniqueFrame.html#method.reset_as_unused",
+      "name": "UniqueFrame::reset_as_unused",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/unique.rs:407:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/unique/struct.UniqueFrame.html#method.slot",
+      "name": "UniqueFrame::slot",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/unique.rs:502:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/struct.Frame.html#method.from_unique",
+      "name": "super::Frame::from_unique",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/unique.rs:580:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/unique/struct.UniqueFrame.html#method.fmt",
+      "name": "UniqueFrame::fmt",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/unique.rs:60:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/unique/struct.UniqueFrame.html#method.try_from_shared",
+      "name": "UniqueFrame::try_from_shared",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/unique.rs:628:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/segment/struct.Segment.html#method.reader",
+      "name": "Segment::reader",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/untyped.rs:116:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/segment/struct.Segment.html#method.writer",
+      "name": "Segment::writer",
+      "group": "mm",
+      "location": "ostd/src/mm/frame/untyped.rs:159:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.from_user_space",
+      "name": "VmReader::from_user_space",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1049:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.read_val",
+      "name": "VmReader::read_val",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1077:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.collect",
+      "name": "VmReader::collect",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1119:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/trait.VmIo.html#method.read_bytes",
+      "name": "VmIo::read_bytes",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1304:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/trait.VmIo.html#method.read_val",
+      "name": "VmIo::read_val",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1319:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/trait.VmIo.html#method.read_slice",
+      "name": "VmIo::read_slice",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1331:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/trait.VmIo.html#method.write_bytes",
+      "name": "VmIo::write_bytes",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1354:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/trait.VmIo.html#method.write_val",
+      "name": "VmIo::write_val",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1370:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/trait.VmIo.html#method.write_slice",
+      "name": "VmIo::write_slice",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1379:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/trait.VmIo.html#method.write_vals",
+      "name": "VmIo::write_vals",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1416:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.cursor",
+      "name": "VmReader::cursor",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1575:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.has_remain",
+      "name": "VmReader::has_remain",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1584:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.limit",
+      "name": "VmReader::limit",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1601:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.skip",
+      "name": "VmReader::skip",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1626:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.skip_in_place",
+      "name": "VmReader::skip_in_place",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1671:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.cursor",
+      "name": "VmWriter::cursor",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1709:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.has_avail",
+      "name": "VmWriter::has_avail",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1718:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.limit",
+      "name": "VmWriter::limit",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1735:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.skip",
+      "name": "VmWriter::skip",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1760:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.from_user_space",
+      "name": "VmWriter::from_user_space",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1800:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.write_val",
+      "name": "VmWriter::write_val",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1831:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.fill_zeros",
+      "name": "VmWriter::fill_zeros",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1875:5"
+    },
+    {
+      "doc_path": "src/ostd/mm/io.rs.html#1910-1918",
+      "name": "[u8]::as_virt_ptr",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1910:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.from",
+      "name": "VmWriter::from",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:1954:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.from",
+      "name": "VmReader::from",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:2011:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.read_fallible",
+      "name": "VmReader::read_fallible",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:2141:1"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.read_fallible",
+      "name": "VmReader::read_fallible",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:2142:1"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.read_fallible",
+      "name": "VmReader::read_fallible",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:2143:1"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.write_fallible",
+      "name": "VmWriter::write_fallible",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:2144:1"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.write_fallible",
+      "name": "VmWriter::write_fallible",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:2145:1"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.write_fallible",
+      "name": "VmWriter::write_fallible",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:2146:1"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.from_kernel_space",
+      "name": "VmWriter::from_kernel_space",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:259:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.to_fallible",
+      "name": "VmWriter::to_fallible",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:286:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.write_val",
+      "name": "VmWriter::write_val",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:331:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.fill",
+      "name": "VmWriter::fill",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:390:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.write",
+      "name": "VmWriter::write",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:548:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmWriter.html#method.write_once",
+      "name": "VmWriter::write_once",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:600:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.clone",
+      "name": "VmReader::clone",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:653:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.from_kernel_space",
+      "name": "VmReader::from_kernel_space",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:702:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.to_fallible",
+      "name": "VmReader::to_fallible",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:718:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.read",
+      "name": "VmReader::read",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:796:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.read_val",
+      "name": "VmReader::read_val",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:896:5"
+    },
+    {
+      "doc_path": "ostd/mm/io/struct.VmReader.html#method.read_once",
+      "name": "VmReader::read_once",
+      "group": "mm",
+      "location": "ostd/src/mm/io.rs:977:5"
+    },
+    {
+      "doc_path": "ostd/mm/fn.is_page_aligned.html",
+      "name": "is_page_aligned",
+      "group": "mm",
+      "location": "ostd/src/mm/mod.rs:317:1"
+    },
+    {
+      "doc_path": "ostd/mm/page_prop/struct.PageFlags.html#method.bitand",
+      "name": "PageFlags::bitand",
+      "group": "mm",
+      "location": "ostd/src/mm/page_prop.rs:106:1"
+    },
+    {
+      "doc_path": "ostd/mm/page_prop/struct.PageFlags.html#method.bitor",
+      "name": "PageFlags::bitor",
+      "group": "mm",
+      "location": "ostd/src/mm/page_prop.rs:106:1"
+    },
+    {
+      "doc_path": "ostd/mm/page_prop/struct.PageFlags.html#method.bitxor",
+      "name": "PageFlags::bitxor",
+      "group": "mm",
+      "location": "ostd/src/mm/page_prop.rs:106:1"
+    },
+    {
+      "doc_path": "ostd/mm/page_prop/struct.PageFlags.html#method.clear",
+      "name": "PageFlags::clear",
+      "group": "mm",
+      "location": "ostd/src/mm/page_prop.rs:106:1"
+    },
+    {
+      "doc_path": "ostd/mm/page_prop/struct.PageFlags.html#method.eq",
+      "name": "PageFlags::eq",
+      "group": "mm",
+      "location": "ostd/src/mm/page_prop.rs:106:1"
+    },
+    {
+      "doc_path": "ostd/mm/page_prop/struct.PageFlags.html#method.fmt",
+      "name": "PageFlags::fmt",
+      "group": "mm",
+      "location": "ostd/src/mm/page_prop.rs:106:1"
+    },
+    {
+      "doc_path": "ostd/mm/page_prop/struct.PageFlags.html#method.from_name",
+      "name": "PageFlags::from_name",
+      "group": "mm",
+      "location": "ostd/src/mm/page_prop.rs:106:1"
+    },
+    {
+      "doc_path": "ostd/mm/page_prop/struct.PageFlags.html#method.insert",
+      "name": "PageFlags::insert",
+      "group": "mm",
+      "location": "ostd/src/mm/page_prop.rs:106:1"
+    },
+    {
+      "doc_path": "ostd/mm/page_prop/struct.PageFlags.html#method.not",
+      "name": "PageFlags::not",
+      "group": "mm",
+      "location": "ostd/src/mm/page_prop.rs:106:1"
+    },
+    {
+      "doc_path": "ostd/mm/page_prop/struct.PageFlags.html#method.remove",
+      "name": "PageFlags::remove",
+      "group": "mm",
+      "location": "ostd/src/mm/page_prop.rs:106:1"
+    },
+    {
+      "doc_path": "ostd/mm/page_prop/struct.PageFlags.html#method.set",
+      "name": "PageFlags::set",
+      "group": "mm",
+      "location": "ostd/src/mm/page_prop.rs:106:1"
+    },
+    {
+      "doc_path": "ostd/mm/page_prop/struct.PageFlags.html#method.sub",
+      "name": "PageFlags::sub",
+      "group": "mm",
+      "location": "ostd/src/mm/page_prop.rs:106:1"
+    },
+    {
+      "doc_path": "ostd/mm/page_prop/struct.PageFlags.html#method.toggle",
+      "name": "PageFlags::toggle",
+      "group": "mm",
+      "location": "ostd/src/mm/page_prop.rs:106:1"
+    },
+    {
+      "doc_path": "ostd/mm/page_prop/struct.PageFlags.html#method.truncate",
+      "name": "PageFlags::truncate",
+      "group": "mm",
+      "location": "ostd/src/mm/page_prop.rs:106:1"
+    },
+    {
+      "doc_path": "ostd/mm/page_table/struct.PageTable.html#method.cursor_mut",
+      "name": "PageTable::cursor_mut",
+      "group": "mm",
+      "location": "ostd/src/mm/page_table/mod.rs:1258:5"
+    },
+    {
+      "doc_path": "ostd/mm/page_table/struct.PageTable.html#method.cursor",
+      "name": "PageTable::cursor",
+      "group": "mm",
+      "location": "ostd/src/mm/page_table/mod.rs:1330:5"
+    },
+    {
+      "doc_path": "ostd/mm/page_table/node/child/enum.Child.html#method.from_pte",
+      "name": "Child::from_pte",
+      "group": "mm",
+      "location": "ostd/src/mm/page_table/node/child.rs:128:5"
+    },
+    {
+      "doc_path": "ostd/mm/page_table/node/child/enum.ChildRef.html#method.from_pte",
+      "name": "ChildRef::from_pte",
+      "group": "mm",
+      "location": "ostd/src/mm/page_table/node/child.rs:201:5"
+    },
+    {
+      "doc_path": "ostd/mm/page_table/node/child/enum.Child.html#method.into_pte",
+      "name": "Child::into_pte",
+      "group": "mm",
+      "location": "ostd/src/mm/page_table/node/child.rs:75:5"
+    },
+    {
+      "doc_path": "ostd/mm/page_table/node/entry/struct.PageTableGuard.html#method.deref",
+      "name": "PageTableGuard::deref",
+      "group": "mm",
+      "location": "ostd/src/mm/page_table/node/entry.rs:47:5"
+    },
+    {
+      "doc_path": "ostd/mm/page_table/node/entry/struct.Entry.html#method.new",
+      "name": "Entry::new",
+      "group": "mm",
+      "location": "ostd/src/mm/page_table/node/entry.rs:95:5"
+    },
+    {
+      "doc_path": "ostd/mm/page_table/node/struct.PageTablePageMeta.html#method.is_untyped",
+      "name": "PageTablePageMeta::is_untyped",
+      "group": "mm",
+      "location": "ostd/src/mm/page_table/node/mod.rs:187:5"
+    },
+    {
+      "doc_path": "ostd/mm/frame/frame_ref/struct.FrameRef.html#method.make_guard_unchecked",
+      "name": "FrameRef::make_guard_unchecked",
+      "group": "mm",
+      "location": "ostd/src/mm/page_table/node/mod.rs:400:5"
+    },
+    {
+      "doc_path": "ostd/mm/page_table/node/entry/struct.PageTableGuard.html#method.entry",
+      "name": "PageTableGuard::entry",
+      "group": "mm",
+      "location": "ostd/src/mm/page_table/node/mod.rs:444:5"
+    },
+    {
+      "doc_path": "ostd/mm/page_table/node/entry/struct.PageTableGuard.html#method.nr_children",
+      "name": "PageTableGuard::nr_children",
+      "group": "mm",
+      "location": "ostd/src/mm/page_table/node/mod.rs:473:5"
+    },
+    {
+      "doc_path": "ostd/mm/page_table/node/entry/struct.PageTableGuard.html#method.read_pte",
+      "name": "PageTableGuard::read_pte",
+      "group": "mm",
+      "location": "ostd/src/mm/page_table/node/mod.rs:530:5"
+    },
+    {
+      "doc_path": "ostd/mm/page_table/node/entry/struct.PageTableGuard.html#method.write_pte",
+      "name": "PageTableGuard::write_pte",
+      "group": "mm",
+      "location": "ostd/src/mm/page_table/node/mod.rs:579:5"
+    },
+    {
+      "doc_path": "ostd/mm/page_table/node/struct.PageTablePageMeta.html#method.new",
+      "name": "PageTablePageMeta::new",
+      "group": "mm",
+      "location": "ostd/src/mm/page_table/node/mod.rs:632:5"
+    },
+    {
+      "doc_path": "ostd/mm/tlb/struct.TlbFlusher.html#method.new",
+      "name": "TlbFlusher::new",
+      "group": "mm",
+      "location": "ostd/src/mm/tlb.rs:48:5"
+    },
+    {
+      "doc_path": "ostd/mm/vm_space/struct.CursorMut.html#method.protect_next",
+      "name": "CursorMut::protect_next",
+      "group": "mm",
+      "location": "ostd/src/mm/vm_space.rs:1549:5"
+    },
+    {
+      "doc_path": "ostd/mm/vm_space/struct.MappedItem.html#method.clone",
+      "name": "MappedItem::clone",
+      "group": "mm",
+      "location": "ostd/src/mm/vm_space.rs:1604:5"
+    },
+    {
+      "doc_path": "ostd/mm/vm_space/struct.VmSpace.html#method.cursor",
+      "name": "VmSpace::cursor",
+      "group": "mm",
+      "location": "ostd/src/mm/vm_space.rs:244:5"
+    },
+    {
+      "doc_path": "ostd/mm/vm_space/struct.VmSpace.html#method.cursor_mut",
+      "name": "VmSpace::cursor_mut",
+      "group": "mm",
+      "location": "ostd/src/mm/vm_space.rs:305:5"
+    },
+    {
+      "doc_path": "ostd/mm/vm_space/struct.Cursor.html#method.query",
+      "name": "Cursor::query",
+      "group": "mm",
+      "location": "ostd/src/mm/vm_space.rs:523:5"
+    },
+    {
+      "doc_path": "ostd/mm/vm_space/struct.Cursor.html#method.find_next",
+      "name": "Cursor::find_next",
+      "group": "mm",
+      "location": "ostd/src/mm/vm_space.rs:572:5"
+    },
+    {
+      "doc_path": "ostd/mm/vm_space/struct.Cursor.html#method.jump",
+      "name": "Cursor::jump",
+      "group": "mm",
+      "location": "ostd/src/mm/vm_space.rs:622:5"
+    },
+    {
+      "doc_path": "ostd/mm/vm_space/struct.Cursor.html#method.virt_addr",
+      "name": "Cursor::virt_addr",
+      "group": "mm",
+      "location": "ostd/src/mm/vm_space.rs:633:5"
+    },
+    {
+      "doc_path": "ostd/mm/vm_space/struct.CursorMut.html#method.query",
+      "name": "CursorMut::query",
+      "group": "mm",
+      "location": "ostd/src/mm/vm_space.rs:698:5"
+    },
+    {
+      "doc_path": "ostd/mm/vm_space/struct.CursorMut.html#method.find_next",
+      "name": "CursorMut::find_next",
+      "group": "mm",
+      "location": "ostd/src/mm/vm_space.rs:742:5"
+    },
+    {
+      "doc_path": "ostd/mm/vm_space/struct.CursorMut.html#method.jump",
+      "name": "CursorMut::jump",
+      "group": "mm",
+      "location": "ostd/src/mm/vm_space.rs:794:5"
+    },
+    {
+      "doc_path": "ostd/mm/vm_space/struct.CursorMut.html#method.virt_addr",
+      "name": "CursorMut::virt_addr",
+      "group": "mm",
+      "location": "ostd/src/mm/vm_space.rs:805:5"
+    },
+    {
+      "doc_path": "ostd/mm/vm_space/struct.CursorMut.html#method.flusher",
+      "name": "CursorMut::flusher",
+      "group": "mm",
+      "location": "ostd/src/mm/vm_space.rs:815:5"
+    },
+    {
+      "doc_path": "ostd/mm/vm_space/struct.CursorMut.html#method.map",
+      "name": "CursorMut::map",
+      "group": "mm",
+      "location": "ostd/src/mm/vm_space.rs:864:5"
+    },
+    {
+      "doc_path": "ostd/mm/vm_space/struct.CursorMut.html#method.unmap",
+      "name": "CursorMut::unmap",
+      "group": "mm",
+      "location": "ostd/src/mm/vm_space.rs:952:5"
+    },
+    {
+      "doc_path": "ostd/sync/guard/enum.PreemptDisabled.html#method.guard",
+      "name": "PreemptDisabled::guard",
+      "group": "sync",
+      "location": "ostd/src/sync/guard.rs:55:5"
+    },
+    {
+      "doc_path": "ostd/sync/guard/enum.PreemptDisabled.html#method.read_guard",
+      "name": "PreemptDisabled::read_guard",
+      "group": "sync",
+      "location": "ostd/src/sync/guard.rs:58:5"
+    },
+    {
+      "doc_path": "ostd/sync/guard/enum.LocalIrqDisabled.html#method.guard",
+      "name": "LocalIrqDisabled::guard",
+      "group": "sync",
+      "location": "ostd/src/sync/guard.rs:82:5"
+    },
+    {
+      "doc_path": "ostd/sync/guard/enum.LocalIrqDisabled.html#method.read_guard",
+      "name": "LocalIrqDisabled::read_guard",
+      "group": "sync",
+      "location": "ostd/src/sync/guard.rs:86:5"
+    },
+    {
+      "doc_path": "ostd/sync/mutex/struct.MutexGuard.html#method.deref",
+      "name": "MutexGuard::deref",
+      "group": "sync",
+      "location": "ostd/src/sync/mutex.rs:253:5"
+    },
+    {
+      "doc_path": "ostd/sync/mutex/struct.MutexGuard.html#method.deref_mut",
+      "name": "MutexGuard::deref_mut",
+      "group": "sync",
+      "location": "ostd/src/sync/mutex.rs:269:5"
+    },
+    {
+      "doc_path": "ostd/sync/mutex/struct.MutexGuard.html#method.drop",
+      "name": "MutexGuard::drop",
+      "group": "sync",
+      "location": "ostd/src/sync/mutex.rs:290:5"
+    },
+    {
+      "doc_path": "ostd/sync/mutex/struct.MutexGuard.html#method.fmt",
+      "name": "MutexGuard::fmt",
+      "group": "sync",
+      "location": "ostd/src/sync/mutex.rs:307:5"
+    },
+    {
+      "doc_path": "ostd/sync/mutex/struct.MutexGuard.html#method.get_lock",
+      "name": "MutexGuard::get_lock",
+      "group": "sync",
+      "location": "ostd/src/sync/mutex.rs:324:5"
+    },
+    {
+      "doc_path": "ostd/sync/mutex/struct.Mutex.html#method.new",
+      "name": "Mutex::new",
+      "group": "sync",
+      "location": "ostd/src/sync/mutex.rs:54:5"
+    },
+    {
+      "doc_path": "ostd/sync/mutex/struct.Mutex.html#method.lock",
+      "name": "Mutex::lock",
+      "group": "sync",
+      "location": "ostd/src/sync/mutex.rs:75:5"
+    },
+    {
+      "doc_path": "ostd/sync/mutex/struct.Mutex.html#method.try_lock",
+      "name": "Mutex::try_lock",
+      "group": "sync",
+      "location": "ostd/src/sync/mutex.rs:89:5"
+    },
+    {
+      "doc_path": "ostd/util/either/enum.Either.html#method.from_raw",
+      "name": "crate::util::Either::from_raw",
+      "group": "sync",
+      "location": "ostd/src/sync/rcu/non_null/either.rs:149:5"
+    },
+    {
+      "doc_path": "ostd/util/either/enum.Either.html#method.raw_as_ref",
+      "name": "crate::util::Either::raw_as_ref",
+      "group": "sync",
+      "location": "ostd/src/sync/rcu/non_null/either.rs:259:5"
+    },
+    {
+      "doc_path": "ostd/util/either/enum.Either.html#method.ref_as_raw",
+      "name": "crate::util::Either::ref_as_raw",
+      "group": "sync",
+      "location": "ostd/src/sync/rcu/non_null/either.rs:313:5"
+    },
+    {
+      "doc_path": "ostd/util/either/enum.Either.html#method.into_raw",
+      "name": "crate::util::Either::into_raw",
+      "group": "sync",
+      "location": "ostd/src/sync/rcu/non_null/either.rs:37:5"
+    },
+    {
+      "doc_path": "ostd/sync/rcu/non_null/struct.BoxRef.html#method.deref_target",
+      "name": "BoxRef::deref_target",
+      "group": "sync",
+      "location": "ostd/src/sync/rcu/non_null/mod.rs:195:5"
+    },
+    {
+      "doc_path": "src/ostd/sync/rcu/non_null/mod.rs.html#226-244",
+      "name": "alloc::boxed::Box::into_raw",
+      "group": "sync",
+      "location": "ostd/src/sync/rcu/non_null/mod.rs:226:5"
+    },
+    {
+      "doc_path": "src/ostd/sync/rcu/non_null/mod.rs.html#247-263",
+      "name": "alloc::boxed::Box::from_raw",
+      "group": "sync",
+      "location": "ostd/src/sync/rcu/non_null/mod.rs:247:5"
+    },
+    {
+      "doc_path": "src/ostd/sync/rcu/non_null/mod.rs.html#290-295",
+      "name": "alloc::boxed::Box::raw_as_ref",
+      "group": "sync",
+      "location": "ostd/src/sync/rcu/non_null/mod.rs:290:5"
+    },
+    {
+      "doc_path": "src/ostd/sync/rcu/non_null/mod.rs.html#297-307",
+      "name": "alloc::boxed::Box::ref_as_raw",
+      "group": "sync",
+      "location": "ostd/src/sync/rcu/non_null/mod.rs:297:5"
+    },
+    {
+      "doc_path": "ostd/sync/rcu/non_null/struct.ArcRef.html#method.deref",
+      "name": "ArcRef::deref",
+      "group": "sync",
+      "location": "ostd/src/sync/rcu/non_null/mod.rs:353:5"
+    },
+    {
+      "doc_path": "src/ostd/sync/rcu/non_null/mod.rs.html#388-399",
+      "name": "alloc::sync::Arc::into_raw",
+      "group": "sync",
+      "location": "ostd/src/sync/rcu/non_null/mod.rs:388:5"
+    },
+    {
+      "doc_path": "src/ostd/sync/rcu/non_null/mod.rs.html#401-413",
+      "name": "alloc::sync::Arc::from_raw",
+      "group": "sync",
+      "location": "ostd/src/sync/rcu/non_null/mod.rs:401:5"
+    },
+    {
+      "doc_path": "src/ostd/sync/rcu/non_null/mod.rs.html#439-452",
+      "name": "alloc::sync::Arc::raw_as_ref",
+      "group": "sync",
+      "location": "ostd/src/sync/rcu/non_null/mod.rs:439:5"
+    },
+    {
+      "doc_path": "src/ostd/sync/rcu/non_null/mod.rs.html#454-459",
+      "name": "alloc::sync::Arc::ref_as_raw",
+      "group": "sync",
+      "location": "ostd/src/sync/rcu/non_null/mod.rs:454:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwarc/struct.RwArc.html#method.clone_ro",
+      "name": "RwArc::clone_ro",
+      "group": "sync",
+      "location": "ostd/src/sync/rwarc.rs:111:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwarc/struct.RwArc.html#method.clone",
+      "name": "RwArc::clone",
+      "group": "sync",
+      "location": "ostd/src/sync/rwarc.rs:119:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwarc/struct.RwArc.html#method.drop",
+      "name": "RwArc::drop",
+      "group": "sync",
+      "location": "ostd/src/sync/rwarc.rs:158:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwarc/struct.RwArc.html#method.get_cloned",
+      "name": "RwArc::get_cloned",
+      "group": "sync",
+      "location": "ostd/src/sync/rwarc.rs:174:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwarc/struct.RoArc.html#method.read",
+      "name": "RoArc::read",
+      "group": "sync",
+      "location": "ostd/src/sync/rwarc.rs:182:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwarc/struct.RwArc.html#method.new",
+      "name": "RwArc::new",
+      "group": "sync",
+      "location": "ostd/src/sync/rwarc.rs:59:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwarc/struct.RwArc.html#method.read",
+      "name": "RwArc::read",
+      "group": "sync",
+      "location": "ostd/src/sync/rwarc.rs:70:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwarc/struct.RwArc.html#method.write",
+      "name": "RwArc::write",
+      "group": "sync",
+      "location": "ostd/src/sync/rwarc.rs:75:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLockUpgradeableGuard.html#method.deref",
+      "name": "RwLockUpgradeableGuard::deref",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:1099:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLockUpgradeableGuard.html#method.drop",
+      "name": "RwLockUpgradeableGuard::drop",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:1121:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLockUpgradeableGuard.html#method.fmt",
+      "name": "RwLockUpgradeableGuard::fmt",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:1162:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLock.html#method.new",
+      "name": "RwLock::new",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:352:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLock.html#method.read",
+      "name": "RwLock::read",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:405:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLock.html#method.write",
+      "name": "RwLock::write",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:422:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLock.html#method.upread",
+      "name": "RwLock::upread",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:443:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLock.html#method.try_read",
+      "name": "RwLock::try_read",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:457:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLock.html#method.try_write",
+      "name": "RwLock::try_write",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:515:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLock.html#method.try_upread",
+      "name": "RwLock::try_upread",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:571:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLockReadGuard.html#method.deref",
+      "name": "RwLockReadGuard::deref",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:739:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLockReadGuard.html#method.fmt",
+      "name": "RwLockReadGuard::fmt",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:801:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLockWriteGuard.html#method.deref",
+      "name": "RwLockWriteGuard::deref",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:846:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLockWriteGuard.html#method.deref_mut",
+      "name": "RwLockWriteGuard::deref_mut",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:864:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLockWriteGuard.html#method.drop",
+      "name": "RwLockWriteGuard::drop",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:882:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLockWriteGuard.html#method.fmt",
+      "name": "RwLockWriteGuard::fmt",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:927:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwlock/struct.RwLockUpgradeableGuard.html#method.upgrade",
+      "name": "RwLockUpgradeableGuard::upgrade",
+      "group": "sync",
+      "location": "ostd/src/sync/rwlock.rs:978:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutexUpgradeableGuard.html#method.drop",
+      "name": "RwMutexUpgradeableGuard::drop",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:1014:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutexUpgradeableGuard.html#method.deref",
+      "name": "RwMutexUpgradeableGuard::deref",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:1051:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutexUpgradeableGuard.html#method.fmt",
+      "name": "RwMutexUpgradeableGuard::fmt",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:1069:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutex.html#method.new",
+      "name": "RwMutex::new",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:282:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutex.html#method.read",
+      "name": "RwMutex::read",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:333:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutex.html#method.write",
+      "name": "RwMutex::write",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:344:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutex.html#method.upread",
+      "name": "RwMutex::upread",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:359:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutex.html#method.try_read",
+      "name": "RwMutex::try_read",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:367:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutex.html#method.try_write",
+      "name": "RwMutex::try_write",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:421:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutex.html#method.try_upread",
+      "name": "RwMutex::try_upread",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:470:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutexReadGuard.html#method.deref",
+      "name": "RwMutexReadGuard::deref",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:613:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutexReadGuard.html#method.fmt",
+      "name": "RwMutexReadGuard::fmt",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:631:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutexWriteGuard.html#method.deref",
+      "name": "RwMutexWriteGuard::deref",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:696:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutexWriteGuard.html#method.fmt",
+      "name": "RwMutexWriteGuard::fmt",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:712:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutexWriteGuard.html#method.downgrade",
+      "name": "RwMutexWriteGuard::downgrade",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:722:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutexWriteGuard.html#method.drop",
+      "name": "RwMutexWriteGuard::drop",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:812:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutexWriteGuard.html#method.deref_mut",
+      "name": "RwMutexWriteGuard::deref_mut",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:857:5"
+    },
+    {
+      "doc_path": "ostd/sync/rwmutex/struct.RwMutexUpgradeableGuard.html#method.upgrade",
+      "name": "RwMutexUpgradeableGuard::upgrade",
+      "group": "sync",
+      "location": "ostd/src/sync/rwmutex.rs:906:5"
+    },
+    {
+      "doc_path": "ostd/sync/spin/struct.SpinLock.html#method.new",
+      "name": "SpinLock::new",
+      "group": "sync",
+      "location": "ostd/src/sync/spin.rs:166:5"
+    },
+    {
+      "doc_path": "ostd/sync/spin/struct.SpinLock.html#method.lock",
+      "name": "SpinLock::lock",
+      "group": "sync",
+      "location": "ostd/src/sync/spin.rs:273:5"
+    },
+    {
+      "doc_path": "ostd/sync/spin/struct.SpinLock.html#method.try_lock",
+      "name": "SpinLock::try_lock",
+      "group": "sync",
+      "location": "ostd/src/sync/spin.rs:311:5"
+    },
+    {
+      "doc_path": "ostd/sync/spin/struct.SpinLockGuard.html#method.deref",
+      "name": "SpinLockGuard::deref",
+      "group": "sync",
+      "location": "ostd/src/sync/spin.rs:543:5"
+    },
+    {
+      "doc_path": "ostd/sync/spin/struct.SpinLockGuard.html#method.deref_mut",
+      "name": "SpinLockGuard::deref_mut",
+      "group": "sync",
+      "location": "ostd/src/sync/spin.rs:569:5"
+    },
+    {
+      "doc_path": "ostd/sync/spin/struct.SpinLockGuard.html#method.drop",
+      "name": "SpinLockGuard::drop",
+      "group": "sync",
+      "location": "ostd/src/sync/spin.rs:595:5"
+    },
+    {
+      "doc_path": "ostd/sync/spin/struct.SpinLockGuard.html#method.fmt",
+      "name": "SpinLockGuard::fmt",
+      "group": "sync",
+      "location": "ostd/src/sync/spin.rs:624:5"
+    },
+    {
+      "doc_path": "ostd/sync/wait/struct.WaitQueue.html#method.wait_until",
+      "name": "WaitQueue::wait_until",
+      "group": "sync",
+      "location": "ostd/src/sync/wait.rs:124:5"
+    },
+    {
+      "doc_path": "ostd/sync/wait/struct.WaitQueue.html#method.wake_one",
+      "name": "WaitQueue::wake_one",
+      "group": "sync",
+      "location": "ostd/src/sync/wait.rs:146:5"
+    },
+    {
+      "doc_path": "ostd/sync/wait/struct.WaitQueue.html#method.wake_all",
+      "name": "WaitQueue::wake_all",
+      "group": "sync",
+      "location": "ostd/src/sync/wait.rs:189:5"
+    },
+    {
+      "doc_path": "ostd/sync/wait/struct.WaitQueue.html#method.default",
+      "name": "WaitQueue::default",
+      "group": "sync",
+      "location": "ostd/src/sync/wait.rs:268:5"
+    },
+    {
+      "doc_path": "ostd/sync/wait/struct.Waiter.html#method.new_pair",
+      "name": "Waiter::new_pair",
+      "group": "sync",
+      "location": "ostd/src/sync/wait.rs:328:5"
+    },
+    {
+      "doc_path": "ostd/sync/wait/struct.Waiter.html#method.wait",
+      "name": "Waiter::wait",
+      "group": "sync",
+      "location": "ostd/src/sync/wait.rs:347:5"
+    },
+    {
+      "doc_path": "ostd/sync/wait/struct.Waiter.html#method.wait_until_or_cancelled",
+      "name": "Waiter::wait_until_or_cancelled",
+      "group": "sync",
+      "location": "ostd/src/sync/wait.rs:368:5"
+    },
+    {
+      "doc_path": "ostd/sync/wait/struct.Waiter.html#method.waker",
+      "name": "Waiter::waker",
+      "group": "sync",
+      "location": "ostd/src/sync/wait.rs:404:5"
+    },
+    {
+      "doc_path": "ostd/sync/wait/struct.Waiter.html#method.task",
+      "name": "Waiter::task",
+      "group": "sync",
+      "location": "ostd/src/sync/wait.rs:409:5"
+    },
+    {
+      "doc_path": "ostd/sync/wait/struct.Waiter.html#method.drop",
+      "name": "Waiter::drop",
+      "group": "sync",
+      "location": "ostd/src/sync/wait.rs:428:5"
+    },
+    {
+      "doc_path": "ostd/sync/wait/struct.WaitQueue.html#method.new",
+      "name": "WaitQueue::new",
+      "group": "sync",
+      "location": "ostd/src/sync/wait.rs:97:5"
+    },
+    {
+      "doc_path": "ostd/task/preempt/guard/struct.DisabledPreemptGuard.html#method.as_atomic_mode_guard",
+      "name": "DisabledPreemptGuard::as_atomic_mode_guard",
+      "group": "task",
+      "location": "ostd/src/task/atomic_mode.rs:80:5"
+    },
+    {
+      "doc_path": "src/ostd/task/atomic_mode.rs.html#87-89",
+      "name": "as_atomic_mode_guard",
+      "group": "task",
+      "location": "ostd/src/task/atomic_mode.rs:87:5"
+    },
+    {
+      "doc_path": "ostd/task/scheduler/info/struct.AtomicCpuId.html#method.set_anyway",
+      "name": "AtomicCpuId::set_anyway",
+      "group": "task",
+      "location": "ostd/src/task/scheduler/info.rs:102:5"
+    },
+    {
+      "doc_path": "ostd/task/scheduler/info/struct.AtomicCpuId.html#method.set_to_none",
+      "name": "AtomicCpuId::set_to_none",
+      "group": "task",
+      "location": "ostd/src/task/scheduler/info.rs:128:5"
+    },
+    {
+      "doc_path": "ostd/task/scheduler/info/struct.AtomicCpuId.html#method.get",
+      "name": "AtomicCpuId::get",
+      "group": "task",
+      "location": "ostd/src/task/scheduler/info.rs:145:5"
+    },
+    {
+      "doc_path": "ostd/task/scheduler/info/struct.AtomicCpuId.html#method.default",
+      "name": "AtomicCpuId::default",
+      "group": "task",
+      "location": "ostd/src/task/scheduler/info.rs:170:5"
+    },
+    {
+      "doc_path": "ostd/task/scheduler/info/struct.AtomicCpuId.html#method.set_if_is_none",
+      "name": "AtomicCpuId::set_if_is_none",
+      "group": "task",
+      "location": "ostd/src/task/scheduler/info.rs:64:5"
+    },
+    {
+      "doc_path": "ostd/task/scheduler/trait.LocalRunQueue.html#method.pick_next",
+      "name": "LocalRunQueue::pick_next",
+      "group": "task",
+      "location": "ostd/src/task/scheduler/mod.rs:344:5"
+    },
+    {
+      "doc_path": "ostd/task/scheduler/fn.inject_scheduler.html",
+      "name": "inject_scheduler",
+      "group": "task",
+      "location": "ostd/src/task/scheduler/mod.rs:88:1"
+    },
+    {
+      "doc_path": "src/ostd/timer/jiffies.rs.html#102-104",
+      "name": "core::time::Duration::from",
+      "group": "timer",
+      "location": "ostd/src/timer/jiffies.rs:102:5"
+    },
+    {
+      "doc_path": "ostd/timer/jiffies/struct.Jiffies.html#method.new",
+      "name": "Jiffies::new",
+      "group": "timer",
+      "location": "ostd/src/timer/jiffies.rs:64:5"
+    },
+    {
+      "doc_path": "ostd/timer/jiffies/struct.Jiffies.html#method.elapsed",
+      "name": "Jiffies::elapsed",
+      "group": "timer",
+      "location": "ostd/src/timer/jiffies.rs:69:5"
+    },
+    {
+      "doc_path": "ostd/timer/jiffies/struct.Jiffies.html#method.as_u64",
+      "name": "Jiffies::as_u64",
+      "group": "timer",
+      "location": "ostd/src/timer/jiffies.rs:75:5"
+    },
+    {
+      "doc_path": "ostd/timer/jiffies/struct.Jiffies.html#method.add",
+      "name": "Jiffies::add",
+      "group": "timer",
+      "location": "ostd/src/timer/jiffies.rs:84:5"
+    },
+    {
+      "doc_path": "ostd/timer/jiffies/struct.Jiffies.html#method.as_duration",
+      "name": "Jiffies::as_duration",
+      "group": "timer",
+      "location": "ostd/src/timer/jiffies.rs:93:5"
+    },
+    {
+      "doc_path": "ostd/trap/irq/fn.disable_local.html",
+      "name": "disable_local",
+      "group": "trap",
+      "location": "ostd/src/trap/irq.rs:220:1"
+    },
+    {
+      "doc_path": "ostd/trap/irq/struct.DisabledLocalIrqGuard.html#method.transfer_to",
+      "name": "DisabledLocalIrqGuard::transfer_to",
+      "group": "trap",
+      "location": "ostd/src/trap/irq.rs:265:5"
+    }
+  ]
 }
