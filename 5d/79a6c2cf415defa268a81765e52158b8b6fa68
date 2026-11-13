@@ -1,0 +1,35 @@
+ostd/libs/ostd-pod/derive/Cargo.toml
+  s_0f450b04c7c41c::t_357e6aea1454ae 1-17
+ostd/libs/ostd-pod/derive/src/lib.rs
+  s_0f450b04c7c41c::t_357e6aea1454ae 1-166
+ostd/libs/ostd-pod/tests/derive_test.rs
+  s_0f450b04c7c41c::t_bbcd25947caa9e 1-50
+ostd/libs/ostd-pod/Cargo.toml
+  s_0f450b04c7c41c::t_cebc87f6581889 13,18-19
+Cargo.lock
+  s_747ddc431fd74e::t_5f7890c2ac9377 469,474-482
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5d79a6c2cf415defa268a81765e52158b8b6fa68",
+  "prompts": {},
+  "sessions": {
+    "s_0f450b04c7c41c": {
+      "agent_id": {
+        "tool": "antcc",
+        "id": "0510cd01-f158-4791-9669-5a583d69651e",
+        "model": "glink/GLM-5.3:glink_domestic"
+      },
+      "human_author": "Marsman1996 <lqliuyuwei@outlook.com>"
+    },
+    "s_747ddc431fd74e": {
+      "agent_id": {
+        "tool": "antcc",
+        "id": "4f121297-c306-4b69-9c5f-5b77262fea61",
+        "model": "glink/GLM-5.3-Flash:glink_domestic"
+      },
+      "human_author": "Marsman1996 <lqliuyuwei@outlook.com>"
+    }
+  }
+}
