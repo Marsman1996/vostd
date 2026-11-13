@@ -1,0 +1,29 @@
+ostd/src/mm/io.rs
+  s_0f450b04c7c41c::t_3705ced32f03b0 327,902,968,1097,1863
+  s_0f450b04c7c41c::t_c58f5707d5ff8d 2048-2049
+  s_0f450b04c7c41c::t_2acb28646c3bab 885-887
+  s_0f450b04c7c41c::t_14e85b3b9de352 909-910
+  s_0f450b04c7c41c::t_fac394368776b4 324
+  s_0f450b04c7c41c::t_355947472babe6 993-994
+  s_0f450b04c7c41c::t_0e04badf8457b0 334-335
+  s_0f450b04c7c41c::t_d5c39c2c1d2e6d 1988-1990
+ostd/src/mm/test.rs
+  s_0f450b04c7c41c::t_062250723a4449 23,25
+  s_0f450b04c7c41c::t_95e4b76de2b520 24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "faf01ee450209dd5ffcc444d53d619966c73a84b",
+  "prompts": {},
+  "sessions": {
+    "s_0f450b04c7c41c": {
+      "agent_id": {
+        "tool": "antcc",
+        "id": "0510cd01-f158-4791-9669-5a583d69651e",
+        "model": "glink/GLM-5.3:glink_domestic"
+      },
+      "human_author": "Marsman1996 <lqliuyuwei@outlook.com>"
+    }
+  }
+}

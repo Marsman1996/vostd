@@ -1,0 +1,20 @@
+.agents/skills/vostd-code-review/personas/specification.md
+  s_19783e0304a929::t_55b72943706b9f 41
+  s_19783e0304a929::t_94611cc4a23c30 42-57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "9a668f3dc62b3c3f0d66ad1c4a2be604283fb38b",
+  "prompts": {},
+  "sessions": {
+    "s_19783e0304a929": {
+      "agent_id": {
+        "tool": "antcc",
+        "id": "86c24b16-e8af-4429-b1fd-c6e4c5e87f29",
+        "model": "glink/GLM-5.3:glink_domestic"
+      },
+      "human_author": "Marsman1996 <lqliuyuwei@outlook.com>"
+    }
+  }
+}
