@@ -1,0 +1,22 @@
+.github/workflows/ci.yml
+  s_970c42a1543ac8::t_7d7affb8576e3b 186
+.github/actions/build-docs/action.yml
+  s_970c42a1543ac8::t_688bd80724d8cc 25-26
+  s_970c42a1543ac8::t_bdf078a94590a2 3-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "93f3f83da5ce0572cddfd5f39a759e1b776c1503",
+  "prompts": {},
+  "sessions": {
+    "s_970c42a1543ac8": {
+      "agent_id": {
+        "tool": "antcc",
+        "id": "d942d8fb-693e-4667-a48a-c049a85a1470",
+        "model": "glink/GLM-5.3-Flash:glink_domestic"
+      },
+      "human_author": "Marsman1996 <lqliuyuwei@outlook.com>"
+    }
+  }
+}
