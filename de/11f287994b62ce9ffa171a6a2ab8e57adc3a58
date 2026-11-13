@@ -1,0 +1,31 @@
+ostd/src/mm/kspace/test.rs
+  s_0f450b04c7c41c::t_53e66197de4ae1 7,9-10,12,15,17,20
+  s_0f450b04c7c41c::t_bc6cc562e77d14 5
+  s_0f450b04c7c41c::t_08969e13eca79b 3
+  s_0f450b04c7c41c::t_73894e2eb96148 6
+docs/coding-guidelines/maintainability.md
+  s_0f450b04c7c41c::t_8a90f54a345008 364-394
+ostd/src/mm/test.rs
+  s_0f450b04c7c41c::t_d1733cc5147ff0 7
+  s_0f450b04c7c41c::t_873317390312cc 25
+  s_0f450b04c7c41c::t_2e7ca174cd4f9d 10,12-16,18-20
+  s_0f450b04c7c41c::t_5db37ef1a53015 29,35
+  s_0f450b04c7c41c::t_77a33b5bc6ba7e 31
+  s_0f450b04c7c41c::t_20beb9ffe6915b 26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "de11f287994b62ce9ffa171a6a2ab8e57adc3a58",
+  "prompts": {},
+  "sessions": {
+    "s_0f450b04c7c41c": {
+      "agent_id": {
+        "tool": "antcc",
+        "id": "0510cd01-f158-4791-9669-5a583d69651e",
+        "model": "glink/GLM-5.3:glink_domestic"
+      },
+      "human_author": "Marsman1996 <lqliuyuwei@outlook.com>"
+    }
+  }
+}
