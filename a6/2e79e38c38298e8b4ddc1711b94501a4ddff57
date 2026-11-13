@@ -1,0 +1,28 @@
+.github/workflows/ci.yml
+  s_970c42a1543ac8::t_bd513416ea0ba5 41-42
+  s_970c42a1543ac8::t_c6cd06d484efc4 4-7
+  s_970c42a1543ac8::t_b473c8fcdc4221 107-109
+  s_970c42a1543ac8::t_a302de8ef2beb4 235-238
+  s_970c42a1543ac8::t_81f5bbd75cb7bb 186
+  s_970c42a1543ac8::t_da8bf05f14711b 3
+  s_970c42a1543ac8::t_cac5c2b7ebfab7 161-162
+  s_970c42a1543ac8::t_e404f312499951 136
+.github/workflows/ensures-coverage.yml
+  s_970c42a1543ac8::t_d11077d076b43f 1-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "a62e79e38c38298e8b4ddc1711b94501a4ddff57",
+  "prompts": {},
+  "sessions": {
+    "s_970c42a1543ac8": {
+      "agent_id": {
+        "tool": "antcc",
+        "id": "d942d8fb-693e-4667-a48a-c049a85a1470",
+        "model": "glink/GLM-5.3-Flash:glink_domestic"
+      },
+      "human_author": "Marsman1996 <lqliuyuwei@outlook.com>"
+    }
+  }
+}
