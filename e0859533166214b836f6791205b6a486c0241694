@@ -1,0 +1,19 @@
+.github/actions/stats/action.yml
+  s_970c42a1543ac8::t_6fa837a09dc9ca 43-44,46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e0859533166214b836f6791205b6a486c0241694",
+  "prompts": {},
+  "sessions": {
+    "s_970c42a1543ac8": {
+      "agent_id": {
+        "tool": "antcc",
+        "id": "d942d8fb-693e-4667-a48a-c049a85a1470",
+        "model": "glink/GLM-5.3-Flash:glink_domestic"
+      },
+      "human_author": "Marsman1996 <lqliuyuwei@outlook.com>"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+.github/actions/pages/action.yml
+  h_fddbafe85ec91e 3-6,11,15,31,58
+.github/actions/stats/action.yml
+  h_fddbafe85ec91e 1-92
+.github/workflows/ci.yml
+  h_fddbafe85ec91e 5-13,114-145,251-259,267,283,290-291,296,316
+tools/verus_stats.py
+  h_fddbafe85ec91e 443,762-802,901-907
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "bbb8cb7792bd6de765ffbb74c8f3a0a52446315e",
+  "prompts": {},
+  "humans": {
+    "h_fddbafe85ec91e": {
+      "author": "Marsman1996 <lqliuyuwei@outlook.com>"
+    }
+  }
+}
