@@ -1,0 +1,19 @@
+tools/verus_stats.py
+  s_06842c4a8b7e61::t_5df9ccfd520482 443
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0d1b7681719b6fda1b9de72445ae3434046607fe",
+  "prompts": {},
+  "sessions": {
+    "s_06842c4a8b7e61": {
+      "agent_id": {
+        "tool": "antcc",
+        "id": "c6dd7e08-9080-4b10-a52f-4c1e37942eab",
+        "model": "glink/GLM-5.3-Flash:glink_domestic"
+      },
+      "human_author": "Marsman1996 <lqliuyuwei@outlook.com>"
+    }
+  }
+}
