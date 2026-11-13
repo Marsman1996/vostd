@@ -1,0 +1,23 @@
+ostd/src/mm/test.rs
+  s_0f450b04c7c41c::t_aa2c24b5e52657 5,7,33,39-50
+  s_0f450b04c7c41c::t_10e6556df16193 12,586-588,591-595,602-606,611-613,617-618,621-625,632-636,640-643,672-674,677-681,684-686,690-691,694-698,705-707
+  s_0f450b04c7c41c::t_16fb82e4206c04 29-30
+  s_0f450b04c7c41c::t_53e04d42851d81 158-160,163-178,184-187,190-201
+  s_0f450b04c7c41c::t_a62ad0dce0f0da 51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "516a2dc32a1095d840bd4c930001004bae72ee8c",
+  "prompts": {},
+  "sessions": {
+    "s_0f450b04c7c41c": {
+      "agent_id": {
+        "tool": "antcc",
+        "id": "0510cd01-f158-4791-9669-5a583d69651e",
+        "model": "glink/GLM-5.3:glink_domestic"
+      },
+      "human_author": "Marsman1996 <lqliuyuwei@outlook.com>"
+    }
+  }
+}
