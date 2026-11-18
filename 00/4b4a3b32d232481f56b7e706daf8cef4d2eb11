@@ -1,0 +1,36 @@
+.agents/skills/vostd-code-review/personas/maintainability.md
+  h_fddbafe85ec91e 23-28,105-108
+docs/coding-guidelines/maintainability.md
+  h_fddbafe85ec91e 357-367,410-417
+ostd/libs/align_ext/Cargo.toml
+  h_fddbafe85ec91e 22-25
+ostd/libs/ostd-pod/Cargo.toml
+  h_fddbafe85ec91e 27-30
+ostd/libs/ostd-pod/derive/Cargo.toml
+  h_fddbafe85ec91e 18-20
+ostd/src/lib.rs
+  h_fddbafe85ec91e 4
+ostd/src/util/range_alloc.rs
+  h_fddbafe85ec91e 14,159,247,386,673-674
+rust-toolchain.toml
+  h_fddbafe85ec91e 2
+verified_libs/bitflags/Cargo.toml
+  h_fddbafe85ec91e 14-16
+verified_libs/vstd_extra/Cargo.toml
+  h_fddbafe85ec91e 27-29
+verified_libs/vstd_extra/src/lib.rs
+  h_fddbafe85ec91e 8
+verified_libs/vstd_extra/src/temporal_logic/rules.rs
+  h_fddbafe85ec91e 1788
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "004b4a3b32d232481f56b7e706daf8cef4d2eb11",
+  "prompts": {},
+  "humans": {
+    "h_fddbafe85ec91e": {
+      "author": "Marsman1996 <lqliuyuwei@outlook.com>"
+    }
+  }
+}
