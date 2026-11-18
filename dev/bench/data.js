@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1795000466013,
+  "lastUpdate": 1795002022658,
   "repoUrl": "https://github.com/Marsman1996/vostd",
   "entries": {
     "verify-perf": [
@@ -10926,6 +10926,96 @@ window.BENCHMARK_DATA = {
             "value": 1106099,
             "unit": "rlimit",
             "extra": "smt-run=249ms"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "lqliuyuwei@outlook.com",
+            "name": "Marsman1996",
+            "username": "Marsman1996"
+          },
+          "committer": {
+            "email": "lqliuyuwei@outlook.com",
+            "name": "Marsman1996",
+            "username": "Marsman1996"
+          },
+          "distinct": true,
+          "id": "f54b37002e219af7f9499bf5d54c9f7907f2cfb3",
+          "message": "ci: group verified APIs without a mainline match at the end of the table",
+          "timestamp": "2026-11-18T19:29:39+08:00",
+          "tree_id": "f8feb59aa53509adc91ae7dc197683e1ff5ab11c",
+          "url": "https://github.com/Marsman1996/vostd/commit/f54b37002e219af7f9499bf5d54c9f7907f2cfb3"
+        },
+        "date": 1795002022318,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "total rlimit",
+            "value": 1079129982,
+            "unit": "rlimit",
+            "extra": "verified=4673 errors=0 smt-run=252,265ms wall=176,161ms"
+          },
+          {
+            "name": "rlimit: mm::page_table::cursor",
+            "value": 407973506,
+            "unit": "rlimit",
+            "extra": "smt-run=115,041ms"
+          },
+          {
+            "name": "rlimit: specs::mm::page_table::cursor::cursor_steps",
+            "value": 132191790,
+            "unit": "rlimit",
+            "extra": "smt-run=30,618ms"
+          },
+          {
+            "name": "rlimit: specs::mm::page_table::cursor::mapping_set_lemmas",
+            "value": 56786605,
+            "unit": "rlimit",
+            "extra": "smt-run=10,656ms"
+          },
+          {
+            "name": "rlimit: std_specs::bits",
+            "value": 25123617,
+            "unit": "rlimit",
+            "extra": "smt-run=2,862ms"
+          },
+          {
+            "name": "rlimit: seq_lib",
+            "value": 9273315,
+            "unit": "rlimit",
+            "extra": "smt-run=1,665ms"
+          },
+          {
+            "name": "rlimit: arithmetic::div_mod",
+            "value": 7914703,
+            "unit": "rlimit",
+            "extra": "smt-run=1,114ms"
+          },
+          {
+            "name": "rlimit: temporal_logic::rules",
+            "value": 3164892,
+            "unit": "rlimit",
+            "extra": "smt-run=743ms"
+          },
+          {
+            "name": "rlimit: bits",
+            "value": 2028088,
+            "unit": "rlimit",
+            "extra": "smt-run=509ms"
+          },
+          {
+            "name": "rlimit: ghost_tree",
+            "value": 1910655,
+            "unit": "rlimit",
+            "extra": "smt-run=563ms"
+          },
+          {
+            "name": "rlimit: inferred_initializers",
+            "value": 1106099,
+            "unit": "rlimit",
+            "extra": "smt-run=259ms"
           }
         ]
       }
