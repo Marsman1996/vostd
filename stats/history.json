@@ -708,6 +708,20 @@
       "proof": 19094,
       "verified_apis": 338,
       "verified_mainline_apis": 296
+    },
+    {
+      "date": "2026-11-18T19:49:30+08:00",
+      "sha": "55598430af31fce33dfb430ef3649378e6d8c1bd",
+      "total": 18503,
+      "verified_exec": 6173,
+      "trusted": 628,
+      "unverified": 9406,
+      "unplanned": 2296,
+      "rust_mode": 20788,
+      "spec": 19912,
+      "proof": 19094,
+      "verified_apis": 338,
+      "verified_mainline_apis": 296
     }
   ]
 }
