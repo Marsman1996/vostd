@@ -1,0 +1,23 @@
+.agents/skills/vostd-code-review/personas/maintainability.md
+  s_65893269a0f1cc::t_911fe9b20a6875 23-28
+  s_65893269a0f1cc::t_9e475acceeda04 105-108
+docs/coding-guidelines/maintainability.md
+  s_65893269a0f1cc::t_a0a6b3c0d23bd2 357-367
+  s_65893269a0f1cc::t_7a108051c2ba79 410-417
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5e44fbf2fca9f16a078e8ba0ad4fa8dd97316da5",
+  "prompts": {},
+  "sessions": {
+    "s_65893269a0f1cc": {
+      "agent_id": {
+        "tool": "antcc",
+        "id": "47df5c6c-bff2-4fb0-903c-335b58311bd3",
+        "model": "glink/GLM-5.3-Flash:glink_domestic"
+      },
+      "human_author": "Marsman1996 <lqliuyuwei@outlook.com>"
+    }
+  }
+}
