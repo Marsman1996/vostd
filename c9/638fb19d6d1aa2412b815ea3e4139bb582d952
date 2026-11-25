@@ -1,0 +1,19 @@
+.claude/skills/post-pr-review
+  s_57782d962717cc::t_d5397f9f86fedf 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "c9638fb19d6d1aa2412b815ea3e4139bb582d952",
+  "prompts": {},
+  "sessions": {
+    "s_57782d962717cc": {
+      "agent_id": {
+        "tool": "antcc",
+        "id": "f7132f92-24e1-44ce-86ad-609d96e2e74e",
+        "model": "glink/GLM-5.3:glink_domestic"
+      },
+      "human_author": "Marsman1996 <lqliuyuwei@outlook.com>"
+    }
+  }
+}
