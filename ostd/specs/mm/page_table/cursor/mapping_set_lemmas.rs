@@ -10,13 +10,16 @@ use vstd_extra::{
 
 use crate::specs::{
     arch::NR_ENTRIES,
-    mm::page_table::{
-        cursor::{
+    mm::{
+        frame::meta_region_owners::MetaRegionOwners,
+        page_table::{
+            cursor::{
+                owners::*,
+                page_size_lemmas::{lemma_page_size_divides, lemma_page_size_ge_base},
+            },
             owners::*,
-            page_size_lemmas::{lemma_page_size_divides, lemma_page_size_ge_base},
+            *,
         },
-        owners::*,
-        *,
     },
 };
 
@@ -668,6 +671,95 @@ impl<'rcu, C: PageTableConfig> CursorOwner<'rcu, C> {
                 (level - 1) as PagingLevel,
             ).union(cont.view_mappings()));
         }
+    }
+
+    /// Reassemble the owned continuations when returning the page table to a caller.
+    pub proof fn tracked_into_page_table(tracked self, regions: &MetaRegionOwners) -> (tracked pt:
+        PageTableOwner<C>)
+        requires
+            self.inv(),
+            self.metaregion_sound(*regions),
+        ensures
+            pt == self.as_page_table_owner(),
+            pt.inv(),
+            pt.0.level() == 0,
+            pt.metaregion_sound(*regions),
+            pt@.mappings == self@.mappings,
+            pt.0.value().node().relate_guard(self.continuations[C::NR_LEVELS - 1].guard),
+    {
+        C::lemma_paging_consts_properties();
+        C::lemma_page_table_config_constant_properties();
+        self.as_page_table_owner_preserves_view_mappings();
+        self.lemma_restore_to_level(C::NR_LEVELS);
+        let ghost original = self;
+        let tracked mut parts = self.continuations;
+        let tracked root = Self::tracked_restore_level(
+            original,
+            &mut parts,
+            C::NR_LEVELS,
+            *regions,
+        );
+        PageTableOwner(OwnerSubtree::tracked_new(root.entry_own, root.tree_level, root.children))
+    }
+
+    proof fn tracked_restore_level(
+        original: Self,
+        tracked parts: &mut Map<int, CursorContinuation<'rcu, C>>,
+        level: PagingLevel,
+        regions: MetaRegionOwners,
+    ) -> (tracked result: CursorContinuation<'rcu, C>)
+        requires
+            original.inv(),
+            original.metaregion_sound(regions),
+            original.level <= level <= C::NR_LEVELS,
+            *old(parts) == original.continuations,
+        ensures
+            result == original.restore_to_level(level),
+            result.as_page_table_owner().metaregion_sound(regions),
+            forall|i: int|
+                level <= i && original.continuations.contains_key(i)
+                    ==> #[trigger] final(parts).contains_key(i) && final(parts)[i]
+                    == original.continuations[i],
+        decreases level,
+    {
+        C::lemma_paging_consts_properties();
+        C::lemma_page_table_config_constant_properties();
+        original.lemma_restore_to_level(level);
+        original.lemma_inv_continuation(level - 1);
+        let ghost cont = original.continuations[level - 1];
+        let f = PageTableOwner::<C>::metaregion_sound_pred(regions);
+        reveal(CursorOwner::path_metaregion_sound);
+        let tracked result = if level == original.level {
+            parts.tracked_remove(level - 1)
+        } else {
+            let tracked child = Self::tracked_restore_level(
+                original,
+                parts,
+                (level - 1) as PagingLevel,
+                regions,
+            );
+            assert(parts.contains_key(level - 1));
+            assert(parts[level - 1] == cont);
+            let tracked mut parent = parts.tracked_remove(level - 1);
+            parent.tracked_restore(child);
+            parent.lemma_map_children_lift_skip_idx(cont, cont.idx as int, f, f);
+            parent
+        };
+        assert(result == original.restore_to_level(level));
+        result.as_subtree_inv();
+        reveal(CursorContinuation::map_children);
+        assert forall|i: int|
+            0 <= i < result.children.len() && #[trigger] result.as_subtree().has_child(
+                i,
+            ) implies result.as_subtree().child(i).subtree_satisfies(
+            result.path().push_tail(i),
+            f,
+        ) by {
+            result.lemma_map_children_unroll(f, i);
+        }
+        assert(f(result.entry_own, result.path()));
+        assert(result.as_subtree().subtree_satisfies(result.path(), f));
+        result
     }
 
     /// Looking up the cursor's address from the root follows the restored cursor path.

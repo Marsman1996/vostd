@@ -121,6 +121,7 @@ impl<'rcu, C: PageTableConfig> Cursor<'rcu, C> {
     ) -> bool {
         &&& owner.cur_va_range() == res.0
         &&& res.1 is Some
+        &&& 1 <= C::item_into_raw(res.1->0).1 <= C::NR_LEVELS
         &&& {
             let qr = owner@.query_range();
             owner@.query_item_spec(res.1->0) == Some(qr.start as Vaddr..qr.end as Vaddr)

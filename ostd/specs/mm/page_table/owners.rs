@@ -1031,6 +1031,64 @@ impl<C: PageTableConfig> PageTableOwner<C> {
         }
     }
 
+    /// A leaf reached by the hardware index walk contributes a mapping covering the address.
+    pub proof fn lemma_query_leaf_mapping(self, va: Vaddr)
+        requires
+            self.pt_inv(),
+            self.0.value().path.inv(),
+            self.0.value().path.len() == self.0.level() <= C::NR_LEVELS,
+            self.0.value().parent_level == C::NR_LEVELS + 1 - self.0.level(),
+            vaddr_leading_part_spec::<C>(va) == page_table_coverage_start_spec::<C>(),
+            forall|k: int|
+                0 <= k < self.0.level() ==> #[trigger] self.0.value().path[k] == pte_index_spec::<
+                    C,
+                >(va, (C::NR_LEVELS - k) as PagingLevel),
+            self.query_leaf(va) is Some,
+        ensures
+            self.query_leaf(va)->0.inv(),
+            exists|m: Mapping| #[trigger]
+                self.view_rec(self.0.value().path).contains(m) && m.va_range.start <= va
+                    < m.va_range.end && m.property == self.query_leaf(va)->0.frame().prop,
+        decreases C::NR_LEVELS + 1 - self.0.level(),
+    {
+        C::lemma_paging_consts_properties();
+        C::lemma_page_table_config_constant_properties();
+        reveal_with_fuel(PageTableOwner::query_leaf, 1);
+        let entry = self.0.value();
+        let path = entry.path;
+        if entry.is_frame() {
+            let level = entry.parent_level;
+            let ps = page_size::<C>(level);
+            lemma_vaddr_path_aligned::<C>(path, va);
+            lemma_vaddr_of_eq_int::<C>(path);
+            lemma_page_size_ge_base::<C>(level);
+            vstd_extra::arithmetic::lemma_nat_align_down_sound(va as nat, ps as nat);
+            let m = Mapping {
+                va_range: vaddr_of::<C>(path) as int..vaddr_of::<C>(path) + ps,
+                pa_range: entry.frame().mapped_pa..(entry.frame().mapped_pa + ps) as Paddr,
+                page_size: ps,
+                property: entry.frame().prop,
+            };
+            assert(self.view_rec(path).contains(m));
+        } else {
+            let i = pte_index_spec::<C>(va, entry.node().level()) as int;
+            self.pt_inv_unroll(i);
+            let child = PageTableOwner(self.0.child(i));
+            assert forall|k: int|
+                0 <= k < child.0.level() implies #[trigger] child.0.value().path[k]
+                == pte_index_spec::<C>(va, (C::NR_LEVELS - k) as PagingLevel) by {
+                if k < path.len() {
+                    assert(child.0.value().path[k] == path[k]);
+                }
+            }
+            child.lemma_query_leaf_mapping(va);
+            let m = choose|m: Mapping| #[trigger]
+                child.view_rec(child.0.value().path).contains(m) && m.va_range.start <= va
+                    < m.va_range.end && m.property == child.query_leaf(va)->0.frame().prop;
+            self.lemma_view_rec_contains_intro(path, m, i);
+        }
+    }
+
     /// Forward dual of [`Self::lemma_view_rec_vaddr_range`]: in a `pt_inv`,
     /// path-correct subtree whose mappings are all contained in
     /// `ambient`, if no mapping in `ambient` starts at

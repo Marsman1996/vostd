@@ -20,7 +20,7 @@ pub struct PageProperty {
 #[verus_verify]
 impl PageProperty {
     /// Creates a new `PageProperty` with the given flags and cache policy for the user.
-    #[verus_verify(dual_spec)]
+    #[verus_verify(dual_spec, open)]
     #[verus_spec(returns Self::new_user(flags, cache))]
     pub fn new_user(flags: PageFlags, cache: CachePolicy) -> Self {
         Self {

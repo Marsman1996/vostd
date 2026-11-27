@@ -276,6 +276,34 @@ impl<C: PageTableConfig> CursorView<C> {
         }
     }
 
+    /// Splitting the leaf covering the cursor keeps mappings ending before the cursor.
+    pub proof fn lemma_split_keeps_preceding(self, size: usize, prev: Mapping)
+        requires
+            self.inv(),
+            size >= PAGE_SIZE,
+            self.mappings.contains(prev),
+            prev.va_range.end <= self.cur_va,
+        ensures
+            self.split_while_huge(size).mappings.contains(prev),
+        decreases
+                if self.present() {
+                    self.query_mapping().page_size as int
+                } else {
+                    0int
+                },
+    {
+        if self.present() && self.query_mapping().page_size > size {
+            self.lemma_query_mapping();
+            let m = self.query_mapping();
+            let next_size = m.page_size / NR_ENTRIES;
+            m.lemma_split_page_size();
+            Self::split_if_mapped_huge_spec_preserves_inv(self, next_size);
+            Self::split_if_mapped_huge_spec_preserves_present(self, next_size);
+            Self::split_if_mapped_huge_spec_decreases_page_size(self, next_size);
+            self.split_if_mapped_huge_spec(next_size).lemma_split_keeps_preceding(size, prev);
+        }
+    }
+
     /// Composition law for `split_while_huge`:
     /// splitting to a finer target `s2 <= s1` is the same as first splitting to `s1` and then
     /// further splitting to `s2`.

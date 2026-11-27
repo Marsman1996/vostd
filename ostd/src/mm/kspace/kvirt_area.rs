@@ -49,7 +49,7 @@ use crate::{
         PAGE_SIZE, Paddr, Vaddr,
         frame::{Frame, meta::AnyFrameMeta},
         kspace::{KernelPtConfig, MappedItem},
-        page_prop::PageProperty,
+        page_prop::{PageFlags, PageProperty},
         page_table::largest_pages,
     },
     task::disable_preempt,
@@ -263,6 +263,97 @@ pub tracked struct KVirtAreaOwner {
 }
 
 impl KVirtAreaOwner {
+    pub closed spec fn has_root_guard(self) -> bool {
+        exists|guard: PageTableGuard<'_, KernelPtConfig>|
+            self.pt_owner.0.value().node().relate_guard(guard)
+    }
+
+    pub open spec fn base_page(va: Vaddr, pa: Paddr, prop: PageProperty) -> Mapping {
+        Mapping {
+            va_range: va as int..va + PAGE_SIZE,
+            pa_range: pa..(pa + PAGE_SIZE) as Paddr,
+            page_size: PAGE_SIZE,
+            property: prop,
+        }
+    }
+
+    pub(crate) open spec fn root_guard(self) -> PageTableGuard<'static, KernelPtConfig> {
+        choose|guard: PageTableGuard<'static, KernelPtConfig>|
+            self.pt_owner.0.value().node().relate_guard(guard)
+    }
+
+    pub(crate) proof fn lemma_untracked_page_query(
+        self,
+        area: KVirtArea,
+        va: Vaddr,
+        pa: Paddr,
+        prop: PageProperty,
+        regions: MetaRegionOwners,
+    )
+        requires
+            self.inv(),
+            self.pt_owner.0.level() == 0,
+            VMALLOC_VADDR_RANGE.start <= area.range.start <= va < area.range.end
+                <= VMALLOC_VADDR_RANGE.end,
+            va % PAGE_SIZE == 0,
+            !prop.flags.contains(PageFlags::AVAIL1),
+            self.pt_owner@.mappings.contains(Self::base_page(va, pa, prop)),
+            self.has_root_guard(),
+        ensures
+            !area.query_panic_condition(self, va, regions),
+            self.cursor_view_at(va).present(),
+            self.cursor_view_at(va).query_mapping() == Self::base_page(va, pa, prop),
+            self.pt_owner.0.value().node().relate_guard(self.root_guard()),
+            page_table_managed_start_spec::<KernelPtConfig>() <= area.range.start,
+            forall|item: MappedItem| #[trigger]
+                self.cursor_view_at(va).query_item_spec(item) is Some && 1
+                    <= KernelPtConfig::item_into_raw(item).1 <= KernelPtConfig::NR_LEVELS ==> (
+                item matches MappedItem::Untracked(p, l, _) && p == pa && l == 1),
+    {
+        let m = Self::base_page(va, pa, prop);
+        let view = self.cursor_view_at(va);
+        let path = self.pt_owner.0.value().path;
+        vstd_extra::arithmetic::lemma_nat_align_down_sound(va as nat, PAGE_SIZE as nat);
+        let covering = view.mappings.filter(|x: Mapping| x.va_range.start <= va < x.va_range.end);
+        assert(covering =~= set![m]) by {
+            assert forall|x: Mapping| covering.contains(x) implies x == m by {
+                if x != m {
+                    self.pt_owner.lemma_view_rec_disjoint_vaddrs(path, x, m);
+                }
+            }
+        }
+        vstd::set::lemma_set_choose_len(covering);
+        assert(view.query_mapping() == m);
+        assert forall|item: MappedItem| #[trigger]
+            view.query_item_spec(item) is Some && 1 <= KernelPtConfig::item_into_raw(item).1
+                <= KernelPtConfig::NR_LEVELS implies (item matches MappedItem::Untracked(p, l, _)
+            && p == pa && l == 1) by {
+            lemma_page_size_spec_values::<KernelPtConfig>();
+            if let MappedItem::Tracked(_, p) = item {
+                p.lemma_avail1_tag_encoding();
+            }
+        }
+        lemma_vaddr_range_spec_kernel();
+        assert(VMALLOC_VADDR_RANGE.start >= 0xffff_8000_0000_0000usize) by (compute_only);
+        if self.pt_owner.query_leaf(va) matches Some(e) && e.is_frame() && e.frame_is_tracked() {
+            let e = self.pt_owner.query_leaf(va)->0;
+            KernelPtConfig::lemma_paging_consts_properties();
+            lemma_page_size_spec_values::<KernelPtConfig>();
+            lemma_arch_specific_consts_properties::<KernelPtConfig>();
+            vstd::arithmetic::power2::lemma2_to64();
+            assert(va >> 48 == 0xffffusize) by (bit_vector)
+                requires
+                    va >= 0xffff_8000_0000_0000usize,
+            ;
+            self.pt_owner.lemma_query_leaf_mapping(va);
+            let x = choose|x: Mapping| #[trigger]
+                self.pt_owner@.mappings.contains(x) && x.va_range.start <= va < x.va_range.end
+                    && x.property == e.frame().prop;
+            assert(covering.contains(x));
+            assert(false);
+        }
+    }
+
     /// The [`CursorView`] at the page containing the given address, representing the kernel page
     /// table's abstract state for query purposes.
     #[allow(private_interfaces)]
@@ -345,7 +436,7 @@ impl KVirtArea {
             Tracked(owner): Tracked<KVirtAreaOwner>,
             Ghost(root_guard): Ghost<PageTableGuard<'_, KernelPtConfig>>,
             Tracked(regions): Tracked<&mut MetaRegionOwners>,
-            Tracked(guards): Tracked<&mut Guards>,
+            Tracked(guards): Tracked<&mut Guards> -> updated: Tracked<KVirtAreaOwner>,
         requires
             self.inv(),
             page_table_managed_start_spec::<KernelPtConfig>() <= self.range.start,
@@ -356,9 +447,15 @@ impl KVirtArea {
             owner.pt_owner.0.value().node().relate_guard(root_guard),
             !self.query_panic_condition(owner, addr, *old(regions)),
         ensures
+            updated@.inv(),
+            updated@.has_root_guard(),
+            updated@.pt_owner.metaregion_sound(*final(regions)),
             final(regions).inv(),
+            updated@.pt_owner@.mappings == owner.pt_owner@.mappings,
+            updated@.pt_owner.0.level() == 0,
             res matches Some(item) ==> {
                 let view = owner.cursor_view_at(addr);
+                &&& 1 <= KernelPtConfig::item_into_raw(item).1 <= KernelPtConfig::NR_LEVELS
                 &&& view.present()
                 &&& view.query_item_spec(item) is Some
             },
@@ -407,6 +504,9 @@ impl KVirtArea {
             assert(cursor.query_panic_condition(cursor_owner, *regions)
                 == self.query_panic_condition(area_owner, addr, *old(regions)));
         }
+        #[verus_spec(with |= Tracked(KVirtAreaOwner {
+            pt_owner: CursorOwner::tracked_into_page_table(cursor_owner, regions),
+        }))]
         (#[verus_spec(with Tracked(&mut cursor_owner), Tracked(regions), Tracked(guards))]
         cursor.query()).unwrap().1
     }
@@ -484,6 +584,9 @@ impl KVirtArea {
         ensures
             final(regions).inv(),
             res.inv(),
+            res.len() == area_size,
+            VMALLOC_VADDR_RANGE.start <= res.range.start,
+            res.range.end <= VMALLOC_VADDR_RANGE.end,
     )]
     #[verifier::spinoff_prover]
     #[allow(private_interfaces)]
@@ -706,7 +809,7 @@ impl KVirtArea {
              Tracked(owner): Tracked<KVirtAreaOwner>,
              Tracked(root_guard): Tracked<PageTableGuard<'a, KernelPtConfig>>,
              Tracked(regions): Tracked<&mut MetaRegionOwners>,
-             Tracked(guards): Tracked<&mut Guards>,
+             Tracked(guards): Tracked<&mut Guards> -> updated: Tracked<KVirtAreaOwner>,
         requires
             // The default cursor can descend into a node covering exactly one huge page,
             // while largest_pages selects a leaf in its unlocked parent. This is fixed in
@@ -731,8 +834,18 @@ impl KVirtArea {
                     prop,
                 ),
         ensures
+            updated@.inv(),
+            updated@.has_root_guard(),
+            updated@.pt_owner.metaregion_sound(*final(regions)),
             final(regions).inv(),
             res.inv(),
+            pa_range.start < pa_range.end ==> updated@.pt_owner.0.level() == 0,
+            forall|off: int| 0 <= off < pa_range.end - pa_range.start && off % PAGE_SIZE as int == 0 ==>
+                updated@.pt_owner@.mappings.contains(#[trigger] KVirtAreaOwner::base_page(
+                    (res.range.start + map_offset + off) as Vaddr, (pa_range.start + off) as Paddr, prop)),
+            res.len() == area_size,
+            VMALLOC_VADDR_RANGE.start <= res.range.start,
+            res.range.end <= VMALLOC_VADDR_RANGE.end,
     )]
     #[verifier::spinoff_prover]
     #[allow(private_interfaces)]
@@ -755,6 +868,7 @@ impl KVirtArea {
             assert(VMALLOC_VADDR_RANGE.start >= 0xFFFF_8000_0000_0000usize) by (compute_only);
         }
 
+        let tracked updated;
         if pa_range.start < pa_range.end {
             let len = pa_range.end - pa_range.start;
             let va_range = range.start + map_offset..range.start + map_offset + len;
@@ -792,6 +906,17 @@ impl KVirtArea {
                             ==> #[trigger] <crate::arch::mm::PageTableEntry as crate::mm::page_table::PageTableEntryTrait>::new_page_req(
                         pa, level, prop),
                     cursor.0.invariants(cursor_owner, *regions, *guards),
+                    va_range.start == range.start + map_offset,
+                    va_range.start % PAGE_SIZE == 0,
+                    forall|off: int|
+                        0 <= off < sum_page_sizes_spec(it.seq(), 0, it.index() as int) && off
+                            % PAGE_SIZE as int == 0 ==> cursor_owner@.mappings.contains(
+                            #[trigger] KVirtAreaOwner::base_page(
+                                (va_range.start + off) as Vaddr,
+                                (pa_range.start + off) as Paddr,
+                                prop,
+                            ),
+                        ),
                     // Level bounds / alignment from `collect_largest_pages` postconditions.
                     forall|i: int|
                         0 <= i < it.seq().len() ==> {
@@ -861,6 +986,37 @@ impl KVirtArea {
                 };
 
                 proof {
+                    let prefix = sum_page_sizes_spec(it.seq(), 0, pos@);
+                    assert(level == 1);
+                    assert(old_cursor_model.cur_va % PAGE_SIZE == 0);
+                    vstd_extra::arithmetic::lemma_nat_align_down_sound(
+                        old_cursor_model.cur_va as nat,
+                        PAGE_SIZE as nat,
+                    );
+                    let split = old_cursor_model.split_while_huge(PAGE_SIZE);
+                    old_cursor_model.lemma_split_while_huge_preserves_cur_va(PAGE_SIZE);
+                    assert forall|off: int|
+                        0 <= off < prefix + PAGE_SIZE && off % PAGE_SIZE as int
+                            == 0 implies cursor_owner@.mappings.contains(
+                        #[trigger] KVirtAreaOwner::base_page(
+                            (va_range.start + off) as Vaddr,
+                            (pa_range.start + off) as Paddr,
+                            prop,
+                        ),
+                    ) by {
+                        let m = KVirtAreaOwner::base_page(
+                            (va_range.start + off) as Vaddr,
+                            (pa_range.start + off) as Paddr,
+                            prop,
+                        );
+                        if off < prefix {
+                            assert(m.va_range.end <= old_cursor_model.cur_va);
+                            old_cursor_model.lemma_split_keeps_preceding(PAGE_SIZE, m);
+                        } else {
+                            assert(off == prefix);
+                            assert(m.va_range == old_cursor_model.cur_slot_range(PAGE_SIZE));
+                        }
+                    }
                     let level_raw = KernelPtConfig::item_into_raw(item).1;
 
                     CursorView::<KernelPtConfig>::lemma_split_while_huge_preserves_cur_va(
@@ -869,8 +1025,17 @@ impl KVirtArea {
                     );
                 }
             }
+            proof {
+                updated =
+                KVirtAreaOwner { pt_owner: cursor_owner.tracked_into_page_table(regions) };
+            }
+        } else {
+            proof {
+                updated = owner;
+            }
         }
-        Self { range }
+        #[verus_spec(with |= Tracked(updated))]
+        (Self { range })
     }
 }
 
