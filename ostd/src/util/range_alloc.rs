@@ -5,6 +5,7 @@
 use vstd::thread_view::Objective;
 use vstd::{
     prelude::*,
+    proph::ProphecyGhost,
     resource::{Loc, set::GhostSetAuth},
     std_specs::btree::{
         CursorMutModel, before_lower_bound, before_upper_bound, btree_map_wf,
@@ -37,6 +38,14 @@ verus! {
 /// The permission to free a previously allocated range, consumed by [`RangeAllocator::free`].
 pub type FreePermit = GhostSubRange<usize>;
 
+/// Free blocks observed under the allocator lock for one allocation attempt.
+pub type AllocationSnapshot = ProphecyGhost<Set<Range<usize>>>;
+
+#[verifier::prophetic]
+pub open spec fn has_capacity(snapshot: &AllocationSnapshot, size: usize) -> bool {
+    exists|r: Range<usize>| snapshot.value().contains(r) && size <= r.end - r.start
+}
+
 impl View for RangeAllocator {
     type V = Range<usize>;
 
@@ -46,6 +55,10 @@ impl View for RangeAllocator {
 }
 
 impl RangeAllocator {
+    pub closed spec fn alignment(self) -> usize {
+        self.freelist.constant().alignment
+    }
+
     /// The identifier of allocation tokens accepted by this allocator.
     pub closed spec fn free_id(self) -> Loc {
         self.freelist.constant().free_id
@@ -53,20 +66,31 @@ impl RangeAllocator {
 
     #[verifier::type_invariant]
     closed spec fn type_inv(self) -> bool {
-        self.freelist.constant().fullrange == self@ && self@.start <= self@.end
+        &&& self.freelist.constant().fullrange == self@
+        &&& self@.start <= self@.end
+        &&& self.alignment() > 0 && self@.end % self.alignment() == 0
     }
 }
 
 ghost struct FreelistConstant {
+    alignment: usize,
     fullrange: Range<usize>,
     free_id: Loc,
 }
 
 ghost struct FreelistInvariant;
 
+spec fn ends_aligned(map: Map<usize, FreeRange>, align: usize) -> bool {
+    forall|key: usize| #[trigger] map.contains_key(key) ==> map[key].block.end % align == 0
+}
+
 /// The set-of-ranges view of a free-list map, dropping its keys and `FreeRange` wrapper.
 closed spec fn freelist_model(freelist: Map<usize, FreeRange>) -> Set<Range<usize>> {
     freelist.dom().map(|key: usize| freelist[key].block)
+}
+
+spec fn block_fits(map: Map<usize, FreeRange>, key: usize, size: usize) -> bool {
+    map.contains_key(key) && size <= map[key].block.end - map[key].block.start
 }
 
 /// The addresses covered by the free-list ranges.
@@ -126,6 +150,7 @@ impl ResourceInvariant<Option<BTreeMap<usize, FreeRange>>> for FreelistInvariant
             None => resource.allocated@ == Set::empty(),
             Some(freelist) => {
                 &&& btree_map_wf(&freelist)
+                &&& ends_aligned(freelist@, constant.alignment)
                 &&& concrete_freelist_wf(constant.fullrange, freelist@)
                 &&& freelist_blocks_not_adjacent(freelist@)
                 &&& resource.allocated@ == constant.fullrange.view_set() - free_set(
@@ -140,25 +165,21 @@ impl ResourceInvariant<Option<BTreeMap<usize, FreeRange>>> for FreelistInvariant
 #[verus_verify]
 impl RangeAllocator {
     #[verus_spec(ret =>
+        with Ghost(alignment): Ghost<usize>,
         requires
             fullrange.start <= fullrange.end,
+            alignment > 0 && fullrange.end % alignment == 0,
         ensures
             ret@ == fullrange,
+            ret.alignment() == alignment,
     )]
-    /* `#[verus_spec]` on a `const fn` does not keep `proof_decl!` locals visible to
-     * `verus_exec_expr!` in the active Verus toolchain, so this constructor cannot remain const.
-     * Origin Rust: pub const fn new(fullrange: Range<usize>) -> Self {
-     */
-    pub fn new(fullrange: Range<usize>) -> Self {
-        proof_decl! {
+    pub const fn new(fullrange: Range<usize>) -> Self {
+        vstd::prelude::proof_decl! {
             let tracked (allocated, _) = GhostSetAuth::new(Set::empty());
-            let ghost constant = FreelistConstant {
-                fullrange,
-                free_id: allocated.id(),
-            };
+            let ghost mut constant = FreelistConstant { fullrange, free_id: allocated.id(), alignment: 1 };
             let tracked resource = FreelistResource { allocated };
         }
-
+        proof! { constant.alignment = alignment; }
         verus_exec_expr! {
             Self {
                 fullrange,
@@ -177,6 +198,7 @@ impl RangeAllocator {
         with -> allocated: Tracked<Option<FreePermit>>,
         requires
             allocate_range.start < allocate_range.end,
+            allocate_range.start % self.alignment() == 0,
         ensures
             res is Ok ==> self@.start <= allocate_range.start && allocate_range.end <= self@.end,
             res is Ok <==> allocated@ is Some,
@@ -268,11 +290,14 @@ impl RangeAllocator {
     ///
     /// This is currently implemented with a simple FIRST-FIT algorithm.
     #[verus_spec(res =>
-        with -> allocated: Tracked<Option<FreePermit>>,
+        with Tracked(snapshot): Tracked<AllocationSnapshot> -> allocated: Tracked<Option<FreePermit>>,
         requires
             size > 0,
+            size % self.alignment() == 0,
         ensures
+            res is Ok <==> has_capacity(&snapshot, size),
             res matches Ok(res) ==> {
+                &&& res.start % self.alignment() == 0 && res.end % self.alignment() == 0
                 &&& res.end - res.start == size
                 &&& self@.start <= res.start <= res.end <= self@.end
                 &&& allocated@ matches Some(token) && {
@@ -289,12 +314,20 @@ impl RangeAllocator {
             let tracked allocated: Option<FreePermit>;
             let ghost initial_map = freelist@;
             let ghost initial_freelist = freelist_model(freelist@);
+            let ghost witness = choose|k: usize| #[trigger] block_fits(initial_map, k, size);
         }
         let mut allocate_range: Option<Range<usize>> = None;
         let mut to_remove: Option<usize> = None;
-        #[verus_spec(invariant
+        #[verus_spec(it => invariant
+                it.seq().unref().to_set() == freelist@.kv_pairs(),
+                initial_map == freelist@,
+                block_fits(initial_map, witness, size) && to_remove is None ==> exists|i: int|
+                    it.index() <= i < it.seq().len() && #[trigger] it.seq()[i] == (&witness, &initial_map[witness]),
+                ends_aligned(freelist@, self.alignment()),
+                self.alignment() > 0 && size % self.alignment() == 0,
                 allocate_range is Some <==> to_remove is Some,
                 to_remove matches Some(key) ==> allocate_range matches Some(range) && {
+                    &&& range.start % self.alignment() == 0 && range.end % self.alignment() == 0
                     &&& range.end - range.start == size
                     &&& self@.start <= range.start
                     &&& range.end <= self@.end
@@ -305,12 +338,20 @@ impl RangeAllocator {
                 concrete_freelist_wf(self@, freelist@),
                 freelist_blocks_not_adjacent(freelist@),
                 btree_map_wf(freelist),
+            ensures
+                to_remove is None ==> !block_fits(initial_map, witness, size),
         )]
         for (key, value) in freelist.iter() {
             proof! {
                 assert(freelist@.contains_key(*key));
             }
             if value.block.end - value.block.start >= size {
+                proof! {
+                    assert(value.block.end % self.alignment() == 0);
+                    assert(0int % (self.alignment() as int) == 0);
+                    vstd::arithmetic::div_mod::lemma_sub_mod_noop(
+                        value.block.end as int, size as int, self.alignment() as int);
+                }
                 allocate_range = Some((value.block.end - size)..value.block.end);
                 to_remove = Some(*key);
                 break;
@@ -318,7 +359,19 @@ impl RangeAllocator {
         }
 
         proof! {
+            snapshot.resolve(initial_freelist);
+            if to_remove is None {
+                assert forall|r: Range<usize>| initial_freelist.contains(r) implies
+                    r.end - r.start < size by {
+                    let key = choose|k: usize| initial_map.contains_key(k) && initial_map[k].block == r;
+                    if size <= r.end - r.start {
+                        assert(block_fits(initial_map, key, size));
+                        assert(block_fits(initial_map, witness, size));
+                    }
+                }
+            }
             if let Some(key) = to_remove {
+                assert(initial_freelist.contains(initial_map[key].block));
                 lemma_free_set_contains_range(initial_freelist, freelist@[key].block);
             }
         }
@@ -367,6 +420,7 @@ impl RangeAllocator {
             self@.start <= range.start < range.end <= self@.end,
             allocated.id() == self.free_id(),
             allocated.range() == range,
+            range.end % self.alignment() == 0,
     )]
     pub fn free(&self, range: Range<usize>) {
         proof! {
@@ -468,11 +522,13 @@ impl RangeAllocator {
             if !merged_left {
                 assert(freelist@ == before_left_map);
             }
+            assert(ends_aligned(freelist@, self.alignment()));
             let ghost before_insert_map = freelist@;
         }
         freelist.insert(free_range.start, FreeRange::new(free_range.clone()));
         proof_decl! {
             lemma_insert_free_range(self@, before_insert_map, freelist@, free_range);
+            assert(ends_aligned(freelist@, self.alignment()));
             let ghost before_right_map = freelist@;
             let ghost before_right_range = free_range;
         }
@@ -577,6 +633,7 @@ impl RangeAllocator {
                 }
             }
         }
+        proof! { assert(ends_aligned(freelist@, self.alignment())); }
         lock_guard.drop()
     }
 
@@ -584,11 +641,14 @@ impl RangeAllocator {
         ensures
             ret@ is Some,
             ret@ matches Some(freelist) ==> {
+                &&& ends_aligned(freelist@, self.alignment())
                 &&& concrete_freelist_wf(self@, freelist@)
                 &&& btree_map_wf(&freelist)
                 &&& freelist_blocks_not_adjacent(freelist@)
                 &&& ret.resource().allocated@ == self@.view_set() - free_set(freelist_model(freelist@))
             },
+            self.alignment() > 0,
+            ret.constant().alignment == self.alignment(),
             ret.constant().fullrange == self@,
             ret.constant().free_id == self.free_id(),
             ret.resource().allocated.id() == self.free_id(),

@@ -54,6 +54,7 @@ impl IoMemAllocator {
     )]
     pub fn acquire(&self, range: Range<usize>) -> Option<IoMem> {
         proof! {
+            use_type_invariant(self);
             broadcast use lemma_any_index;
         }
         proof_decl! {
@@ -111,6 +112,7 @@ impl IoMemAllocator {
     #[verus_spec(ret =>
         requires
             windows_disjoint(allocators@),
+            byte_aligned_windows(allocators@),
         ensures
             ret.allocators@ == allocators@,
     )]
@@ -141,6 +143,7 @@ impl IoMemAllocatorBuilder {
             ranges@.all(|range: Range<usize>| range.start <= range.end),
         ensures
             ret@ == ranges@,
+            ret.type_inv(),
             ret.has_registered_windows() == usize_ranges_match_registered(ranges@),
     )]
     pub(crate) unsafe fn new(ranges: Vec<Range<usize>>) -> Self {
@@ -159,9 +162,13 @@ impl IoMemAllocatorBuilder {
                 ranges_disjoint(it.seq()),
                 it.seq().all(|range: Range<usize>| range.start <= range.end),
                 windows_disjoint(allocators@),
+                byte_aligned_windows(allocators@),
         )]
         for range in ranges {
-            allocators.push(RangeAllocator::new(range));
+            allocators.push(
+                #[verus_spec(with Ghost(1usize))]
+                RangeAllocator::new(range),
+            );
             proof! {
                 assert forall|i: int| #![trigger allocators@[i]]
                     0 <= i < allocators@.len() - 1
@@ -203,6 +210,10 @@ impl IoMemAllocatorBuilder {
 verus! {
 
 broadcast use vstd::std_specs::vec::group_vec_axioms;
+
+spec fn byte_aligned_windows(allocators: Seq<RangeAllocator>) -> bool {
+    forall|i: int| 0 <= i < allocators.len() ==> (#[trigger] allocators[i]).alignment() == 1
+}
 
 /// The MMIO windows are pairwise disjoint, so the first overlapping window found by
 /// `find_allocator` is the window containing a registered range, regardless of window order.
@@ -249,7 +260,7 @@ impl IoMemAllocatorBuilder {
     /// The builder always holds the disjoint windows handed to [`IoMemAllocatorBuilder::new`].
     #[verifier::type_invariant]
     pub closed spec fn type_inv(self) -> bool {
-        windows_disjoint(self.allocators@)
+        windows_disjoint(self.allocators@) && byte_aligned_windows(self.allocators@)
     }
 }
 
@@ -282,7 +293,7 @@ impl IoMemAllocator {
     /// The allocator inherits the disjoint windows of the builder it was built from.
     #[verifier::type_invariant]
     pub closed spec fn type_inv(self) -> bool {
-        windows_disjoint(self.allocators@)
+        windows_disjoint(self.allocators@) && byte_aligned_windows(self.allocators@)
     }
 }
 

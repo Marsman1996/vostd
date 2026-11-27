@@ -23,6 +23,7 @@ use crate::specs::{
         },
     },
 };
+use crate::util::range_alloc::{AllocationSnapshot, FreePermit, has_capacity};
 
 use crate::arch::mm::PagingConsts;
 use crate::mm::{
@@ -52,7 +53,7 @@ use crate::{
         page_table::largest_pages,
     },
     task::disable_preempt,
-    //util::range_alloc::RangeAllocator,
+    util::range_alloc::RangeAllocator,
 };
 
 //static KVIRT_AREA_ALLOCATOR: RangeAllocator = RangeAllocator::new(VMALLOC_VADDR_RANGE);
@@ -114,38 +115,18 @@ pub open spec fn frame_entry_wf<T: AnyFrameMeta + Repr<MetaSlotStorage>>(
     &&& (entry_owner.is_absent() || Child::Frame(pa, level, prop_from_item).wf(entry_owner))
 }
 
-#[derive(Debug)]
-pub struct RangeAllocError;
-
-pub struct RangeAllocator;
-
-/// Phase A: caller-precludable model of allocator OOM. An uninterpreted
-/// spec predicate over the request size: `kvirt_alloc_spec(size) is Err
-/// <==> kvirt_alloc_oom_condition(size)`. The real allocator's state is
-/// not modeled in detail; the caller-side contract is "if you can prove
-/// no OOM, the alloc succeeds." Used to bridge `assert!(range_res.is_ok())`
-/// into a precise `map_frames_panic_condition` / `map_untracked_frames_panic_condition`
-/// disjunct.
-pub uninterp spec fn kvirt_alloc_oom_condition(size: usize) -> bool;
-
-#[verus_verify]
-impl RangeAllocator {
-    pub const fn new(_r: core::ops::Range<Vaddr>) -> Self {
-        Self
+exec static KVIRT_AREA_ALLOCATOR: RangeAllocator
+    ensures
+        KVIRT_AREA_ALLOCATOR@ == VMALLOC_VADDR_RANGE,
+        KVIRT_AREA_ALLOCATOR.alignment() == PAGE_SIZE,
+{
+    proof {
+        assert(PAGE_SIZE > 0 && VMALLOC_VADDR_RANGE.end % PAGE_SIZE == 0) by (compute_only);
+        assert(VMALLOC_VADDR_RANGE.start <= VMALLOC_VADDR_RANGE.end) by (compute_only);
     }
-
-    #[verifier::external_body]
-    #[verus_spec(res =>
-        ensures
-            res == kvirt_alloc_spec(size),
-            res is Err == kvirt_alloc_oom_condition(size),
-    )]
-    pub fn alloc(&self, size: usize) -> Result<core::ops::Range<Vaddr>, RangeAllocError> {
-        unimplemented!()
-    }
+    #[verus_spec(with Ghost(PAGE_SIZE))]
+    RangeAllocator::new(VMALLOC_VADDR_RANGE)
 }
-
-exec static KVIRT_AREA_ALLOCATOR: RangeAllocator = RangeAllocator::new(VMALLOC_VADDR_RANGE);
 
 /// Total size (in bytes) of the pages `elems[from..to]`.
 pub open spec fn sum_page_sizes_spec(elems: Seq<(Paddr, u8)>, from: int, to: int) -> nat
@@ -246,23 +227,6 @@ pub(crate) fn get_kernel_page_table<'rcu>() -> &'static PageTable<KernelPtConfig
     KERNEL_PAGE_TABLE.get().unwrap()
 }
 
-// Axiomatized spec for alloc - cannot read exec static in proof mode.
-pub uninterp spec fn kvirt_alloc_spec(size: usize) -> Result<
-    core::ops::Range<Vaddr>,
-    RangeAllocError,
->;
-
-pub axiom fn axiom_kvirt_alloc_range_bounds(area_size: usize, r: core::ops::Range<Vaddr>)
-    ensures
-        kvirt_alloc_spec(area_size) == Ok::<core::ops::Range<Vaddr>, RangeAllocError>(r) ==> {
-            &&& KERNEL_BASE_VADDR <= r.start <= r.end <= FRAME_METADATA_BASE_VADDR
-            &&& r.end - r.start == area_size
-            &&& r.start % PAGE_SIZE == 0
-            &&& r.end % PAGE_SIZE == 0
-            &&& page_table_managed_start_spec::<KernelPtConfig>() <= r.start
-        },
-;
-
 /// Aligned ranges within the kernel page table's managed bounds are valid for KernelPtConfig.
 pub proof fn lemma_kernel_range_valid(r: core::ops::Range<Vaddr>)
     requires
@@ -313,10 +277,7 @@ impl KVirtAreaOwner {
 
 impl Inv for KVirtArea {
     open spec fn inv(self) -> bool {
-        &&& KERNEL_BASE_VADDR
-            <= self.range.start
-        // See `axiom_kvirt_alloc_range_bounds`: the real allocator draws from
-        // VMALLOC, whose upper bound is FRAME_METADATA_BASE_VADDR.
+        &&& KERNEL_BASE_VADDR <= self.range.start
         &&& self.range.end <= FRAME_METADATA_BASE_VADDR
         &&& self.range.start % PAGE_SIZE == 0
         &&& self.range.end % PAGE_SIZE == 0
@@ -464,13 +425,15 @@ impl KVirtArea {
     }
 
     /// Panic condition for [`Self::map_frames`], including allocation failure.
+    #[verifier::prophetic]
     pub open spec fn map_frames_panic_condition(
+        snapshot: &AllocationSnapshot,
         area_size: usize,
         map_offset: usize,
         n_frames: usize,
     ) -> bool {
         ||| Self::map_frames_bounds_panic_condition(area_size, map_offset, n_frames)
-        ||| kvirt_alloc_oom_condition(area_size)
+        ||| !has_capacity(snapshot, area_size)
     }
 
     /// Create a kernel virtual area and map tracked pages into it.
@@ -485,14 +448,15 @@ impl KVirtArea {
     ///  - the map offset is not aligned to [`PAGE_SIZE`];
     ///  - the map offset plus the size of the pages exceeds the area size.
     #[verus_spec(res =>
-        with Tracked(owner): Tracked<KVirtAreaOwner>,
+        with Tracked(snapshot): Tracked<AllocationSnapshot>,
+             Tracked(owner): Tracked<KVirtAreaOwner>,
              Tracked(root_guard): Tracked<PageTableGuard<'a, KernelPtConfig>>,
              Tracked(entry_owners): Tracked<&mut Map<Paddr, EntryOwner<KernelPtConfig>>>,
              Tracked(regions): Tracked<&mut MetaRegionOwners>,
              Tracked(guards): Tracked<&mut Guards>,
         requires
             !prop.flags.contains(crate::mm::page_prop::PageFlags::AVAIL1),
-            !Self::map_frames_panic_condition(area_size, map_offset, frames.len()),
+            !Self::map_frames_panic_condition(&snapshot, area_size, map_offset, frames.len()),
             old(regions).inv(),
             owner.inv(),
             owner.pt_owner.metaregion_sound(*old(regions)),
@@ -531,12 +495,15 @@ impl KVirtArea {
     ) -> Self {
         assert!(map_offset.is_multiple_of(PAGE_SIZE));
 
-        let range_res = KVIRT_AREA_ALLOCATOR.alloc(area_size);
+        let tracked mut allocated: Option<FreePermit>;
+        let range_res = #[verus_spec(with Tracked(snapshot) => Tracked(allocated))]
+        KVIRT_AREA_ALLOCATOR.alloc(area_size);
         assert!(range_res.is_ok());
         let range = range_res.unwrap();
 
         proof {
-            axiom_kvirt_alloc_range_bounds(area_size, range);
+            lemma_vaddr_range_spec_kernel();
+            assert(VMALLOC_VADDR_RANGE.start >= 0xFFFF_8000_0000_0000usize) by (compute_only);
             assert(KERNEL_BASE_VADDR > 0) by (compute_only);
         }
 
@@ -696,6 +663,7 @@ impl KVirtArea {
         map_offset: usize,
         pa_range: &Range<Paddr>,
     ) -> bool {
+        ||| area_size == 0
         ||| pa_range.start % PAGE_SIZE != 0
         ||| pa_range.end % PAGE_SIZE != 0
         ||| area_size % PAGE_SIZE != 0
@@ -704,13 +672,15 @@ impl KVirtArea {
     }
 
     /// Full panic condition for [`Self::map_untracked_frames`] = bounds OR OOM.
+    #[verifier::prophetic]
     pub open spec fn map_untracked_frames_panic_condition(
+        snapshot: &AllocationSnapshot,
         area_size: usize,
         map_offset: usize,
         pa_range: &Range<Paddr>,
     ) -> bool {
         ||| Self::map_untracked_frames_bounds_panic_condition(area_size, map_offset, pa_range)
-        ||| kvirt_alloc_oom_condition(area_size)
+        ||| !has_capacity(snapshot, area_size)
     }
 
     /// Creates a kernel virtual area and maps untracked frames into it.
@@ -732,7 +702,8 @@ impl KVirtArea {
     ///    area size;
     ///  - the provided physical range contains tracked physical addresses.
     #[verus_spec(res =>
-        with Tracked(owner): Tracked<KVirtAreaOwner>,
+        with Tracked(snapshot): Tracked<AllocationSnapshot>,
+             Tracked(owner): Tracked<KVirtAreaOwner>,
              Tracked(root_guard): Tracked<PageTableGuard<'a, KernelPtConfig>>,
              Tracked(regions): Tracked<&mut MetaRegionOwners>,
              Tracked(guards): Tracked<&mut Guards>,
@@ -745,7 +716,7 @@ impl KVirtArea {
                     pa_range.end - pa_range.start != page_size::<PagingConsts>(level),
             pa_range.end - pa_range.start < page_size::<PagingConsts>(2),
             !prop.flags.contains(crate::mm::page_prop::PageFlags::AVAIL1),
-            !Self::map_untracked_frames_panic_condition(area_size, map_offset, &pa_range),
+            !Self::map_untracked_frames_panic_condition(&snapshot, area_size, map_offset, &pa_range),
             old(regions).inv(),
             owner.inv(),
             owner.pt_owner.metaregion_sound(*old(regions)),
@@ -772,13 +743,16 @@ impl KVirtArea {
         prop: PageProperty,
     ) -> Self {
         hide(<CursorOwner<KernelPtConfig> as Inv>::inv);
-        let range_res = KVIRT_AREA_ALLOCATOR.alloc(area_size);
+        let tracked mut allocated: Option<FreePermit>;
+        let range_res = #[verus_spec(with Tracked(snapshot) => Tracked(allocated))]
+        KVIRT_AREA_ALLOCATOR.alloc(area_size);
         // Rust's `unwrap()` panics if not ok. TODO: make our own wrapper.
         assert!(range_res.is_ok());
         let range = range_res.unwrap();
 
         proof {
-            axiom_kvirt_alloc_range_bounds(area_size, range);
+            lemma_vaddr_range_spec_kernel();
+            assert(VMALLOC_VADDR_RANGE.start >= 0xFFFF_8000_0000_0000usize) by (compute_only);
         }
 
         if pa_range.start < pa_range.end {
