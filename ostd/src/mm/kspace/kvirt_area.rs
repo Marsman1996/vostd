@@ -908,14 +908,11 @@ impl KVirtArea {
                     cursor.0.invariants(cursor_owner, *regions, *guards),
                     va_range.start == range.start + map_offset,
                     va_range.start % PAGE_SIZE == 0,
-                    forall|off: int|
-                        0 <= off < sum_page_sizes_spec(it.seq(), 0, it.index() as int) && off
-                            % PAGE_SIZE as int == 0 ==> cursor_owner@.mappings.contains(
-                            #[trigger] KVirtAreaOwner::base_page(
-                                (va_range.start + off) as Vaddr,
-                                (pa_range.start + off) as Paddr,
-                                prop,
-                            ),
+                    forall|va: Vaddr, pa: Paddr|
+                        va_range.start <= va < cursor.0.va && va % PAGE_SIZE == 0 && pa
+                            - pa_range.start == va - va_range.start
+                            ==> cursor_owner@.mappings.contains(
+                            #[trigger] KVirtAreaOwner::base_page(va, pa, prop),
                         ),
                     // Level bounds / alignment from `collect_largest_pages` postconditions.
                     forall|i: int|
@@ -986,7 +983,6 @@ impl KVirtArea {
                 };
 
                 proof {
-                    let prefix = sum_page_sizes_spec(it.seq(), 0, pos@);
                     assert(level == 1);
                     assert(old_cursor_model.cur_va % PAGE_SIZE == 0);
                     vstd_extra::arithmetic::lemma_nat_align_down_sound(
@@ -995,25 +991,18 @@ impl KVirtArea {
                     );
                     let split = old_cursor_model.split_while_huge(PAGE_SIZE);
                     old_cursor_model.lemma_split_while_huge_preserves_cur_va(PAGE_SIZE);
-                    assert forall|off: int|
-                        0 <= off < prefix + PAGE_SIZE && off % PAGE_SIZE as int
-                            == 0 implies cursor_owner@.mappings.contains(
-                        #[trigger] KVirtAreaOwner::base_page(
-                            (va_range.start + off) as Vaddr,
-                            (pa_range.start + off) as Paddr,
-                            prop,
-                        ),
+                    assert forall|va: Vaddr, pa: Paddr|
+                        va_range.start <= va < cursor.0.va && va % PAGE_SIZE == 0 && pa
+                            - pa_range.start == va
+                            - va_range.start implies cursor_owner@.mappings.contains(
+                        #[trigger] KVirtAreaOwner::base_page(va, pa, prop),
                     ) by {
-                        let m = KVirtAreaOwner::base_page(
-                            (va_range.start + off) as Vaddr,
-                            (pa_range.start + off) as Paddr,
-                            prop,
-                        );
-                        if off < prefix {
+                        let m = KVirtAreaOwner::base_page(va, pa, prop);
+                        if va < old_cursor_model.cur_va {
                             assert(m.va_range.end <= old_cursor_model.cur_va);
                             old_cursor_model.lemma_split_keeps_preceding(PAGE_SIZE, m);
                         } else {
-                            assert(off == prefix);
+                            assert(va == old_cursor_model.cur_va);
                             assert(m.va_range == old_cursor_model.cur_slot_range(PAGE_SIZE));
                         }
                     }
@@ -1026,11 +1015,16 @@ impl KVirtArea {
                 }
             }
             proof {
+                reveal(<CursorOwner<KernelPtConfig> as Inv>::inv);
+                let guard = cursor_owner.continuations[KernelPtConfig::NR_LEVELS - 1].guard;
                 updated =
                 KVirtAreaOwner { pt_owner: cursor_owner.tracked_into_page_table(regions) };
+                assert(updated.pt_owner.0.value().node().relate_guard(guard));
+                assert(updated.has_root_guard());
             }
         } else {
             proof {
+                assert(owner.has_root_guard());
                 updated = owner;
             }
         }

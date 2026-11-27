@@ -43,7 +43,7 @@ pub type AllocationSnapshot = ProphecyGhost<Set<Range<usize>>>;
 
 #[verifier::prophetic]
 pub open spec fn has_capacity(snapshot: &AllocationSnapshot, size: usize) -> bool {
-    exists|r: Range<usize>| snapshot.value().contains(r) && size <= r.end - r.start
+    exists|r: Range<usize>| #[trigger] snapshot.value().contains(r) && size <= r.end - r.start
 }
 
 impl View for RangeAllocator {
@@ -361,9 +361,9 @@ impl RangeAllocator {
         proof! {
             snapshot.resolve(initial_freelist);
             if to_remove is None {
-                assert forall|r: Range<usize>| initial_freelist.contains(r) implies
+                assert forall|r: Range<usize>| #[trigger] initial_freelist.contains(r) implies
                     r.end - r.start < size by {
-                    let key = choose|k: usize| initial_map.contains_key(k) && initial_map[k].block == r;
+                    let key = choose|k: usize| #[trigger] initial_map.contains_key(k) && initial_map[k].block == r;
                     if size <= r.end - r.start {
                         assert(block_fits(initial_map, key, size));
                         assert(block_fits(initial_map, witness, size));
